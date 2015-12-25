@@ -25,4 +25,5 @@ The following represent the two tables in the SQL database that will hold client
 
 |Resource     | Description   |
 |-------------|---------------|
+| /           | Root Directory |
 
