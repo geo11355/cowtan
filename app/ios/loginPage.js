@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var ShoppingCart = require('./shoppingCart');
 var {
     StyleSheet,
     Text,
@@ -91,21 +92,50 @@ class LoginPage extends Component {
                 </View>
                 <TouchableHighlight
                     style = {styles.button}
-                    underlayColor = '#99d9f4'>
+                    underlayColor = '#99d9f4'
+                    onPress = {this.onLoginPressed.bind(this)}>
                     <Text style = {styles.buttonText}>Login</Text>
                 </TouchableHighlight>
             </View>
         );
     }
 
+    // Callback when the Login button is pressed, calls
+    // _handleResponse on fetch results
+    onLoginPressed() {
+        var query = '';
+        this.setState({isLoading: true});
+        fetch(query)
+            .then(response => response.json())
+            .then(json => this._handleReponse(json))
+            .catch(error => {
+                this.setState({isLoading: 'false'});
+                console.log("Fetch failed");
+            });
+    }
+
+    // Event handler for when AcctNum input is updated
     acctNumChanged(event) {
         console.log('acctNumChanged');
         this.setState({ acctNum: event.nativeEvent.text });
     }
 
+    // Event handler for when lastName input is updated
     lastNameChanged(event) {
         console.log('lastNameChanged');
         this.setState({ lastName: event.nativeEvent.text });
+    }
+
+    // TODO: set up response format to store cart info SERVER SIDE (ALAN)
+
+    // Handle a response, reset state fields and then move to the next page
+    _handleReponse(response) {
+        this.setState({ isLoading: false, acctNum: '', lastName: '' });
+        this.props.navigator.push({
+            title: 'Pattern List',
+            component: ShoppingCart,
+            passProps: { cart: response.cart }
+        });
     }
 }
 
