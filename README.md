@@ -20,6 +20,10 @@ The following represent the two tables in the SQL database that will hold client
 #### Products
 
 - productnum: Product number of each fabric, will probably act as SQL primary key and will correspond to barcode ID
+- name: Simple name of fabric, e.g. "Lynx"
+- color: Simple color description of the fabric, e.g. "aqua"
+- price: Price of the fabric
+- brand: Brand of the fabric, e.g. "Jane Churchill"
 
 ## Directory Structure
 
