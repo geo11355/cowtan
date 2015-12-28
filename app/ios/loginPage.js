@@ -105,13 +105,18 @@ class LoginPage extends Component {
     onLoginPressed() {
         var query = '';
         this.setState({isLoading: true});
-        fetch(query)
-            .then(response => response.json())
-            .then(json => this._handleReponse(json))
-            .catch(error => {
-                this.setState({isLoading: 'false'});
-                console.log("Fetch failed");
-            });
+        // fetch(query)
+        //     .then(response => response.json())
+        //     .then(json => this._handleReponse(json))
+        //     .catch(error => {
+        //         this.setState({isLoading: 'false'});
+        //         console.log("Fetch failed");
+        //     });
+        this.props.navigator.push({
+            title: 'Pattern List',
+            component: ShoppingCart,
+            passProps: { }
+        })
     }
 
     // Event handler for when AcctNum input is updated

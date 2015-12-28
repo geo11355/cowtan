@@ -4,12 +4,11 @@ var React = require('react-native');
 var {
     StyleSheet,
     Text,
-    TextInput,
     View,
     TouchableHighlight,
     ActivityIndicatorIOS,
-    Image,
-    Component
+    Component,
+    ListView
 } = React;
 
 var styles = StyleSheet.create({
@@ -23,7 +22,7 @@ class ShoppingCart extends Component {
         var dataSource = new ListView.DataSource(
             {rowHasChanged: (r1, r2) => r1 !== r2});
 
-        this.state = dataSource.cloneWithRows(this.props.cart);
+        this.state = dataSource.cloneWithRows(['row1']);
     }
 
     // Function for rendering each individual row
@@ -32,7 +31,7 @@ class ShoppingCart extends Component {
             <TouchableHighlight
                 underlayColor='#dddddd'>
                 <View>
-                  <Text>{rowData.title}</Text>
+                  <Text>Hi</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -40,7 +39,7 @@ class ShoppingCart extends Component {
 
     // Pass render row to another function
     render() {
-        <ListView
+        return <ListView
             dataSource = {this.state.dataSource}
             renderRow = {this.renderRow.bind(this)}/>
     }
