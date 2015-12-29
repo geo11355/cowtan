@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 var LoginPage = require('./ios/loginPage');
+var Router = require('react-native-router');
 var {
   Component,
   AppRegistry,
@@ -29,13 +30,12 @@ var styles = StyleSheet.create({
 
 class CowtanApp extends Component {
   render() {
+    var initialRoute = {
+      name: 'Sign In',
+      component: LoginPage
+    };
     return (
-      <NavigatorIOS
-        style = {styles.container}
-        initialRoute = {{
-          title: 'Sign In',
-          component: LoginPage
-        }}/>
+      <Router firstRoute = {firstRoute}/>
     );
   }
 }
