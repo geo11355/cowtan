@@ -6,7 +6,6 @@
 
 var React = require('react-native');
 var LoginPage = require('./ios/loginPage');
-var Router = require('react-native-router');
 var LoadingPage = require('./ios/loadingPage');
 
 var {
