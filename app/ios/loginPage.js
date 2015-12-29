@@ -78,6 +78,11 @@ var styles = StyleSheet.create({
     }
 });
 
+// Private function to generate the URL for login verification
+function generateUrl(acctNum, lastName) {
+    return 'http://cowtan-test.co.nf/clients.php?accnum=' + acctNum + '&pass=' + lastName;
+};
+
 // Login Screen class
 class LoginPage extends Component {
     constructor(props) {
@@ -124,47 +129,46 @@ class LoginPage extends Component {
         );
     }
 
+    // Handle a response, reset state fields and then move to the next page
+    _handleResponse(response) {
+        if (response !== null) {
+            this.state = {
+                acctNum: '',
+                lastName: '',
+                isLoading: false
+            };
+            this.props.navigator.push({
+                title: 'Pattern List',
+                component: ShoppingCart,
+                passProps: {patterns: []},
+            });
+        }
+    }
+
     // Callback when the Login button is pressed, calls
     // _handleResponse on fetch results
     onLoginPressed() {
-        var query = '';
-        this.setState({isLoading: true});
-        // fetch(query)
-        //     .then(response => response.json())
-        //     .then(json => this._handleReponse(json))
-        //     .catch(error => {
-        //         this.setState({isLoading: 'false'});
-        //         console.log("Fetch failed");
-        //     });
-        this.props.navigator.push({
-            title: 'Pattern List',
-            component: ShoppingCart,
-            passProps: { }
-        })
+        if (this.state.lastName !== '' && this.state.acctNum !== '') {
+            var query = generateUrl(this.state.acctNum, this.state.lastName);
+            this.setState({isLoading: true});
+            fetch(query)
+                .then(response => response.json())
+                .then(json => this._handleResponse(json))
+                .catch(error => {
+                    this.setState({isLoading: 'false'});
+                    console.log("Fetch failed: " + error);
+                });
+        }
     }
 
     // Event handler for when AcctNum input is updated
     acctNumChanged(event) {
-        console.log('acctNumChanged');
         this.setState({ acctNum: event.nativeEvent.text });
     }
 
     // Event handler for when lastName input is updated
     lastNameChanged(event) {
-        console.log('lastNameChanged');
         this.setState({ lastName: event.nativeEvent.text });
-    }
-
-    // TODO: set up response format to store cart info SERVER SIDE (ALAN)
-
-    // Handle a response, reset state fields and then move to the next page
-    _handleReponse(response) {
-        this.setState({ isLoading: false, acctNum: '', lastName: '' });
-        this.props.navigator.push({
-            title: 'Pattern List',
-            component: ShoppingCart,
-            passProps: { cart: response.cart }
-        });
     }
 }
 

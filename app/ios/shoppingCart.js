@@ -12,7 +12,6 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-
 });
 
 class ShoppingCart extends Component {
@@ -20,9 +19,12 @@ class ShoppingCart extends Component {
     constructor(props) {
         super(props);
         var dataSource = new ListView.DataSource(
+            // TODO: check r1 and r2 pattern nums format in server storage
             {rowHasChanged: (r1, r2) => r1 !== r2});
 
-        this.state = dataSource.cloneWithRows(['row1']);
+        this.state = {
+            dataSource: dataSource.cloneWithRows(this.props.patterns)
+        };
     }
 
     // Function for rendering each individual row
@@ -31,7 +33,7 @@ class ShoppingCart extends Component {
             <TouchableHighlight
                 underlayColor='#dddddd'>
                 <View>
-                  <Text>Hi</Text>
+                  <Text>HI</Text>
                 </View>
             </TouchableHighlight>
         );
