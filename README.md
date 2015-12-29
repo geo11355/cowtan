@@ -31,3 +31,8 @@ The following represent the two tables in the SQL database that will hold client
 |-------------|---------------|
 | /           | Root Directory |
 
+
+## Use Cases
+-Person enters invalid account number or invalid password
+-Person enters nothing into account number or password fields
+-Person enters ampersand into account number or password fields
