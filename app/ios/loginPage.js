@@ -16,24 +16,33 @@ var {
 
 var styles = StyleSheet.create({
     description: {
-        marginBottom: 20,
+        marginRight: 20,
+        marginLeft: 20,
+        marginBottom: 5,
+        marginTop: 5,
         fontSize: 18,
         textAlign: 'center',
         color: '#656565'
     },
-    container: {
+    mainContainer: {
         //padding: 30,
+        
+        //to account for navigator
         marginTop: 65,
-        alignItems: 'center',
-        borderWidth: 1,
-        flexDirection: 'column',
+        
+        //aligns all items in the center
+        //alignItems: 'center',
+        //borderWidth: 1,
         flex: 1
     },
-    flowRight: {
-        flexDirection: 'row',
+    subContainer: {
         alignItems: 'center',
+        //borderWidth: 1,
+        //borderColor: 'blue',
         alignSelf: 'stretch',
-        flex: 3,
+        //justifyContent: 'center',
+        flex: 6,
+        marginBottom: 30
     },
     buttonText: {
         fontSize: 18,
@@ -42,39 +51,44 @@ var styles = StyleSheet.create({
     },
     button: {
         height: 36,
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#48BBEC',
-        borderColor: '#48BBEC',
+        //flex: 1,
+        //flexDirection: 'row',
+        backgroundColor: '#800000',
+        borderColor: '#800000',
         borderWidth: 1,
         borderRadius: 8,
         marginBottom: 10,
+        marginRight: 25,
+        marginLeft: 25,
+        marginTop: 25,
         alignSelf: 'stretch',
         justifyContent: 'center'
     },
     textInput: {
-        height: 36,
+        height: 30,
         padding: 4,
-        marginRight: 5,
-        flex: 1,
+        marginRight: 25,
+        marginLeft: 25,
+        marginTop: 10,
+        //flex: 1,
         fontSize: 18,
         borderWidth: 1,
-        borderColor: '#48BBEC',
+        borderColor: '#800000',
         borderRadius: 8,
-        color: '#48BBEC'
+        color: '#800000'
     },
     //Logo
    logoBox: {
         flexDirection: 'row',
         flex: 1,
-        borderWidth: 3,
-        marginBottom: 30,
-        borderColor: 'pink'
+        //borderWidth: 3,
+        borderColor: 'pink',
     },
     image: {
-        resizeMode: 'contain',
+        alignSelf: 'center',
         flex: 1,
-        alignSelf: 'center'
+        resizeMode: 'contain',
+        margin: 15
     }
 });
 
@@ -96,7 +110,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <View style = {styles.container}>
+            <View style = {styles.mainContainer}>
                 <View style = {styles.logoBox}>  
                     <Image 
                         style = {styles.image}
@@ -104,27 +118,28 @@ class LoginPage extends Component {
                     >
                     </Image>
                 </View>
-                <Text style = {styles.description}>
-                    Login with your account number and last name below
-                </Text>
-                <View style = {styles.flowRight}>
-                    <TextInput
-                        style = {styles.textInput}
-                        placeholder = 'Account Number'
-                        value = {this.state.acctNum}
-                        onChange = {this.acctNumChanged.bind(this)}/>
-                    <TextInput
-                        style = {styles.textInput}
-                        placeholder = 'Last Name'
-                        value = {this.state.lastName}
-                        onChange = {this.lastNameChanged.bind(this)}/>
+
+                <View style = {styles.subContainer}>
+                    <Text style = {styles.description}>
+                        Sign in with your account number and last name below
+                    </Text>
+                        <TextInput
+                            style = {styles.textInput}
+                            placeholder = 'Account Number'
+                            value = {this.state.acctNum}
+                            onChange = {this.acctNumChanged.bind(this)}/>
+                        <TextInput
+                            style = {styles.textInput}
+                            placeholder = 'Last Name'
+                            value = {this.state.lastName}
+                            onChange = {this.lastNameChanged.bind(this)}/>
+                    <TouchableHighlight
+                        style = {styles.button}
+                        underlayColor = '#99d9f4'
+                        onPress = {this.onLoginPressed.bind(this)}>
+                        <Text style = {styles.buttonText}>Login</Text>
+                    </TouchableHighlight>
                 </View>
-                <TouchableHighlight
-                    style = {styles.button}
-                    underlayColor = '#99d9f4'
-                    onPress = {this.onLoginPressed.bind(this)}>
-                    <Text style = {styles.buttonText}>Login</Text>
-                </TouchableHighlight>
             </View>
         );
     }
