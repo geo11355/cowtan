@@ -7,6 +7,8 @@
 var React = require('react-native');
 var LoginPage = require('./ios/loginPage');
 var Router = require('react-native-router');
+var LoadingPage = require('./ios/loadingPage');
+
 var {
   Component,
   AppRegistry,
@@ -28,15 +30,38 @@ var styles = StyleSheet.create({
   }
 });
 
+
 class CowtanApp extends Component {
-  render() {
-    var initialRoute = {
-      name: 'Sign In',
-      component: LoginPage
+  constructor(props){
+    super(props);
+    this.state = {
+      timePassed: false
     };
-    return (
-      <Router firstRoute = {firstRoute}/>
-    );
+  }
+
+  componentDidMount(){
+    setTimeout( () => {
+      this.setTimePassed();
+    }, 500);
+  }
+
+  setTimePassed(){
+    this.setState({timePassed: true});
+  }
+
+  render() {
+    if (!this.state.timePassed){
+      return <LoadingPage/>;
+    }else{
+      return (
+        <NavigatorIOS
+          style = {styles.container}
+          initialRoute = {{
+            component: LoginPage,
+            title: 'Sign In',
+          }}/>
+      );
+    }
   }
 }
 
