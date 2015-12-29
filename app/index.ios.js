@@ -6,6 +6,8 @@
 
 var React = require('react-native');
 var LoginPage = require('./ios/loginPage');
+var LoadingPage = require('./ios/loadingPage');
+
 var {
   Component,
   AppRegistry,
@@ -27,16 +29,38 @@ var styles = StyleSheet.create({
   }
 });
 
+
 class CowtanApp extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      timePassed: false
+    };
+  }
+
+  componentDidMount(){
+    setTimeout( () => {
+      this.setTimePassed();
+    }, 1500);
+  }
+
+  setTimePassed(){
+    this.setState({timePassed: true});
+  }
+
   render() {
-    return (
-      <NavigatorIOS
-        style = {styles.container}
-        initialRoute = {{
-          title: 'Sign In',
-          component: LoginPage
-        }}/>
-    );
+    if (!this.state.timePassed){
+      return <LoadingPage/>;
+    }else{
+      return (
+        <NavigatorIOS
+          style = {styles.container}
+          initialRoute = {{
+            component: LoginPage,
+            title: 'Sign In',
+          }}/>
+      );
+    }
   }
 }
 
