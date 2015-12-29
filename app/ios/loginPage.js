@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var ShoppingCart = require('./shoppingCart');
+var AddButton = require('./addButton');
 var {
     StyleSheet,
     Text,
@@ -62,7 +63,6 @@ var styles = StyleSheet.create({
         borderRadius: 8,
         color: '#48BBEC'
     },
-
     //Logo
    logoBox: {
         flexDirection: 'row',
@@ -137,10 +137,11 @@ class LoginPage extends Component {
                 lastName: '',
                 isLoading: false
             };
-            this.props.navigator.push({
-                title: 'Pattern List',
+            this.props.toRoute({
+                name: 'Pattern List',
                 component: ShoppingCart,
-                passProps: {patterns: []},
+                passProps: {patterns: [1]},
+                // rightCorner: {AddButton}
             });
         }
     }

@@ -1,12 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
+var Router = require('gb-native-router');
 var LoginPage = require('./ios/loginPage');
-var Router = require('react-native-router');
 var LoadingPage = require('./ios/loadingPage');
 
 var {
@@ -27,6 +23,9 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1
+  },
+  header: {
+    backgroundColor: '#5cafec'
   }
 });
 
@@ -54,12 +53,13 @@ class CowtanApp extends Component {
       return <LoadingPage/>;
     }else{
       return (
-        <NavigatorIOS
-          style = {styles.container}
-          initialRoute = {{
+        <Router
+          firstRoute = {{
             component: LoginPage,
-            title: 'Sign In',
-          }}/>
+            name: 'Sign In',
+          }}
+          headerStyle = {styles.header}
+        />
       );
     }
   }
