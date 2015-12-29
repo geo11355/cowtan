@@ -18,18 +18,26 @@ class LoadingPage extends Component{
 	render(){
 		return(
 			<View style = {styles.container}>
-				<Text>
-					Loading Page...
-				</Text>
+				<Image 
+					style = {styles.image}
+					source = {require('./../media/logo.jpg')}
+				>
+				</Image>
 			</View>
 		)
 	}
 }
 
 var styles = StyleSheet.create({
+	image: {
+		flex: 1,
+		resizeMode: 'contain',
+		alignSelf: 'center',
+		margin: 35
+	},
 	container: {
-		alignItems: 'center',
-		marginTop: 200
+		flexDirection: 'row',
+		flex: 1,
 	}
 });
 

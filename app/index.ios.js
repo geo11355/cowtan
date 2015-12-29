@@ -41,7 +41,7 @@ class CowtanApp extends Component {
   componentDidMount(){
     setTimeout( () => {
       this.setTimePassed();
-    }, 1500);
+    }, 500);
   }
 
   setTimePassed(){

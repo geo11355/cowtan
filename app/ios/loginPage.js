@@ -21,15 +21,18 @@ var styles = StyleSheet.create({
         color: '#656565'
     },
     container: {
-        padding: 30,
+        //padding: 30,
         marginTop: 65,
         alignItems: 'center',
-
+        borderWidth: 1,
+        flexDirection: 'column',
+        flex: 1
     },
     flowRight: {
         flexDirection: 'row',
         alignItems: 'center',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        flex: 3,
     },
     buttonText: {
         fontSize: 18,
@@ -58,6 +61,20 @@ var styles = StyleSheet.create({
         borderColor: '#48BBEC',
         borderRadius: 8,
         color: '#48BBEC'
+    },
+
+    //Logo
+   logoBox: {
+        flexDirection: 'row',
+        flex: 1,
+        borderWidth: 3,
+        marginBottom: 30,
+        borderColor: 'pink'
+    },
+    image: {
+        resizeMode: 'contain',
+        flex: 1,
+        alignSelf: 'center'
     }
 });
 
@@ -75,6 +92,13 @@ class LoginPage extends Component {
     render() {
         return (
             <View style = {styles.container}>
+                <View style = {styles.logoBox}>  
+                    <Image 
+                        style = {styles.image}
+                        source = {require('./../media/logo.jpg')}
+                    >
+                    </Image>
+                </View>
                 <Text style = {styles.description}>
                     Login with your account number and last name below
                 </Text>
