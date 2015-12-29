@@ -156,7 +156,7 @@ class LoginPage extends Component {
                 name: 'Pattern List',
                 component: ShoppingCart,
                 passProps: {patterns: [1]},
-                // rightCorner: {AddButton}
+                rightCorner: AddButton
             });
         }
     }

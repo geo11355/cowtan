@@ -3,35 +3,39 @@
 var React = require('react-native');
 
 var {
-	Component,
-	StyleSheet,
-	TouchableHighLight,
-	View
+    StyleSheet,
+    TouchableHighlight,
+    Image
 } = React;
 
 var styles = StyleSheet.create({
-	addButton: {
-		width: 10,
-		height: 17,
-		marginLeft: 10,
-		marginTop: 3,
-		marginRight: 10
-	},
-    buttonText: {
-        color: 'black'
+    addButton: {
+        width: 10,
+        height: 17,
+        marginLeft: 10,
+        marginTop: 3,
+        marginRight: 10
+    },
+    icon: {
+        width: 21,
+        height: 21,
+        marginTop: 4,
+        marginRight: 15
     }
 });
 
-class AddButton extends Component {
-	render() {
-		return (
-			<TouchableHighLight
-				underlayColor = 'transparent'
-				style = {styles.addButton}>
-				<Text style = {styles.buttonText}>Add</Text>
-			</TouchableHighLight>
-		);
-	}
-}
+var AddButton = React.createClass({
+    render() {
+        return (
+            <TouchableHighlight
+                underlayColor = "transparent">
+               <Image 
+                    source = {require('./images/ios7-plus-outline.png')}
+                    style = {styles.icon}
+                />       
+            </TouchableHighlight>
+        );
+    }
+});
 
 module.exports = AddButton;
