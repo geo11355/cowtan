@@ -18,7 +18,7 @@ var styles = StyleSheet.create({
     description: {
         marginRight: 20,
         marginLeft: 20,
-        marginBottom: 5,
+        marginBottom: 10,
         marginTop: 5,
         fontSize: 18,
         textAlign: 'center',
@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
         //padding: 30,
         
         //to account for navigator
-        marginTop: 65,
+        marginTop: 30,
         
         //aligns all items in the center
         //alignItems: 'center',
@@ -60,7 +60,7 @@ var styles = StyleSheet.create({
         marginBottom: 10,
         marginRight: 25,
         marginLeft: 25,
-        marginTop: 25,
+        marginTop: 15,
         alignSelf: 'stretch',
         justifyContent: 'center'
     },
@@ -69,13 +69,21 @@ var styles = StyleSheet.create({
         padding: 4,
         marginRight: 25,
         marginLeft: 25,
-        marginTop: 10,
+        marginBottom: 10,
         //flex: 1,
         fontSize: 18,
         borderWidth: 1,
         borderColor: '#800000',
         borderRadius: 8,
-        color: '#800000'
+        color: 'black'
+    },
+
+    error: {
+        fontSize: 12,
+        color: 'red',
+        marginBottom: 0,
+        alignSelf: 'flex-start',
+        marginLeft: 25
     },
     //Logo
    logoBox: {
@@ -104,11 +112,16 @@ class LoginPage extends Component {
         this.state = {
             acctNum: '',
             lastName: '',
-            isLoading: false
+            isLoading: false,
+            failedLogin: false
         };
     }
 
     render() {
+        var errorMessage = this.state.failedLogin ? 
+            (<Text style = {styles.error}>*Incorrect account number or last name</Text>):
+            (<View/>);
+
         return (
             <View style = {styles.mainContainer}>
                 <View style = {styles.logoBox}>  
@@ -123,16 +136,17 @@ class LoginPage extends Component {
                     <Text style = {styles.description}>
                         Sign in with your account number and last name below
                     </Text>
-                        <TextInput
-                            style = {styles.textInput}
-                            placeholder = 'Account Number'
-                            value = {this.state.acctNum}
-                            onChange = {this.acctNumChanged.bind(this)}/>
-                        <TextInput
-                            style = {styles.textInput}
-                            placeholder = 'Last Name'
-                            value = {this.state.lastName}
-                            onChange = {this.lastNameChanged.bind(this)}/>
+                    {errorMessage}
+                    <TextInput
+                        style = {styles.textInput}
+                        placeholder = 'Account Number'
+                        value = {this.state.acctNum}
+                        onChange = {this.acctNumChanged.bind(this)}/>
+                    <TextInput
+                        style = {styles.textInput}
+                        placeholder = 'Last Name'
+                        value = {this.state.lastName}
+                        onChange = {this.lastNameChanged.bind(this)}/>
                     <TouchableHighlight
                         style = {styles.button}
                         underlayColor = '#99d9f4'
@@ -158,6 +172,8 @@ class LoginPage extends Component {
                 passProps: {patterns: [1]},
                 rightCorner: AddButton
             });
+        }else{
+            this.setState({failedLogin: true});
         }
     }
 
@@ -174,6 +190,8 @@ class LoginPage extends Component {
                     this.setState({isLoading: 'false'});
                     console.log("Fetch failed: " + error);
                 });
+        }else{
+            this.setState({failedLogin: true});
         }
     }
 
