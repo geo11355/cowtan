@@ -3,6 +3,7 @@
 var React = require('react-native');
 var ShoppingCart = require('./shoppingCart');
 var AddButton = require('./addButton');
+
 var {
     StyleSheet,
     Text,

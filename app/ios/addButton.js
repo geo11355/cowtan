@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Button = require('react-native-button');
 
 var {
     StyleSheet,
@@ -21,19 +22,27 @@ var styles = StyleSheet.create({
         height: 21,
         marginTop: 4,
         marginRight: 15
+    },
+    editButton: {
+        fontSize: 16,
+        color: 'white',
+        marginRight: 13
     }
 });
 
 var AddButton = React.createClass({
+
+    _handlePress(event) {
+        console.log('Pressed');
+    },
+
     render() {
         return (
-            <TouchableHighlight
-                underlayColor = "transparent">
-               <Image 
-                    source = {require('./images/ios7-plus-outline.png')}
-                    style = {styles.icon}
-                />       
-            </TouchableHighlight>
+            <Button 
+                style = {styles.editButton}
+                onPress = {this._handlePress}> 
+            Add
+            </Button>
         );
     }
 });
