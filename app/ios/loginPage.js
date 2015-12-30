@@ -12,7 +12,8 @@ var {
     TouchableHighlight,
     ActivityIndicatorIOS,
     Image,
-    Component
+    Component,
+    ScrollView
 } = React;
 
 var styles = StyleSheet.create({
@@ -29,12 +30,13 @@ var styles = StyleSheet.create({
         //padding: 30,
         
         //to account for navigator
-        marginTop: 30,
+        //marginTop: 30,
         
         //aligns all items in the center
         //alignItems: 'center',
-        //borderWidth: 1,
-        flex: 1
+        
+        flex: 1,
+        
     },
     subContainer: {
         alignItems: 'center',
@@ -90,14 +92,13 @@ var styles = StyleSheet.create({
    logoBox: {
         flexDirection: 'row',
         flex: 1,
-        //borderWidth: 3,
-        borderColor: 'pink',
+        marginTop: 3
     },
     image: {
         alignSelf: 'center',
         flex: 1,
         resizeMode: 'contain',
-        margin: 15
+        margin: 15,
     }
 });
 
