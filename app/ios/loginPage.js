@@ -81,7 +81,6 @@ var styles = StyleSheet.create({
         borderRadius: 8,
         color: 'black'
     },
-
     error: {
         fontSize: 12,
         color: 'red',
@@ -89,7 +88,6 @@ var styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginLeft: 25
     },
-    //Logo
    logoBox: {
         flexDirection: 'row',
         flex: 1,
@@ -144,12 +142,19 @@ class LoginPage extends Component {
                         style = {styles.textInput}
                         placeholder = 'Account Number'
                         value = {this.state.acctNum}
+                        blurOnSubmit = {false}
+                        returnKeyType = 'next'
+                        onSubmitEditing = {() => this.passInput.focus()}
                         onChange = {this.acctNumChanged.bind(this)}/>
                     <TextInput
+                        ref = {(ref) => this.passInput = ref}
                         style = {styles.textInput}
                         placeholder = 'Last Name'
                         value = {this.state.lastName}
-                        onChange = {this.lastNameChanged.bind(this)}/>
+                        returnKeyType = 'go'
+                        secureTextEntry = {true}
+                        onChange = {this.lastNameChanged.bind(this)}
+                        onSubmitEditing = {this.onLoginPressed.bind(this)}/>
                     <TouchableHighlight
                         style = {styles.button}
                         underlayColor = '#99d9f4'
@@ -169,18 +174,13 @@ class LoginPage extends Component {
                 lastName: '',
                 isLoading: false
             };
-            /*this.props.toRoute({
-                name: 'Pattern List',
-                component: ShoppingCart,
-                passProps: {patterns: [1]},
-                rightCorner: AddButton
-            });*/
             this.props.toRoute({
                 name: 'Confirm',
                 component: ConfirmPage,
                 passProps: {user: response}
             });
-        }else{
+        }
+        else {
             this.setState({failedLogin: true});
         }
     }
@@ -198,7 +198,8 @@ class LoginPage extends Component {
                     this.setState({isLoading: 'false'});
                     console.log("Fetch failed: " + error);
                 });
-        }else{
+        } 
+        else {
             this.setState({failedLogin: true});
         }
     }
