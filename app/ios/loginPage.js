@@ -3,6 +3,7 @@
 var React = require('react-native');
 var ShoppingCart = require('./shoppingCart');
 var AddButton = require('./addButton');
+var ConfirmPage = require('./confirmPage');
 
 var {
     StyleSheet,
@@ -168,11 +169,16 @@ class LoginPage extends Component {
                 lastName: '',
                 isLoading: false
             };
-            this.props.toRoute({
+            /*this.props.toRoute({
                 name: 'Pattern List',
                 component: ShoppingCart,
                 passProps: {patterns: [1]},
                 rightCorner: AddButton
+            });*/
+            this.props.toRoute({
+                name: 'Confirm',
+                component: ConfirmPage,
+                passProps: {user: response}
             });
         }else{
             this.setState({failedLogin: true});
