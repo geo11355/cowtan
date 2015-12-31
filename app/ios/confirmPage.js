@@ -39,7 +39,7 @@ class ConfirmPage extends Component{
 
 	onConfirmPressed(){
 		console.log(this.props);
-		this.props.toRoute({
+		this.props.replaceRoute({
             name: 'Pattern List',
             component: ShoppingCart,
             rightCorner: AddButton,
