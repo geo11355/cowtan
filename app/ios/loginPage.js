@@ -27,6 +27,9 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         color: '#656565'
     },
+    scroll: {
+        flex: 1,
+    },
     mainContainer: {
         //padding: 30,
         
@@ -91,7 +94,7 @@ var styles = StyleSheet.create({
    logoBox: {
         flexDirection: 'row',
         flex: 1,
-        marginTop: 3
+        marginTop: 25
     },
     image: {
         alignSelf: 'center',
@@ -125,6 +128,8 @@ class LoginPage extends Component {
 
         return (
             <View style = {styles.mainContainer}>
+                <ScrollView contentContainerStyle = {styles.scroll}
+                            >
                 <View style = {styles.logoBox}>  
                     <Image 
                         style = {styles.image}
@@ -162,6 +167,7 @@ class LoginPage extends Component {
                         <Text style = {styles.buttonText}>Login</Text>
                     </TouchableHighlight>
                 </View>
+                </ScrollView>
             </View>
         );
     }
