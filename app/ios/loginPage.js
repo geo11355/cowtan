@@ -192,7 +192,8 @@ class LoginPage extends Component {
             this.setState({
                 acctNum: '',
                 lastName: '',
-                isLoading: false
+                isLoading: false,
+                failedLogin: false
             });
             this.props.toRoute({
                 name: 'Confirm',
