@@ -127,6 +127,24 @@ class LoginPage extends Component {
             (<Text style = {styles.error}>*Incorrect account number or last name</Text>):
             (<View/>);
 
+        var loginButton = this.state.isLoading ?
+            (<TouchableHighlight
+                style = {styles.button}
+                underlayColor = '#99d9f4'>
+                <View>
+                    <ActivityIndicatorIOS
+                        size = 'small'/>
+                </View>
+            </TouchableHighlight>):
+            (<TouchableHighlight
+                style = {styles.button}
+                underlayColor = '#99d9f4'
+                onPress = {this.onLoginPressed.bind(this)}>
+                <Text style = {styles.buttonText}>Login</Text>
+            </TouchableHighlight>);
+
+            
+
         return (
             <View style = {styles.mainContainer}>
                 {/*<ScrollView contentContainerStyle = {styles.scroll}
@@ -161,12 +179,7 @@ class LoginPage extends Component {
                         secureTextEntry = {true}
                         onChange = {this.lastNameChanged.bind(this)}
                         onSubmitEditing = {this.onLoginPressed.bind(this)}/>
-                    <TouchableHighlight
-                        style = {styles.button}
-                        underlayColor = '#99d9f4'
-                        onPress = {this.onLoginPressed.bind(this)}>
-                        <Text style = {styles.buttonText}>Login</Text>
-                    </TouchableHighlight>
+                    {loginButton}
                 </View>
                 {/*</ScrollView>*/}
             </View>
@@ -176,11 +189,11 @@ class LoginPage extends Component {
     // Handle a response, reset state fields and then move to the next page
     _handleResponse(response) {
         if (response !== null) {
-            this.state = {
+            this.setState({
                 acctNum: '',
                 lastName: '',
                 isLoading: false
-            };
+            });
             this.props.toRoute({
                 name: 'Confirm',
                 component: ConfirmPage,
@@ -188,7 +201,7 @@ class LoginPage extends Component {
             });
         }
         else {
-            this.setState({failedLogin: true});
+            this.setState({failedLogin: true, isLoading: false});
         }
     }
 
@@ -202,7 +215,7 @@ class LoginPage extends Component {
                 .then(response => response.json())
                 .then(json => this._handleResponse(json))
                 .catch(error => {
-                    this.setState({isLoading: 'false'});
+                    this.setState({isLoading: false});
                     console.log("Fetch failed: " + error);
                 });
         } 

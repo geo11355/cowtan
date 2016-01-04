@@ -42,7 +42,7 @@ var CameraPage = React.createClass({
 
     generateUrl(productNum) {
       return 'http://cowtan-test.co.nf/products.php?productnum=' + productNum;
-    };
+    },
 
     render() {
         return (
