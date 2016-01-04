@@ -41,6 +41,10 @@ var CameraPage = React.createClass({
         this.props.updatePattern();
     },
 
+    generateUrl(productNum) {
+      return 'http://cowtan-test.co.nf/products.php?productnum=' + productNum;
+    };
+
     render() {
         return (
             <Camera
