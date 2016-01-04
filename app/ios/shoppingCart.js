@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Camera = require('react-native-camera');
 var {
     StyleSheet,
     Text,
@@ -15,7 +16,8 @@ var styles = StyleSheet.create({
 });
 
 class ShoppingCart extends Component {
-    // Constructor stores dataSource that implements a comparator 
+    // Constructor stores dataSource that implements a comparator and patterns
+    // in the state for updating
     constructor(props) {
         super(props);
         var dataSource = new ListView.DataSource(
@@ -23,8 +25,10 @@ class ShoppingCart extends Component {
             {rowHasChanged: (r1, r2) => r1 !== r2});
 
         this.state = {
+            patterns: this.props.patterns,
             dataSource: dataSource.cloneWithRows(this.props.patterns),
         };
+        
     }
 
     // Function for rendering each individual row

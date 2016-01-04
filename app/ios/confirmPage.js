@@ -18,7 +18,14 @@ var {
 class ConfirmPage extends Component{
 	constructor(props){
 		super(props);
+        this.state = {
+            patterns: [],
+        }
 	}
+
+    updatePattern() {
+        this.setState({patterns: [1,2,3,4]});
+    }
 
 	render(){
 		return(
@@ -39,13 +46,15 @@ class ConfirmPage extends Component{
 	}
 
 	onConfirmPressed(){
-		console.log(this.props);
 		this.props.replaceRoute({
             name: 'Pattern List',
             component: ShoppingCart,
             rightCorner: AddButton,
             passProps: {
-                patterns: [1],
+                patterns: this.state.patterns,
+            },
+            rightCornerProps: {
+                updatePattern: this.updatePattern,
             },
         });
 
