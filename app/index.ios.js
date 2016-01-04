@@ -49,19 +49,14 @@ class CowtanApp extends Component {
   }
 
   render() {
-    if (!this.state.timePassed){
-      return <LoadingPage/>;
-    }else{
       return (
         <Router
           firstRoute = {{
             component: LoginPage,
             name: 'Sign In',
           }}
-          headerStyle = {styles.header}
-        />
+          headerStyle = {styles.header}/>
       );
-    }
   }
 }
 
