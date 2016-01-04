@@ -2,6 +2,8 @@
 
 var React = require('react-native');
 var Button = require('react-native-button');
+var ShoppingCart = require('./shoppingCart');
+var CameraPage = require('./camera');
 
 var {
     StyleSheet,
@@ -32,15 +34,17 @@ var styles = StyleSheet.create({
 
 var AddButton = React.createClass({
 
-    _handlePress(event) {
-        console.log('Pressed');
+    goToCamera() {
+        this.props.toRoute({
+            component: CameraPage,
+        });
     },
 
     render() {
         return (
             <Button 
                 style = {styles.editButton}
-                onPress = {this._handlePress}> 
+                onPress = {this.goToCamera}> 
             Add
             </Button>
         );

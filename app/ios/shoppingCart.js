@@ -23,7 +23,7 @@ class ShoppingCart extends Component {
             {rowHasChanged: (r1, r2) => r1 !== r2});
 
         this.state = {
-            dataSource: dataSource.cloneWithRows(this.props.patterns)
+            dataSource: dataSource.cloneWithRows(this.props.patterns),
         };
     }
 
