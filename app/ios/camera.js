@@ -37,14 +37,13 @@ var styles = StyleSheet.create({
 var CameraPage = React.createClass({
 
     _readBarCode(event) {   
-        console.log(event);
+        
     },
 
     render() {
         return (
             <Camera
                 onBarCodeRead = {this._readBarCode}
-                ref = "cam"
                 style = {styles.camera}>
             </Camera>
         );

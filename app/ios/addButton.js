@@ -38,7 +38,7 @@ var AddButton = React.createClass({
     goToCamera() {
         console.log(this.props);
         this.props.toRoute({
-            name: 'cam',
+            name: 'Scan a Barcode',
             component: CameraPage,
         });
     },
