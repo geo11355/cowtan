@@ -36,10 +36,10 @@ var styles = StyleSheet.create({
 var AddButton = React.createClass({
 
     goToCamera() {
-        console.log(this.props);
         this.props.toRoute({
             name: 'Scan a Barcode',
             component: CameraPage,
+            passProps: this.props.updatePattern
         });
     },
 

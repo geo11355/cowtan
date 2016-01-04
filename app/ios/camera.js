@@ -37,7 +37,8 @@ var styles = StyleSheet.create({
 var CameraPage = React.createClass({
 
     _readBarCode(event) {   
-        
+        this.props.route.pop();
+        this.props.updatePattern();
     },
 
     render() {
