@@ -18,14 +18,8 @@ var {
 class ConfirmPage extends Component{
 	constructor(props){
 		super(props);
-        this.state = {
-            patterns: [],
-        }
+        this.patterns = [];
 	}
-
-    updatePattern() {
-        this.setState({patterns: [1,2,3,4]});
-    }
 
 	render(){
 		return(
@@ -80,10 +74,7 @@ class ConfirmPage extends Component{
             component: ShoppingCart,
             rightCorner: AddButton,
             passProps: {
-                patterns: this.state.patterns,
-            },
-            rightCornerProps: {
-                updatePattern: this.updatePattern,
+                patterns: this.patterns,
             },
         });
 

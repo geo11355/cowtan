@@ -7,7 +7,9 @@ var {
     View,
     StyleSheet,
     Component,
-    AlertIOS
+    AlertIOS,
+    TouchableHighlight,
+    Text
 } = React;
 
 var styles = StyleSheet.create({
@@ -36,9 +38,14 @@ var styles = StyleSheet.create({
 
 var CameraPage = React.createClass({
 
-    _readBarCode(event) {   
-        this.props.route.pop();
-        this.props.updatePattern();
+    _readBarCode(event) {
+        console.log(this.props);
+        this.props.updatePatterns();
+    },
+
+    _goBack() {
+        // this.props.navigator.pop();
+        this.props.updatePatterns();
     },
 
     generateUrl(productNum) {
@@ -50,6 +57,12 @@ var CameraPage = React.createClass({
             <Camera
                 onBarCodeRead = {this._readBarCode}
                 style = {styles.camera}>
+
+                <TouchableHighlight
+                    onPress = {this._goBack}>
+                    <Text> HELP </Text>
+                </TouchableHighlight>
+
             </Camera>
         );
     }

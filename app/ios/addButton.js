@@ -39,7 +39,9 @@ var AddButton = React.createClass({
         this.props.toRoute({
             name: 'Scan a Barcode',
             component: CameraPage,
-            passProps: this.props.updatePattern
+            passProps: {
+                updatePatterns: this.props.updatePatterns
+            }
         });
     },
 
