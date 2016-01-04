@@ -28,7 +28,13 @@ class ShoppingCart extends Component {
             patterns: this.props.patterns,
             dataSource: dataSource.cloneWithRows(this.props.patterns),
         };
-        
+
+        this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
+
+    }
+
+    updatePatterns() {
+        this.setState({patterns: [1,2,3,4]});
     }
 
     // Function for rendering each individual row
