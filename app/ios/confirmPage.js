@@ -43,7 +43,7 @@ class ConfirmPage extends Component{
 		this.props.replaceRoute({
             name: 'Pattern List',
             component: ShoppingCart,
-            rightCorner: AddButton,
+            // rightCorner: AddButton,
             passProps: {
                 patterns: [1],
             },

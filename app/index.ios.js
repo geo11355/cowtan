@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    backgroundColor: '#80000'
+    backgroundColor: '#800000'
   }
 });
 

@@ -1,7 +1,7 @@
 'use strict'
 
 var React = require('react-native');
-var ReactCamera = require('react-native-camera');
+var Camera = require('react-native-camera');
 
 var {
     StyleSheet,
@@ -9,23 +9,36 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+  },
 });
 
-var Camera = React.createClass({
+var CameraPage = React.createClass({
 
-    _readBarCode() {   
+    _readBarCode(event) {   
         AlertIOS.alert("Barcode Found!");
     },
 
     render() {
         return (
-            <ReactCamera
-                style = {styles.container}
-                onBarCodeRead = {this._readBarCode.bind(this)}
-                type = 'back' />
+            <Camera
+                onBarCodeRead = {this._readBarCode}>
+            </Camera>
         );
     }
 });
 
-module.export = Camera;
+module.export = CameraPage;
