@@ -6,6 +6,8 @@ var Camera = require('react-native-camera');
 var {
     StyleSheet,
     Component,
+    Text,
+    View
 } = React;
 
 var styles = StyleSheet.create({
@@ -34,11 +36,9 @@ var CameraPage = React.createClass({
 
     render() {
         return (
-            <Camera
-                onBarCodeRead = {this._readBarCode}>
-            </Camera>
+            <View><Text>TEST</Text></View>
         );
     }
 });
 
-module.export = CameraPage;
+module.exports = CameraPage;
