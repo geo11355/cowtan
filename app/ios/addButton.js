@@ -8,7 +8,8 @@ var CameraPage = require('./camera');
 var {
     StyleSheet,
     TouchableHighlight,
-    Image
+    Image,
+    Text
 } = React;
 
 var styles = StyleSheet.create({

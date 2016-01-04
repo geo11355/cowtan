@@ -4,8 +4,10 @@ var React = require('react-native');
 var Camera = require('react-native-camera');
 
 var {
+    View,
     StyleSheet,
     Component,
+    AlertIOS
 } = React;
 
 var styles = StyleSheet.create({
@@ -24,21 +26,29 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
   },
+  camera: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  }
 });
 
 var CameraPage = React.createClass({
 
     _readBarCode(event) {   
-        AlertIOS.alert("Barcode Found!");
+        console.log(event);
     },
 
     render() {
         return (
             <Camera
-                onBarCodeRead = {this._readBarCode}>
+                onBarCodeRead = {this._readBarCode}
+                ref = "cam"
+                style = {styles.camera}>
             </Camera>
         );
     }
 });
 
-module.export = CameraPage;
+module.exports = CameraPage;

@@ -4,6 +4,7 @@ var React = require('react-native');
 var ShoppingCart = require('./shoppingCart');
 var AddButton = require('./addButton');
 var ConfirmPage = require('./confirmPage');
+var CameraPage = require('react-native-camera');
 
 var {
     StyleSheet,
