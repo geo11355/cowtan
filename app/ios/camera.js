@@ -36,33 +36,52 @@ var styles = StyleSheet.create({
   }
 });
 
+//Vut???
+function generateUrl(productNum) {
+   return 'http://cowtandb.com/products.php?productnum=' + productNum;
+};
+
 var CameraPage = React.createClass({
 
+    getInitialState() {
+      return {
+        showCamera: true,
+        hasRun: false,
+      }
+    },
+
+
     _readBarCode(event) {
-        console.log(this.props);
-        this.props.updatePatterns();
+        if (!this.state.hasRun){
+          this.state.hasRun = true;
+          var query = generateUrl(event.data);
+        
+          fetch(query)
+            .then(response => response.json())
+            .then(json => this.props.updatePatterns(json))
+            .catch(error => {
+              console.log("Fetch failed: " + error);
+            });
+          this.props.toBack();
+        }
     },
 
-    _goBack() {
-        // this.props.navigator.pop();
-        this.props.updatePatterns();
-    },
+    /*getProductInfo(productNum) {
+      var query = generateUrl(productNum);
+      fetch(query)
+        .then(response => response.json())
+        .then(json => this.props.updatePatterns(json))
+        .catch(error => {
+          console.log("Fetch failed: " + error);
+        });
+    },*/
 
-    generateUrl(productNum) {
-      return 'http://cowtan-test.co.nf/products.php?productnum=' + productNum;
-    },
 
     render() {
         return (
             <Camera
                 onBarCodeRead = {this._readBarCode}
                 style = {styles.camera}>
-
-                <TouchableHighlight
-                    onPress = {this._goBack}>
-                    <Text> HELP </Text>
-                </TouchableHighlight>
-
             </Camera>
         );
     }

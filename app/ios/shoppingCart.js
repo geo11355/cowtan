@@ -13,6 +13,12 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+    row: {
+        flexDirection: 'row'
+    },
+    productInfo: {
+        margin: 5,
+    }
 });
 
 class ShoppingCart extends Component {
@@ -26,15 +32,24 @@ class ShoppingCart extends Component {
 
         this.state = {
             patterns: this.props.patterns,
-            dataSource: dataSource.cloneWithRows(this.props.patterns),
+            dataSource: dataSource.cloneWithRows([]),
         };
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
 
     }
 
-    updatePatterns() {
-        this.setState({patterns: [1,2,3,4]});
+    updatePatterns(response) {
+        if (response!=null){
+            this.state.patterns.push(response);
+            var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
+            this.setState(
+                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+            );
+        }
     }
 
     // Function for rendering each individual row
@@ -42,8 +57,10 @@ class ShoppingCart extends Component {
         return (
             <TouchableHighlight
                 underlayColor='#dddddd'>
-                <View>
-                  <Text>HI</Text>
+                <View style = {styles.row}>
+                  <Text style = {styles.productInfo}>{rowData.productnum}</Text>
+                  <Text style = {styles.productInfo}>{rowData.name}</Text>
+                  <Text style = {styles.productInfo}>{rowData.color}</Text>
                 </View>
             </TouchableHighlight>
         );
