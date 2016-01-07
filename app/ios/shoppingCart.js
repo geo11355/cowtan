@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Camera = require('react-native-camera');
+var LoginPage = require('./loginPage');
 var {
     StyleSheet,
     Text,
@@ -11,7 +12,7 @@ var {
     Component,
     ListView,
     ScrollView,
-    AlertIOS
+    Alert
 } = React;
 
 class ShoppingCart extends Component {
@@ -30,14 +31,28 @@ class ShoppingCart extends Component {
         };
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
+        this.props.setLeftProps({logout: this.logout.bind(this)});
 
+    }
+
+    // Callback function for when logout is pressed, pulls up secondary alert
+    // for confirmation
+    logout() {
+        Alert.alert(
+            'Confirm',
+            'Your current session will be lost if you sign out now',
+            [
+                {text: 'Yes', onPress: () => this.props.reset()},
+                {text: 'No'}
+            ]
+        );
     }
 
     updatePatterns(response) {
         if (response != null){
             this.state.patterns.push(response);
             var dataSource = new ListView.DataSource(
-                {rowHasChanged: (r1, r2) => !r1.productnum.equals(r2.productnum)}
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
             );
 
             this.setState(

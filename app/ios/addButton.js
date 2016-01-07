@@ -2,13 +2,10 @@
 
 var React = require('react-native');
 var Button = require('react-native-button');
-var ShoppingCart = require('./shoppingCart');
 var CameraPage = require('./camera');
 
 var {
     StyleSheet,
-    TouchableHighlight,
-    Image,
     Text
 } = React;
 
@@ -16,7 +13,7 @@ var styles = StyleSheet.create({
     addButton: {
         width: 10,
         height: 17,
-        marginLeft: 10,
+        marginLeft: 10, 
         marginTop: 3,
         marginRight: 10
     },

@@ -60,7 +60,6 @@ var CameraPage = React.createClass({
       }
     },
 
-
     _readBarCode(event) {
         if (!this.state.hasRun){
           this.state.hasRun = true;
@@ -76,17 +75,6 @@ var CameraPage = React.createClass({
         }
     },
 
-    /*getProductInfo(productNum) {
-      var query = generateUrl(productNum);
-      fetch(query)
-        .then(response => response.json())
-        .then(json => this.props.updatePatterns(json))
-        .catch(error => {
-          console.log("Fetch failed: " + error);
-        });
-    },*/
-
-
     render() {
         return (
             <Camera
@@ -94,6 +82,7 @@ var CameraPage = React.createClass({
                 style = {styles.camera}>
                 <View style = {styles.placeholder}/><View style = {styles.centerLine}/><View style = {styles.placeholder}/>
             </Camera>
+
         );
     }
 });
