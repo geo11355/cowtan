@@ -107,7 +107,7 @@ var styles = StyleSheet.create({
 
 // Private function to generate the URL for login verification
 function generateUrl(acctNum, lastName) {
-    return 'http://cowtan-test.co.nf/clients.php?accnum=' + acctNum + '&pass=' + lastName;
+    return 'http://cowtandb.com/clients.php?accnum=' + acctNum + '&pass=' + lastName;
 };
 
 // Login Screen class
