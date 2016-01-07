@@ -38,3 +38,4 @@ The following represent the two tables in the SQL database that will hold client
 - Change 'back' on Shopping Cart to Log out??? and have a AlertIOS before it logs out
 - Make 'cancel' button in barcode scanner - possibly remove navigator??
 - Have some default text in Shopping Cart??
+- String equality in RenderRow

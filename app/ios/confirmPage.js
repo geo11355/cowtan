@@ -31,26 +31,32 @@ class ConfirmPage extends Component{
 					<Text style = {styles.userText}>Address: {this.props.user.address}</Text>
 					<Text style = {styles.userText}>Phone Number: {this.props.user.phonenum}</Text>
 				</View>*/}
-
-				<View style = {styles.userInfo}>
+			
+				{/*<View style = {styles.userInfo}>*/}
+				<ScrollView contentContainerStyle = {styles.scroll}>
 					<Text style = {styles.description}>You are about to log in as:</Text>
 					<View style = {styles.row}>
-						<Text style = {styles.categoryText}>Name: </Text>
-						<Text style = {styles.userText}>{this.props.user.firstname + ' ' + this.props.user.lastname}</Text>
+						<View style = {styles.rowPlaceholder}></View>
+						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Name: </Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.firstname + ' ' + this.props.user.lastname}</Text></View>
 					</View>
 					<View style = {styles.row}>
-						<Text style = {styles.categoryText}>Company: </Text>
-						<Text style = {styles.userText}>{this.props.user.company}</Text>
+						<View style = {styles.rowPlaceholder}></View>
+						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Company: </Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.company}</Text></View>
 					</View>
 					<View style = {styles.row}>
-						<Text style = {styles.categoryText}>Address: </Text>
-						<Text style = {styles.userText}>{this.props.user.address}</Text>
+						<View style = {styles.rowPlaceholder}></View>
+						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Address: </Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.address}</Text></View>
 					</View>
 					<View style = {styles.row}>
-						<Text style = {styles.categoryText}>Phone Number: </Text>
-						<Text style = {styles.userText}>{this.props.user.phonenum}</Text>
+						<View style = {styles.rowPlaceholder}></View>
+						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Phone Number: </Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.phonenum}</Text></View>
 					</View>
-				</View>
+				</ScrollView>
+				{/*</View>*/}
 
 
 				<View style = {styles.buttonsContainer}>
@@ -74,7 +80,7 @@ class ConfirmPage extends Component{
             component: ShoppingCart,
             rightCorner: AddButton,
             passProps: {
-                patterns: this.patterns,
+                patterns: [],
             },
         });
 
@@ -86,23 +92,32 @@ var styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	userInfo: {
-		flex: 0.8,
-		borderWidth: 1,
+	scroll: {
 		//borderColor: 'pink',
 		justifyContent: 'center',
-		alignItems: 'center'
+		//alignItems: 'center'
+		flex: 0.8
 	},
 	row: {
 		flexDirection: 'row',
-		borderWidth: 1,
-		borderColor: 'pink',
-
+		//borderColor: 'pink',
+	},
+	rowPlaceholder: {
+		flex: 0.8,
+	},
+	categoryBox: {
+		flex: 2,
+	},
+	userBox: {
+		flex: 3,
+		marginRight: 20
 	},
 	description: {
 		fontSize: 20,
+		fontWeight: 'bold',
+		alignSelf: 'center',
 		marginBottom: 20,
-		fontWeight: 'bold'
+		marginTop: 20,
 	},
 	categoryText: {
 		fontSize: 16,
@@ -112,21 +127,21 @@ var styles = StyleSheet.create({
 	},
 	userText: {
 		fontSize: 16,
-		margin: 5
+		margin: 5,
 	}, 
 	buttonContainer: {
 		flex: 0.1,
 	},
 	continueButton: {
 		height: 36,
-		borderWidth: 1,
+		//borderWidth: 1,
 		borderColor: '#800000',
 		backgroundColor: '#800000',
         borderRadius: 8,
         marginBottom: 5,
         marginRight: 25,
         marginLeft: 25,
-        marginTop: 15,
+        marginTop: 0,
         //alignSelf: 'stretch',
         
         //Keeps text aligned
@@ -135,11 +150,11 @@ var styles = StyleSheet.create({
 	buttonText:{
 		color: 'white',
 		alignSelf: 'center',
-		fontSize: 18
+		fontSize: 18,
 	},
 	notYouButton: {
 		alignSelf: 'center',
-		marginBottom: 15
+		marginBottom: 10,
 	},
 	notYouText: {
 		padding: 5,
