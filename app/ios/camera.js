@@ -32,7 +32,17 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    flexDirection: 'row'
+  },
+  centerLine: {
+    alignSelf: 'center',
+    borderWidth: 1.5,
+    borderColor: '#800000',
+    flex: 0.8
+  },
+  placeholder: {
+    flex: 0.1
   }
 });
 
@@ -82,6 +92,7 @@ var CameraPage = React.createClass({
             <Camera
                 onBarCodeRead = {this._readBarCode}
                 style = {styles.camera}>
+                <View style = {styles.placeholder}/><View style = {styles.centerLine}/><View style = {styles.placeholder}/>
             </Camera>
         );
     }

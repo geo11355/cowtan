@@ -70,7 +70,14 @@ var styles = StyleSheet.create({
         marginLeft: 25,
         marginTop: 15,
         alignSelf: 'stretch',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
     },
     textInput: {
         height: 30,
@@ -83,7 +90,7 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#800000',
         borderRadius: 8,
-        color: 'black'
+        color: 'black',
     },
     error: {
         fontSize: 12,

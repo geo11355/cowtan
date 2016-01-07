@@ -149,6 +149,13 @@ var styles = StyleSheet.create({
         
         //Keeps text aligned
         justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
 	},
 	buttonText:{
 		color: 'white',
