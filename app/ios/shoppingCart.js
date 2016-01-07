@@ -50,9 +50,18 @@ class ShoppingCart extends Component {
             <TouchableHighlight
                 underlayColor='#dddddd'>
                 <View style = {styles.row}>
-                  <Text style = {styles.productInfo}>{rowData.productnum}</Text>
-                  <Text style = {styles.productInfo}>{rowData.name}</Text>
-                  <Text style = {styles.productInfo}>{rowData.color}</Text>
+                    <View style = {styles.itemColumn}>
+                        <View style = {styles.productNameRow}>
+                            <Text style = {styles.productNameText}>{rowData.name} </Text>
+                            <Text style = {styles.productNumText}>{rowData.productnum}</Text>
+                        </View>
+                        <View style = {styles.productNameRow}>
+                            <Text style = {styles.colorLabel}>Color: </Text>
+                            <Text style = {styles.productColorText}>{rowData.color}</Text>
+                        </View>
+                    </View>
+                    <View style = {styles.priceColumn}><Text style = {styles.productInfo}>{rowData.price}</Text></View>
+                    <View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>
                 </View>
             </TouchableHighlight>
         );
@@ -62,12 +71,12 @@ class ShoppingCart extends Component {
     render() {
         return (
         <View>
-            <View style = {styles.row}>
+            <View style = {styles.topRow}>
                 <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                 <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
                 <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
             </View>
-            <ListView
+            <ListView style = {styles.listView}
                 dataSource = {this.state.dataSource}
                 renderRow = {this.renderRow.bind(this)}/>
         </View>
@@ -77,7 +86,18 @@ class ShoppingCart extends Component {
 
 var styles = StyleSheet.create({
     row: {
+        flexDirection: 'row',
+        borderBottomWidth: 1.5,
+        borderColor: '#800000',
+        backgroundColor: '#fff2f2'
+    },
+    productNameRow: {
         flexDirection: 'row'
+    },
+    topRow: {
+        flexDirection: 'row',
+        borderBottomWidth: 2,
+        borderColor: 'black',
     },
     itemColumn: {
         flex: 0.6,
@@ -91,16 +111,40 @@ var styles = StyleSheet.create({
     categoryText: {
         fontSize: 16,
         fontWeight: 'bold',
-        margin: 5,
+        marginRight: 5,
+        marginTop: 10,
+        marginBottom: 10
     },
     itemText: {
         margin: 10,
         fontSize: 16,
         fontWeight: 'bold',
     },
-    productInfo: {
-        margin: 5,
+    productNameText: {
+        marginLeft: 10,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginTop: 3,
     },
+    productNumText: {
+        fontSize: 14,
+        marginTop: 3
+    },
+    colorLabel: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        marginBottom: 3,
+    },
+    productColorText: {
+        fontSize: 13,
+        fontStyle: 'italic',
+        marginBottom: 3,
+    },
+    productInfo: {
+        marginTop: 3,
+    }
+
 });
 
 module.exports = ShoppingCart;

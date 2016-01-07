@@ -33,9 +33,11 @@ The following represent the two tables in the SQL database that will hold client
 
 
 ## TODO
-- Touch up 'Confirm Screen'
 - Change 'back' on Confirm Screen?
 - Change 'back' on Shopping Cart to Log out??? and have a AlertIOS before it logs out
 - Make 'cancel' button in barcode scanner - possibly remove navigator??
+- Barcode scanner rectangle??
 - Have some default text in Shopping Cart??
 - String equality in RenderRow
+- Unrecognizable barcode error condition
+- Adding quantity properly to listView
