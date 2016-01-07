@@ -107,7 +107,7 @@ var styles = StyleSheet.create({
 
 // Private function to generate the URL for login verification
 function generateUrl(acctNum, lastName) {
-    return 'http://cowtan-test.co.nf/clients.php?accnum=' + acctNum + '&pass=' + lastName;
+    return 'http://cowtandb.com/clients.php?accnum=' + acctNum + '&pass=' + lastName;
 };
 
 // Login Screen class
@@ -130,7 +130,7 @@ class LoginPage extends Component {
         var loginButton = this.state.isLoading ?
             (<TouchableHighlight
                 style = {styles.button}
-                underlayColor = '#99d9f4'>
+                underlayColor = '#4d0000'>
                 <View>
                     <ActivityIndicatorIOS
                         size = 'small'/>
@@ -138,7 +138,7 @@ class LoginPage extends Component {
             </TouchableHighlight>):
             (<TouchableHighlight
                 style = {styles.button}
-                underlayColor = '#99d9f4'
+                underlayColor = '#4d0000'
                 onPress = {this.onLoginPressed.bind(this)}>
                 <Text style = {styles.buttonText}>Login</Text>
             </TouchableHighlight>);

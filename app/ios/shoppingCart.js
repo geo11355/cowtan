@@ -27,6 +27,7 @@ class ShoppingCart extends Component {
         this.state = {
             patterns: this.props.patterns,
             dataSource: dataSource.cloneWithRows([]),
+            isEmpty: true,
         };
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
@@ -55,9 +56,13 @@ class ShoppingCart extends Component {
             );
 
             this.setState(
-                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+                {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
             );
+        }else{
+            AlertIOS.alert("Not a recognized fabric.");
         }
+        
+        
     }
 
     // Function for rendering each individual row
@@ -85,27 +90,47 @@ class ShoppingCart extends Component {
 
     // Pass render row to another function
     render() {
+        var emptyMessage = this.state.isEmpty ?
+            (<ScrollView contentContainerStyle = {styles.emptyTextContainer}>
+                <Text style = {styles.emptyText}>Your pattern list is empty. Click "Add" to scan fabric barcodes.</Text>
+            </ScrollView>):
+            (<ListView style = {styles.listView}
+                    dataSource = {this.state.dataSource}
+                    renderRow = {this.renderRow.bind(this)}/>);
+
         return (
-        <View>
-            <View style = {styles.topRow}>
-                <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
-                <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
-                <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
+            <View style = {styles.container}>
+                <View style = {styles.topRow}>
+                    <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
+                    <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
+                    <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
+                </View>
+                {emptyMessage}
             </View>
-            <ListView style = {styles.listView}
-                dataSource = {this.state.dataSource}
-                renderRow = {this.renderRow.bind(this)}/>
-        </View>
         );
     }
 }
 
 var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    emptyTextContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyText: {
+        margin: 20,
+        color: '#656565',
+        textAlign: 'center',
+        fontSize: 16
+    },
     row: {
         flexDirection: 'row',
         borderBottomWidth: 1.5,
         borderColor: '#800000',
-        backgroundColor: '#fff2f2'
+        backgroundColor: '#fff2f2',
     },
     productNameRow: {
         flexDirection: 'row'
@@ -119,10 +144,10 @@ var styles = StyleSheet.create({
         flex: 0.6,
     },
     priceColumn: {
-        flex: 0.25,
+        flex: 0.2,
     },
     quantityColumn: {
-        flex: 0.15,
+        flex: 0.135,
     },
     categoryText: {
         fontSize: 16,
@@ -138,27 +163,31 @@ var styles = StyleSheet.create({
     },
     productNameText: {
         marginLeft: 10,
-        fontSize: 14,
+        fontSize: 17,
         fontWeight: 'bold',
         marginTop: 3,
     },
     productNumText: {
-        fontSize: 14,
+        fontSize: 17,
         marginTop: 3
     },
     colorLabel: {
-        fontSize: 13,
+        fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 10,
         marginBottom: 3,
     },
     productColorText: {
-        fontSize: 13,
+        fontSize: 15,
         fontStyle: 'italic',
         marginBottom: 3,
     },
     productInfo: {
         marginTop: 3,
+        fontSize: 17
+    },
+    listView:{
+        flex: 1,
     }
 
 });

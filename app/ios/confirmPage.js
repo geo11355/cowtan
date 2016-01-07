@@ -25,6 +25,7 @@ class ConfirmPage extends Component{
 
 	render(){
 		return(
+
 			<View style = {styles.container}>
 				{/*<View style = {styles.userInfo}>
 					<Text style = {styles.description}>You are about to log in as:</Text>
@@ -36,7 +37,7 @@ class ConfirmPage extends Component{
 			
 				{/*<View style = {styles.userInfo}>*/}
 				<ScrollView contentContainerStyle = {styles.scroll}>
-					<Text style = {styles.description}>You are about to log in as:</Text>
+					<Text style = {styles.description}>Client Information</Text>
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
 						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Name: </Text></View>
@@ -64,12 +65,14 @@ class ConfirmPage extends Component{
 				<View style = {styles.buttonsContainer}>
 				<TouchableHighlight
 					onPress = {this.onConfirmPressed.bind(this)}
-					style = {styles.continueButton}>
+					style = {styles.continueButton}
+					underlayColor = '#4d0000'>
 					<Text style = {styles.buttonText}>Continue</Text>
 				</TouchableHighlight>
 				<TouchableHighlight
-					style = {styles.notYouButton}>
-					<Text style = {styles.notYouText}>Not You?</Text>
+					style = {styles.notYouButton}
+					underlayColor = 'white'>
+					<Text style = {styles.notYouText} underlayColor = 'white'>Not You?</Text>
 				</TouchableHighlight>
 				</View>
 			</View>
@@ -116,7 +119,7 @@ var styles = StyleSheet.create({
 		marginRight: 20
 	},
 	description: {
-		fontSize: 20,
+		fontSize: 22,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 		marginBottom: 20,
