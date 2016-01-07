@@ -32,6 +32,7 @@ class ShoppingCart extends Component {
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
         this.props.setLeftProps({logout: this.logout.bind(this)});
+        //FUCK
 
     }
 
