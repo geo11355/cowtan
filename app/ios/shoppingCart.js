@@ -25,14 +25,14 @@ class ShoppingCart extends Component {
             {rowHasChanged: (r1, r2) => r1 !== r2});
 
         this.state = {
-            patterns: this.props.patterns,
+            patterns: [],
             dataSource: dataSource.cloneWithRows([]),
             isEmpty: true,
         };
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
         this.props.setLeftProps({logout: this.logout.bind(this)});
-        //FUCK
+
 
     }
 

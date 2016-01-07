@@ -18,25 +18,6 @@ var styles = StyleSheet.create({
 	}
 });
 
-// var LogoutButton = React.createClass({
-
-// 	goToLogin() {
-// 		this.props.toRoute({
-// 			name: 'Sign In',
-// 			component: LoginPage,
-// 		});
-// 	},
-
-// 	render() {
-// 		return (
-// 			<Button
-// 				style = {styles.logoutButton}
-// 				onPress = {this.goToLogin}>
-// 			Logout
-// 			</Button>
-// 		);
-// 	}
-// });
 
 var LogoutButton = React.createClass({
 
