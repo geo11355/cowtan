@@ -10,7 +10,8 @@ var {
     ActivityIndicatorIOS,
     Component,
     ListView,
-    ScrollView
+    ScrollView,
+    AlertIOS
 } = React;
 
 class ShoppingCart extends Component {
@@ -42,7 +43,11 @@ class ShoppingCart extends Component {
             this.setState(
                 {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
             );
+        }else{
+            AlertIOS.alert("Not a recognized fabric.");
         }
+        
+        
     }
 
     // Function for rendering each individual row
@@ -110,7 +115,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1.5,
         borderColor: '#800000',
-        backgroundColor: '#fff2f2'
+        backgroundColor: '#fff2f2',
     },
     productNameRow: {
         flexDirection: 'row'

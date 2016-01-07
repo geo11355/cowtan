@@ -130,7 +130,7 @@ class LoginPage extends Component {
         var loginButton = this.state.isLoading ?
             (<TouchableHighlight
                 style = {styles.button}
-                underlayColor = '#99d9f4'>
+                underlayColor = '#4d0000'>
                 <View>
                     <ActivityIndicatorIOS
                         size = 'small'/>
@@ -138,7 +138,7 @@ class LoginPage extends Component {
             </TouchableHighlight>):
             (<TouchableHighlight
                 style = {styles.button}
-                underlayColor = '#99d9f4'
+                underlayColor = '#4d0000'
                 onPress = {this.onLoginPressed.bind(this)}>
                 <Text style = {styles.buttonText}>Login</Text>
             </TouchableHighlight>);

@@ -63,12 +63,14 @@ class ConfirmPage extends Component{
 				<View style = {styles.buttonsContainer}>
 				<TouchableHighlight
 					onPress = {this.onConfirmPressed.bind(this)}
-					style = {styles.continueButton}>
+					style = {styles.continueButton}
+					underlayColor = '#4d0000'>
 					<Text style = {styles.buttonText}>Continue</Text>
 				</TouchableHighlight>
 				<TouchableHighlight
-					style = {styles.notYouButton}>
-					<Text style = {styles.notYouText}>Not You?</Text>
+					style = {styles.notYouButton}
+					underlayColor = 'white'>
+					<Text style = {styles.notYouText} underlayColor = 'white'>Not You?</Text>
 				</TouchableHighlight>
 				</View>
 			</View>
