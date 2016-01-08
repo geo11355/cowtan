@@ -3,6 +3,10 @@
 var React = require('react-native');
 var Camera = require('react-native-camera');
 var LoginPage = require('./loginPage');
+var CheckoutPage = require('./checkoutPage');
+
+console.disableYellowBox = true;
+
 var {
     StyleSheet,
     Text,
@@ -34,8 +38,6 @@ class ShoppingCart extends Component {
 
         this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
         this.props.setLeftProps({logout: this.logout.bind(this)});
-
-
     }
 
     // Callback function for when logout is pressed, pulls up secondary alert
@@ -43,7 +45,7 @@ class ShoppingCart extends Component {
     logout() {
         Alert.alert(
             'Confirm',
-            'Your current session will be lost if you sign out now',
+            'Current session will be lost.',
             [
                 {text: 'Yes', onPress: () => this.props.reset()},
                 {text: 'No'}
@@ -51,8 +53,10 @@ class ShoppingCart extends Component {
         );
     }
 
+    // Callback function for updating the patterns list, creates a new dataSource
+    // each time, probably can be optimized. 
     updatePatterns(response) {
-        if (response != null){
+        if (response != null) {
             this.state.patterns.push(response);
             var dataSource = new ListView.DataSource(
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
@@ -64,8 +68,18 @@ class ShoppingCart extends Component {
         }else{
             Alert.alert("Not a recognized fabric.", null);
         }
-        
-        
+    }
+
+
+    // Callback function to move to the checkout page upon button press
+    goToCheckout() {
+        this.props.toRoute({
+            name: 'Checkout',
+            component: CheckoutPage,
+            passProps: {
+                patterns: this.state.patterns
+            }
+        });
     }
 
     // Function for rendering each individual row
@@ -109,6 +123,12 @@ class ShoppingCart extends Component {
                     <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
                 </View>
                 {emptyMessage}
+                <TouchableHighlight
+                    underlayColor = 'white'
+                    style = {styles.checkoutButton}
+                    onPress = {this.goToCheckout.bind(this)}>
+                    <Text style = {styles.buttonText} > Checkout </Text>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -191,6 +211,33 @@ var styles = StyleSheet.create({
     },
     listView:{
         flex: 1,
+    },
+    checkoutButton: {
+        height: 36,
+        //borderWidth: 1,
+        borderColor: '#800000',
+        backgroundColor: '#800000',
+        borderRadius: 8,
+        marginBottom: 5,
+        marginRight: 25,
+        marginLeft: 25,
+        marginTop: 0,
+        //alignSelf: 'stretch',
+        
+        //Keeps text aligned
+        justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
+    buttonText: {
+        color: 'white',
+        alignSelf: 'center',
+        fontSize: 18,
     }
 
 });
