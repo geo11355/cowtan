@@ -20,7 +20,6 @@ var {
 class ConfirmPage extends Component{
 	constructor(props){
 		super(props);
-        this.patterns = [];
 	}
 
 	render(){
