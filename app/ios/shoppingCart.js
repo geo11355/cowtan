@@ -15,6 +15,8 @@ var {
     Alert
 } = React;
 
+console.disableYellowBox = true;
+
 class ShoppingCart extends Component {
     // Constructor stores dataSource that implements a comparator and patterns
     // in the state for updating
