@@ -63,9 +63,8 @@ class ShoppingCart extends Component {
             this.setState(
                 {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
             );
-        }
-        else {
-            AlertIOS.alert("Not a recognized fabric.");
+        }else{
+            Alert.alert("Not a recognized fabric.", null);
         }
     }
 
