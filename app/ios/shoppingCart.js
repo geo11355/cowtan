@@ -75,7 +75,8 @@ class ShoppingCart extends Component {
             name: 'Checkout',
             component: CheckoutPage,
             passProps: {
-                patterns: this.state.patterns
+                patterns: this.state.patterns,
+                user: this.props.user
             }
         });
     }

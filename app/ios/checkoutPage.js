@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var EditAddressPage = require('./editAddressPage');
 
 var {
     StyleSheet,
@@ -46,22 +47,69 @@ var styles = StyleSheet.create({
     scroll: {
         //borderColor: 'pink',
         justifyContent: 'center',
-        //alignItems: 'center'
         flex: 0.8
     },
+    editButton: {
+        alignSelf: 'center',
+        marginBottom: 10,
+    },
+    editButtonText: {
+        padding: 5,
+        color: 'blue'
+    }
 });
 
 class CheckoutPage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            shippingAddress: this.props.user.address,
+            billingAddress: this.props.user.address
+        }
+    }
+
+    goToChangeAddress(type) {
+        this.props.toRoute({
+            name: 'Edit',
+            component: EditAddressPage,
+            passProp: {
+                type: type,
+                shipping: this.state.shippingAddress,
+                billing: this.state.billingAddress
+            }
+        })
     }
 
     render() {
         return (
-            <ScrollView contentContainerStyle = {styles.scroll}>
-                <View style = {styles.container}>
-                </View>
-            </ScrollView>
+            <View>
+                <ScrollView contentContainerStyle = {styles.scroll}>
+                    <Text>
+                        Billing Address: {this.state.billingAddress}
+                    </Text>
+                    <TouchableHighlight
+                        underlayColor = 'transparent'
+                        onPress = {this.goToChangeAddress.bind(this, 'billing')}>
+                        <Text style = {styles.editButton}>
+                            Edit
+                        </Text>
+                    </TouchableHighlight>
+                    <Text>
+                        Shipping Address: {this.state.shippingAddress}
+                    </Text>
+                    <TouchableHighlight
+                        underlayColor = 'transparent'
+                        onPress = {this.goToChangeAddress.bind(this, 'shipping')}>
+                        <Text style = {styles.editButton}>
+                            Edit
+                        </Text>
+                    </TouchableHighlight>
+                </ScrollView>
+                <TouchableHighlight 
+                    style = {styles.checkoutButton}>
+                    <Text style = {styles.buttonText}> Checkout </Text>
+                </TouchableHighlight>
+            </View>
         )
     }
 }

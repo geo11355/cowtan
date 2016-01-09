@@ -5,7 +5,8 @@ var Button = require('react-native-button');
 
 var {
     StyleSheet,
-    Text
+    Text,
+    TouchableHighlight
 } = React;
 
 var styles = StyleSheet.create({
@@ -16,21 +17,22 @@ var styles = StyleSheet.create({
     }
 });
 
-var AddButton = React.createClass({
+var DeleteButton = React.createClass({
 
-    goToCamera() {
-        this.props.goToCamera();
+    deletePatterns() {
+        this.props.deletePatterns();
     },
 
     render() {
         return (
             <Button 
                 style = {styles.editButton}
-                onPress = {this.goToCamera}> 
-            Add
+                onPress = {this.deletePatterns}> 
+            Delete
             </Button>
-        );
+        )
     }
 });
 
-module.exports = AddButton;
+module.exports = DeleteButton;
+
