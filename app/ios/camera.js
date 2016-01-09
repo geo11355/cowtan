@@ -37,9 +37,10 @@ var styles = StyleSheet.create({
   },
   centerLine: {
     alignSelf: 'center',
-    borderWidth: 1.5,
+    borderWidth: 1.2,
     borderColor: '#800000',
-    flex: 0.8
+    flex: 0.8,
+    opacity: 0.5
   },
   placeholder: {
     flex: 0.1

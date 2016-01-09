@@ -23,6 +23,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		945059B61C362CD300FD7648 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 945059AC1C362C6D00FD7648 /* libRCTCamera.a */; };
 		945059B81C3A011600FD7648 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 945059B71C3A011600FD7648 /* Images.xcassets */; };
+		EB5004DD1C3F359F0066570C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EB5004DC1C3F359F0066570C /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		945059A61C362C6C00FD7648 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		945059B71C3A011600FD7648 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = cowtan/Images.xcassets; sourceTree = "<group>"; };
+		EB5004DC1C3F359F0066570C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../../main.jsbundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				EB5004DC1C3F359F0066570C /* main.jsbundle */,
 				945059A61C362C6C00FD7648 /* RCTCamera.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* cowtan */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -538,6 +541,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB5004DD1C3F359F0066570C /* main.jsbundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				945059B81C3A011600FD7648 /* Images.xcassets in Resources */,
 			);

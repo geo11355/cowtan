@@ -19,6 +19,8 @@ var {
     Alert
 } = React;
 
+console.disableYellowBox = true;
+
 class ShoppingCart extends Component {
     // Constructor stores dataSource that implements a comparator and patterns
     // in the state for updating
@@ -116,18 +118,20 @@ class ShoppingCart extends Component {
 
         return (
             <View style = {styles.container}>
-                <View style = {styles.topRow}>
+                <View style={styles.topRow}>
                     <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                     <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
                     <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
                 </View>
                 {emptyMessage}
-                <TouchableHighlight
-                    underlayColor = 'white'
-                    style = {styles.checkoutButton}
-                    onPress = {this.goToCheckout.bind(this)}>
-                    <Text style = {styles.buttonText} > Checkout </Text>
-                </TouchableHighlight>
+                <View style = {styles.checkoutButtonContainer}>
+                    <TouchableHighlight
+                        underlayColor = 'white'
+                        style = {styles.checkoutButton}
+                        onPress = {this.goToCheckout.bind(this)}>
+                        <Text style = {styles.buttonText} >Checkout</Text>
+                    </TouchableHighlight>
+                </View>
             </View>
         );
     }
@@ -136,11 +140,13 @@ class ShoppingCart extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#f0eeee'
     },
     emptyTextContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#f0eeee',
     },
     emptyText: {
         margin: 20,
@@ -150,7 +156,7 @@ var styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        borderBottomWidth: 1.5,
+        borderBottomWidth: 1,
         borderColor: '#800000',
         backgroundColor: '#fff2f2',
     },
@@ -159,8 +165,9 @@ var styles = StyleSheet.create({
     },
     topRow: {
         flexDirection: 'row',
-        borderBottomWidth: 2,
-        borderColor: 'black',
+        backgroundColor: 'white',
+        borderBottomWidth: 1.5,
+        borderColor: '#d2d0d0',
     },
     itemColumn: {
         flex: 0.6,
@@ -175,11 +182,12 @@ var styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginRight: 5,
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: 7,
+        marginBottom: 7
     },
     itemText: {
-        margin: 10,
+        margin: 7,
+        marginRight: 10,
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -211,16 +219,22 @@ var styles = StyleSheet.create({
     listView:{
         flex: 1,
     },
+    checkoutButtonContainer: {
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderColor: '#d2d0d0',
+
+    },
     checkoutButton: {
         height: 36,
         //borderWidth: 1,
         borderColor: '#800000',
         backgroundColor: '#800000',
         borderRadius: 8,
-        marginBottom: 5,
+        marginBottom: 10,
         marginRight: 25,
         marginLeft: 25,
-        marginTop: 0,
+        marginTop: 10,
         //alignSelf: 'stretch',
         
         //Keeps text aligned
@@ -237,8 +251,7 @@ var styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontSize: 18,
-    }
-
+    },
 });
 
 module.exports = ShoppingCart;
