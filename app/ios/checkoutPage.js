@@ -72,7 +72,7 @@ class CheckoutPage extends Component {
         this.props.toRoute({
             name: 'Edit',
             component: EditAddressPage,
-            passProp: {
+            passProps: {
                 types: type,
                 shipping: this.state.shippingAddress,
                 billing: this.state.billingAddress
