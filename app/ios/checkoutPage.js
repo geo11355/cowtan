@@ -73,11 +73,11 @@ class CheckoutPage extends Component {
             name: 'Edit',
             component: EditAddressPage,
             passProp: {
-                type: type,
+                types: type,
                 shipping: this.state.shippingAddress,
                 billing: this.state.billingAddress
             }
-        })
+        });
     }
 
     render() {
