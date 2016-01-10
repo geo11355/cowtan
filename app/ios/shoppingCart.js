@@ -56,10 +56,6 @@ class ShoppingCart extends Component {
     updatePatterns(response) {
         if (response != null) {
             this.state.patterns.push(response);
-            var dataSource = new ListView.DataSource(
-                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
-            );
-
             this.setState(
                 {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
             );
