@@ -144,10 +144,10 @@ class ShoppingCart extends Component {
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>
                     <TouchableHighlight
-                        underlayColor = 'white'
+                        underlayColor = '#4d0000'
                         style = {styles.checkoutButton}
                         onPress = {this.goToCheckout.bind(this)}>
-                        <Text style = {styles.buttonText} >Checkout</Text>
+                        <Text style = {styles.buttonText}>Checkout</Text>
                     </TouchableHighlight>
              	</View>
             </View>
