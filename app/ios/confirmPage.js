@@ -83,7 +83,7 @@ class ConfirmPage extends Component{
 		this.props.toRoute({
             name: 'Pattern List',
             component: ShoppingCart,
-            rightCorner: AddAndDelete,
+            //rightCorner: AddAndDelete,
             leftCorner: LogoutButton,
             passProps: {
             	user: this.props.user

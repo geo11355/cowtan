@@ -4,6 +4,7 @@ var React = require('react-native');
 var Camera = require('react-native-camera');
 var LoginPage = require('./loginPage');
 var CheckoutPage = require('./checkoutPage');
+var AddAndDelete = require('./addAndDelete');
 
 console.disableYellowBox = true;
 
@@ -34,7 +35,8 @@ class ShoppingCart extends Component {
             isEmpty: true,
         };
 
-        this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this)});
+        //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
+        //						manualUpdatePatterns: this.manualUpdatePatterns.bind(this)});
         this.props.setLeftProps({logout: this.logout.bind(this)});
     }
 
@@ -56,12 +58,21 @@ class ShoppingCart extends Component {
     updatePatterns(response) {
         if (response != null) {
             this.state.patterns.push(response);
+
+            var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
             this.setState(
                 {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
             );
         }else{
             Alert.alert("Not a recognized fabric.", null);
         }
+    }
+
+    manualUpdatePatterns(){
+    	console.log("Manual Add");
     }
 
     deletePatterns(rowData){
@@ -139,6 +150,12 @@ class ShoppingCart extends Component {
                 </View>
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>
+                    <AddAndDelete 
+                        style = {styles.addAndDelete}
+                        manualUpdatePatterns = {this.manualUpdatePatterns.bind(this)}
+                        updatePatterns = {this.updatePatterns.bind(this)}
+                        deletePatterns = {this.deletePatterns.bind(this)}
+                        toRoute = {this.props.toRoute.bind(this)}/>
                     <TouchableHighlight
                         underlayColor = '#4d0000'
                         style = {styles.checkoutButton}
@@ -237,7 +254,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopWidth: 1,
         borderColor: '#d2d0d0',
-
+        flexDirection: 'row'
     },
     checkoutButton: {
         height: 36,
@@ -246,10 +263,10 @@ var styles = StyleSheet.create({
         backgroundColor: '#800000',
         borderRadius: 8,
         marginBottom: 10,
-        marginRight: 25,
-        marginLeft: 25,
+        marginRight: 15,
+        marginLeft: 15,
         marginTop: 10,
-        //alignSelf: 'stretch',
+        flex: 0.2,
         
         //Keeps text aligned
         justifyContent: 'center',
@@ -264,7 +281,7 @@ var styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         alignSelf: 'center',
-        fontSize: 18,
+        fontSize: 16,
     },
 });
 

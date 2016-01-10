@@ -11,9 +11,10 @@ var {
 var styles = StyleSheet.create({
     editButton: {
         fontSize: 16,
-        color: 'white',
-        marginRight: 13
-    }
+        color: 'black',
+        margin: 10,
+        borderWidth: 1
+    },
 });
 
 var AddButton = React.createClass({

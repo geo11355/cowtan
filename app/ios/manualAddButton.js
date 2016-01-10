@@ -10,31 +10,26 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-    editButton: {
+    manualAddButton: {
         fontSize: 16,
         color: 'black',
         margin: 10,
-        borderWidth: 1,
-
-    },
+        borderWidth: 1
+    }
 });
 
-var DeleteButton = React.createClass({
+var ManualAddButton = React.createClass({
 
-    deletePatterns() {
-        this.props.deletePatterns();
-    },
 
     render() {
         return (
             <Button 
-                style = {styles.editButton}
-                onPress = {this.deletePatterns}> 
-                Delete
+                style = {styles.manualAddButton}
+                onPress = {this.props.manualUpdatePatterns}> 
+            FA
             </Button>
         )
     }
 });
 
-module.exports = DeleteButton;
-
+module.exports = ManualAddButton;
