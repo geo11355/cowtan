@@ -19,8 +19,6 @@ var {
     Alert
 } = React;
 
-console.disableYellowBox = true;
-
 class ShoppingCart extends Component {
     // Constructor stores dataSource that implements a comparator and patterns
     // in the state for updating
@@ -36,7 +34,7 @@ class ShoppingCart extends Component {
             isEmpty: true,
         };
 
-        this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this)});
+        this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this)});
         this.props.setLeftProps({logout: this.logout.bind(this)});
     }
 
@@ -70,6 +68,23 @@ class ShoppingCart extends Component {
         }
     }
 
+    deletePatterns(rowData){
+    	var index = this.state.patterns.indexOf(rowData);
+    	this.state.patterns.splice(index, 1);
+
+    	var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
+        this.setState(
+           	{dataSource: dataSource.cloneWithRows(this.state.patterns)}
+      	);
+
+      	this.setState(
+      		{isEmpty: this.state.patterns.length > 0 ? false: true}
+      	);
+    }
+
 
     // Callback function to move to the checkout page upon button press
     goToCheckout() {
@@ -86,8 +101,11 @@ class ShoppingCart extends Component {
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
         return (
-            <TouchableHighlight
-                underlayColor='#dddddd'>
+           <View>
+           		<TouchableHighlight
+           			onPress = {() => this.deletePatterns(rowData)}>
+           			<Text>Delete</Text>
+           		</TouchableHighlight>
                 <View style = {styles.row}>
                     <View style = {styles.itemColumn}>
                         <View style = {styles.productNameRow}>
@@ -102,7 +120,7 @@ class ShoppingCart extends Component {
                     <View style = {styles.priceColumn}><Text style = {styles.productInfo}>{rowData.price}</Text></View>
                     <View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>
                 </View>
-            </TouchableHighlight>
+            </View>
         );
     }
 
@@ -131,7 +149,7 @@ class ShoppingCart extends Component {
                         onPress = {this.goToCheckout.bind(this)}>
                         <Text style = {styles.buttonText} >Checkout</Text>
                     </TouchableHighlight>
-                </View>
+             	</View>
             </View>
         );
     }

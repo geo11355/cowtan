@@ -28,7 +28,7 @@ var AddAndDelete = React.createClass({
 
 	// Call back function for going to the camera with AddButton
 	goToCamera() {
-		console.log('TESTING');
+		//console.log('TESTING');
 	    this.props.toRoute({
 	        name: 'Scan a Barcode',
 	        component: CameraPage,
@@ -38,15 +38,10 @@ var AddAndDelete = React.createClass({
 	    });
 	},
 
-	// Callback function for deleting patterns from DeleteButton
-	deletePatterns() {
-		console.log('deleting');
-	},
-
 	render() {
 		return (
 			<View style = {styles.iconContainer}>
-				<DeleteButton deletePatterns = {this.deletePatterns} />
+				<DeleteButton deletePatterns = {this.props.deletePatterns} />
 				<AddButton goToCamera = {this.goToCamera}/>
 			</View>
 		)
