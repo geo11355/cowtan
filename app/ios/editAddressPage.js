@@ -89,7 +89,7 @@ class EditAddressPage extends Component {
     onUpdatePressed() {
         var newAddress = this.state.addr1 + ' ' + this.state.addr2 + ' ' +
             this.state.city + ', ' + this.state.state + ' ' + this.state.zip;
-        this.props.updateAddress(this.props.type, newAddress);
+        this.props.updateAddress(this.props.types, newAddress);
         this.props.toBack();
     }
 

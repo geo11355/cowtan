@@ -69,6 +69,7 @@ class CheckoutPage extends Component {
     }
 
     updateAddress(type, address) {
+        
         if (type == 'billing') {
             this.setState({ billingAddress: address });
         }
