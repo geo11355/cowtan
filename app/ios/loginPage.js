@@ -173,7 +173,6 @@ class LoginPage extends Component {
                         style = {styles.textInput}
                         placeholder = 'Account Number'
                         value = {this.state.acctNum}
-                        blurOnSubmit = {false}
                         returnKeyType = 'next'
                         onSubmitEditing = {() => this.passInput.focus()}
                         onChange = {this.acctNumChanged.bind(this)}/>

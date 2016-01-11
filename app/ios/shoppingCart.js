@@ -71,10 +71,6 @@ class ShoppingCart extends Component {
         }
     }
 
-    manualUpdatePatterns(){
-    	console.log("Manual Add");
-    }
-
     deletePatterns(rowData){
     	var index = this.state.patterns.indexOf(rowData);
     	this.state.patterns.splice(index, 1);
@@ -152,7 +148,6 @@ class ShoppingCart extends Component {
                 <View style = {styles.checkoutButtonContainer}>
                     <AddAndDelete 
                         style = {styles.addAndDelete}
-                        manualUpdatePatterns = {this.manualUpdatePatterns.bind(this)}
                         updatePatterns = {this.updatePatterns.bind(this)}
                         deletePatterns = {this.deletePatterns.bind(this)}
                         toRoute = {this.props.toRoute.bind(this)}/>

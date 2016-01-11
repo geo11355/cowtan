@@ -19,13 +19,15 @@ var styles = StyleSheet.create({
 });
 
 var ManualAddButton = React.createClass({
-
+    goToManualUpdate(){
+        this.props.goToManualUpdate;
+    },
 
     render() {
         return (
             <Button 
                 style = {styles.manualAddButton}
-                onPress = {this.props.manualUpdatePatterns}> 
+                onPress = {this.props.goToManualUpdate}> 
             FA
             </Button>
         )

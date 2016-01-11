@@ -5,6 +5,7 @@ var DeleteButton = require('./deleteButton');
 var AddButton = require('./addButton');
 var CameraPage = require('./camera');
 var ManualAddButton = require('./manualAddButton');
+var ManualAddPage = require('./manualAddPage');
 
 var {
 	StyleSheet,
@@ -46,12 +47,22 @@ var AddAndDelete = React.createClass({
 	    });
 	},
 
+	goToManualUpdate(){
+		this.props.toRoute({
+			name: 'Add an Item',
+			component: ManualAddPage,
+			passProps: {
+				updatePatterns: this.props.updatePatterns
+			}
+		});
+	},
+
 	render() {
 		return (
 			<View style = {styles.iconContainer}>
 				<DeleteButton style = {styles.deleteButton} deletePatterns = {this.props.deletePatterns}/>
 				<AddButton style = {styles.addButton} goToCamera = {this.goToCamera}/>
-				<ManualAddButton style = {styles.manualAddButton} manualUpdatePatterns = {this.props.manualUpdatePatterns}/>
+				<ManualAddButton style = {styles.manualAddButton} goToManualUpdate = {this.goToManualUpdate}/>
 			</View>
 		)
 	}
