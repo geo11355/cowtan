@@ -68,6 +68,15 @@ class CheckoutPage extends Component {
         }
     }
 
+    updateAddress(type, address) {
+        if (type == 'billing') {
+            this.setState({ billingAddress: address });
+        }
+        else {
+            this.setState({ shippingAddress: address });
+        }
+    }
+
     goToChangeAddress(type) {
         this.props.toRoute({
             name: 'Edit',
@@ -75,7 +84,8 @@ class CheckoutPage extends Component {
             passProps: {
                 types: type,
                 shipping: this.state.shippingAddress,
-                billing: this.state.billingAddress
+                billing: this.state.billingAddress,
+                updateAddress: this.updateAddress.bind(this)
             }
         });
     }
