@@ -56,6 +56,19 @@ var styles = StyleSheet.create({
     editButtonText: {
         padding: 5,
         color: 'blue'
+    },
+    sidemarkInput: {
+        height: 80,
+        padding: 4,
+        marginRight: 25,
+        marginLeft: 25,
+        marginBottom: 10,
+        //flex: 1,
+        fontSize: 18,
+        borderWidth: 1,
+        borderColor: '#800000',
+        borderRadius: 8,
+        color: 'black',
     }
 });
 
@@ -69,7 +82,6 @@ class CheckoutPage extends Component {
     }
 
     updateAddress(type, address) {
-        
         if (type == 'billing') {
             this.setState({ billingAddress: address });
         }
@@ -115,6 +127,10 @@ class CheckoutPage extends Component {
                             Edit
                         </Text>
                     </TouchableHighlight>
+                    <TextInput
+                        style = {styles.sidemarkInput}
+                        multiline = {true}
+                        placeholder = 'Sidemark'/>
                 </ScrollView>
                 <TouchableHighlight 
                     style = {styles.checkoutButton}>
