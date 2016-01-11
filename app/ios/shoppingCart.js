@@ -33,6 +33,7 @@ class ShoppingCart extends Component {
             patterns: [],
             dataSource: dataSource.cloneWithRows([]),
             isEmpty: true,
+            deleteMode: false
         };
 
         //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
@@ -50,6 +51,35 @@ class ShoppingCart extends Component {
                 {text: 'Yes', onPress: () => this.props.reset()},
                 {text: 'No'}
             ]
+        );
+    }
+
+
+    enterDeleteMode(){
+        this.setState(
+            {deleteMode: true}
+        );
+
+        var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
+        this.setState(
+            {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+        );
+    }
+
+    exitDeleteMode(){
+        this.setState(
+            {deleteMode: false}
+        );
+
+        var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
+        this.setState(
+            {dataSource: dataSource.cloneWithRows(this.state.patterns)}
         );
     }
 
@@ -103,12 +133,20 @@ class ShoppingCart extends Component {
 
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
+        var deleteButton = this.state.deleteMode ? 
+            (<TouchableHighlight
+                    onPress = {() => this.deletePatterns(rowData)}>
+                    <Text>Delete</Text>
+                </TouchableHighlight>):
+            (<View/>);
+
         return (
            <View>
-           		<TouchableHighlight
+           		{/*<TouchableHighlight
            			onPress = {() => this.deletePatterns(rowData)}>
            			<Text>Delete</Text>
-           		</TouchableHighlight>
+           		</TouchableHighlight>*/}
+                {deleteButton}
                 <View style = {styles.row}>
                     <View style = {styles.itemColumn}>
                         <View style = {styles.productNameRow}>
@@ -149,7 +187,7 @@ class ShoppingCart extends Component {
                     <AddAndDelete 
                         style = {styles.addAndDelete}
                         updatePatterns = {this.updatePatterns.bind(this)}
-                        deletePatterns = {this.deletePatterns.bind(this)}
+                        enterDeleteMode = {this.enterDeleteMode.bind(this)}
                         toRoute = {this.props.toRoute.bind(this)}/>
                     <TouchableHighlight
                         underlayColor = '#4d0000'

@@ -9,22 +9,47 @@ var {
 	View,
 	TouchableHighlight,
 	Component,
-	ScrollView
+	ScrollView,
+	Alert
 } = React;
 
 var styles = StyleSheet.create({
+	inputRow: {
+		flexDirection: 'row',
+		marginTop: 20,
+		alignItems: 'flex-end',
+
+	},
+	rowPlaceholder: {
+		flex: 0.075,
+	},
+	rowStaticText: {
+		flex: 0.27,
+		borderBottomWidth: 1,
+		borderColor: '#800000', 
+	},
+	staticText: {
+		marginBottom: 6.2,
+		fontSize: 16,
+	},
+	rowInput: {
+		flex: 0.7,
+		borderBottomWidth: 1,
+		borderColor: '#800000',
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
+	},
 	textInput: {
         height: 30,
-        padding: 4,
+        //padding: 4,
         marginRight: 25,
-        marginLeft: 25,
-        marginBottom: 10,
-        //flex: 1,
+        marginLeft: 15,
+        flex: 1,
         fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#800000',
-        borderRadius: 8,
+        //borderWidth: 1,
+        //borderColor: '#800000',
         color: 'black',
+        alignSelf: 'stretch'
     },
     addButton: {
         height: 36,
@@ -37,7 +62,7 @@ var styles = StyleSheet.create({
         marginBottom: 10,
         marginRight: 25,
         marginLeft: 25,
-        marginTop: 15,
+        marginTop: 34,
         alignSelf: 'stretch',
         justifyContent: 'center',
         shadowRadius: 4,
@@ -80,48 +105,85 @@ class ManualAddPage extends Component{
             (<View/>);
 
 		return(
-			<View>
+			
 				<ScrollView
 					keyboardShouldPersistTaps = {true}>
-					{errorMessage}
-					<TextInput
-						style = {styles.textInput}
-						placeholder = 'Product Number'
-						value = {this.state.productNum}
-						returnKeyType = 'next'
-						onChange = {this.productNumChanged.bind(this)}
-						onSubmitEditing = {() => this.productName.focus()}/>
-					<TextInput
-						style = {styles.textInput}
-						ref = {(ref) => this.productName = ref}
-						placeholder = 'Product Name'
-						value = {this.state.productName}
-						returnKeyType = 'next'
-						onChange = {this.productNameChanged.bind(this)}
-						onSubmitEditing = {() => this.color.focus()}/>
-					<TextInput
-						style = {styles.textInput}
-						ref = {(ref) => this.color = ref}
-						placeholder = 'Color'
-						value = {this.state.color}
-						returnKeyType = 'next'
-						onChange = {this.colorChanged.bind(this)}
-						onSubmitEditing = {() => this.price.focus()}/>
-					<TextInput
-						style = {styles.textInput}
-						ref = {(ref) => this.price = ref}
-						placeholder = 'Price'
-						value = {this.state.price}
-						onChange = {this.priceChanged.bind(this)}
-						onSubmitEditing = {this.onAddPressed.bind(this)}/>
-				</ScrollView>
-				<TouchableHighlight
-	                style = {styles.addButton}
-	                underlayColor = '#4d0000'
-	                onPress = {this.onAddPressed.bind(this)}>
-	                <Text style = {styles.buttonText}>Add</Text>
-	            </TouchableHighlight>
-            </View>
+					<View style = {styles.inputRow}>
+						<View style = {styles.rowPlaceholder}/>
+						<View style = {styles.rowStaticText}>
+							<Text style = {styles.staticText}>Product #: </Text>
+						</View>
+						<View style = {styles.rowInput}>
+							<TextInput
+							style = {styles.textInput}
+							placeholder = 'Ex: 11335-03'
+							value = {this.state.productNum}
+							returnKeyType = 'next'
+							onChange = {this.productNumChanged.bind(this)}
+							onSubmitEditing = {() => this.productName.focus()}/>
+						</View>
+					</View>
+
+					<View style = {styles.inputRow}>
+						<View style = {styles.rowPlaceholder}/>
+						<View style = {styles.rowStaticText}>
+							<Text style = {styles.staticText}>Name: </Text>
+						</View>
+						<View style = {styles.rowInput}>
+							<TextInput
+								style = {styles.textInput}
+								ref = {(ref) => this.productName = ref}
+								placeholder = 'Ex: Alligator'
+								value = {this.state.productName}
+								returnKeyType = 'next'
+								onChange = {this.productNameChanged.bind(this)}
+								onSubmitEditing = {() => this.color.focus()}/>
+						</View>
+					</View>
+
+					<View style = {styles.inputRow}>
+						<View style = {styles.rowPlaceholder}/>
+						<View style = {styles.rowStaticText}>
+							<Text style = {styles.staticText}>Color: </Text>
+						</View>
+						<View style = {styles.rowInput}>
+							<TextInput
+							style = {styles.textInput}
+							ref = {(ref) => this.color = ref}
+							placeholder = 'Ex: Aqua'
+							value = {this.state.color}
+							returnKeyType = 'next'
+							onChange = {this.colorChanged.bind(this)}
+							onSubmitEditing = {() => this.price.focus()}/>
+						</View>
+					</View>
+
+					<View style = {styles.inputRow}>
+						<View style = {styles.rowPlaceholder}/>
+						<View style = {styles.rowStaticText}>
+							<Text style = {styles.staticText}>Price: </Text>
+						</View>
+						<View style = {styles.rowInput}>
+							<TextInput
+							style = {styles.textInput}
+							ref = {(ref) => this.price = ref}
+							placeholder = 'Ex: 37/10'
+							value = {this.state.price}
+							onChange = {this.priceChanged.bind(this)}
+							onSubmitEditing = {this.onAddPressed.bind(this)}/>
+						</View>
+					</View>
+
+
+	
+					<TouchableHighlight
+		                style = {styles.addButton}
+		                underlayColor = '#4d0000'
+		                onPress = {this.onAddPressed.bind(this)}>
+		                <Text style = {styles.buttonText}>Add</Text>
+		            </TouchableHighlight>
+	            </ScrollView>
+            
 		);
 	}
 
@@ -137,7 +199,7 @@ class ManualAddPage extends Component{
 			this.props.updatePatterns(JSONproduct);
 			this.props.toBack();
 		}else{
-			this.setState({failedEntry: true});
+			Alert.alert('All fields must be filled out.', null);
 		}
 	}
 

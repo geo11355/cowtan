@@ -21,15 +21,15 @@ var styles = StyleSheet.create({
 
 var DeleteButton = React.createClass({
 
-    deletePatterns() {
-        this.props.deletePatterns();
+    enterDeleteMode() {
+        this.props.enterDeleteMode();
     },
 
     render() {
         return (
             <Button 
                 style = {styles.editButton}
-                onPress = {this.deletePatterns}> 
+                onPress = {this.enterDeleteMode}> 
                 Delete
             </Button>
         )
