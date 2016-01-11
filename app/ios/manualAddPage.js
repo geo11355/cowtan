@@ -52,7 +52,14 @@ var styles = StyleSheet.create({
     	fontSize: 18,
         color: 'white',
         alignSelf: 'center'
-    }
+    },
+    error: {
+        fontSize: 12,
+        color: 'red',
+        marginBottom: 0,
+        alignSelf: 'flex-start',
+        marginLeft: 25
+    },
 });
 
 class ManualAddPage extends Component{
@@ -62,15 +69,21 @@ class ManualAddPage extends Component{
 			productNum: '',
 			productName: '',
 			color: '',
-			price: ''
+			price: '',
+			failedEntry: false
 		}
 	}
 
 	render(){
+		var errorMessage = this.state.failedEntry ? 
+            (<Text style = {styles.error}>*All fields must be filled out</Text>):
+            (<View/>);
+
 		return(
 			<View>
 				<ScrollView
 					keyboardShouldPersistTaps = {true}>
+					{errorMessage}
 					<TextInput
 						style = {styles.textInput}
 						placeholder = 'Product Number'
@@ -123,6 +136,8 @@ class ManualAddPage extends Component{
 			};
 			this.props.updatePatterns(JSONproduct);
 			this.props.toBack();
+		}else{
+			this.setState({failedEntry: true});
 		}
 	}
 
