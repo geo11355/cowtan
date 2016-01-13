@@ -19,18 +19,17 @@ var styles = StyleSheet.create({
     },
 });
 
-var DeleteButton = React.createClass({
+var CancelDeleteButton = React.createClass({
 
     render() {
         return (
             <Button 
                 style = {styles.editButton}
-                onPress = {this.props.enterDeleteMode}> 
-                Delete
+                onPress = {this.props.cancelDeleteMode}> 
+                Cancel
             </Button>
         )
     }
 });
 
-module.exports = DeleteButton;
-
+module.exports = CancelDeleteButton;

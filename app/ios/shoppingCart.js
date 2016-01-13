@@ -7,6 +7,7 @@ var CheckoutPage = require('./checkoutPage');
 var AddButton = require('./addButton');
 var ManualAddButton = require('./manualAddButton');
 var DeleteButton = require('./deleteButton');
+var CancelDeleteButton = require('./cancelDeleteButton');
 
 console.disableYellowBox = true;
 
@@ -58,9 +59,13 @@ class ShoppingCart extends Component {
 
 
     enterDeleteMode(){
-        this.setState(
-            {deleteMode: true}
-        );
+        if (!this.state.isEmpty){
+            this.setState(
+                {deleteMode: true}
+            );
+        }else{
+            Alert.alert('Your pattern list is empty.', null);
+        } 
 
         var dataSource = new ListView.DataSource(
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
@@ -71,18 +76,18 @@ class ShoppingCart extends Component {
         );
     }
 
-    exitDeleteMode(){
+    cancelDeleteMode(){
         this.setState(
             {deleteMode: false}
         );
 
-        var dataSource = new ListView.DataSource(
+        /*var dataSource = new ListView.DataSource(
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
             );
 
         this.setState(
             {dataSource: dataSource.cloneWithRows(this.state.patterns)}
-        );
+        );*/
     }
 
     // Callback function for updating the patterns list, creates a new dataSource
@@ -112,7 +117,7 @@ class ShoppingCart extends Component {
             );
 
         this.setState(
-           	{dataSource: dataSource.cloneWithRows(this.state.patterns)}
+           	{dataSource: dataSource.cloneWithRows(this.state.patterns), deleteMode: false}
       	);
 
       	this.setState(
@@ -144,10 +149,6 @@ class ShoppingCart extends Component {
 
         return (
            <View>
-           		{/*<TouchableHighlight
-           			onPress = {() => this.deletePatterns(rowData)}>
-           			<Text>Delete</Text>
-           		</TouchableHighlight>*/}
                 {deleteButton}
                 <View style = {styles.row}>
                     <View style = {styles.itemColumn}>
@@ -177,6 +178,12 @@ class ShoppingCart extends Component {
                     dataSource = {this.state.dataSource}
                     renderRow = {this.renderRow.bind(this)}/>);
 
+        var deleteMode = this.state.deleteMode ?
+            (<CancelDeleteButton
+                cancelDeleteMode = {this.cancelDeleteMode.bind(this)}/>):
+            (<DeleteButton
+                enterDeleteMode = {this.enterDeleteMode.bind(this)}/>);
+
         return (
             <View style = {styles.container}>
                 <View style={styles.topRow}>
@@ -192,14 +199,7 @@ class ShoppingCart extends Component {
                     <ManualAddButton
                         updatePatterns = {this.updatePatterns.bind(this)}
                         toRoute = {this.props.toRoute.bind(this)}/>
-                    <DeleteButton
-                        enterDeleteMode = {this.enterDeleteMode.bind(this)}/>
-
-                    {/*<AddAndDelete 
-                        style = {styles.addAndDelete}
-                        updatePatterns = {this.updatePatterns.bind(this)}
-                        enterDeleteMode = {this.enterDeleteMode.bind(this)}
-                        toRoute = {this.props.toRoute.bind(this)}/>*/}
+                    {deleteMode}
                     <TouchableHighlight
                         underlayColor = '#4d0000'
                         style = {styles.checkoutButton}
