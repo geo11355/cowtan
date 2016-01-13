@@ -4,7 +4,9 @@ var React = require('react-native');
 var Camera = require('react-native-camera');
 var LoginPage = require('./loginPage');
 var CheckoutPage = require('./checkoutPage');
-var AddAndDelete = require('./addAndDelete');
+var AddButton = require('./addButton');
+var ManualAddButton = require('./manualAddButton');
+var DeleteButton = require('./deleteButton');
 
 console.disableYellowBox = true;
 
@@ -184,11 +186,20 @@ class ShoppingCart extends Component {
                 </View>
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>
-                    <AddAndDelete 
+                    <AddButton
+                        updatePatterns = {this.updatePatterns.bind(this)}
+                        toRoute = {this.props.toRoute.bind(this)}/>
+                    <ManualAddButton
+                        updatePatterns = {this.updatePatterns.bind(this)}
+                        toRoute = {this.props.toRoute.bind(this)}/>
+                    <DeleteButton
+                        enterDeleteMode = {this.enterDeleteMode.bind(this)}/>
+
+                    {/*<AddAndDelete 
                         style = {styles.addAndDelete}
                         updatePatterns = {this.updatePatterns.bind(this)}
                         enterDeleteMode = {this.enterDeleteMode.bind(this)}
-                        toRoute = {this.props.toRoute.bind(this)}/>
+                        toRoute = {this.props.toRoute.bind(this)}/>*/}
                     <TouchableHighlight
                         underlayColor = '#4d0000'
                         style = {styles.checkoutButton}

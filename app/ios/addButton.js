@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Button = require('react-native-button');
+var CameraPage = require('./camera');
 
 var {
     StyleSheet,
@@ -20,7 +21,14 @@ var styles = StyleSheet.create({
 var AddButton = React.createClass({
 
     goToCamera() {
-        this.props.goToCamera();
+        //console.log(this.props);
+        this.props.toRoute({
+            name: 'Scan a Barcode',
+            component: CameraPage,
+            passProps: {
+                updatePatterns: this.props.updatePatterns
+            }
+        });
     },
 
     render() {

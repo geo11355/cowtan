@@ -216,6 +216,7 @@ class LoginPage extends Component {
     // _handleResponse on fetch results
     onLoginPressed() {
         if (this.state.lastName !== '' && this.state.acctNum !== '') {
+
             var query = generateUrl(this.state.acctNum, this.state.lastName);
             this.setState({isLoading: true});
             fetch(query)
