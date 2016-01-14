@@ -5,6 +5,7 @@ var Camera = require('react-native-camera');
 var LoginPage = require('./loginPage');
 var CheckoutPage = require('./checkoutPage');
 var AddAndDelete = require('./addAndDelete');
+var CustomBackButton = require('./customBack');
 
 console.disableYellowBox = true;
 
@@ -88,6 +89,16 @@ class ShoppingCart extends Component {
       	);
     }
 
+    customBack() {
+        Alert.alert(
+            'Confirm',
+            'Current session will be lost.',
+            [
+                {text: 'Yes', onPress: () => this.props.toBack},
+                {text: 'No'}
+            ]
+        );
+    }
 
     // Callback function to move to the checkout page upon button press
     goToCheckout() {
@@ -97,6 +108,10 @@ class ShoppingCart extends Component {
             passProps: {
                 patterns: this.state.patterns,
                 user: this.props.user
+            },
+            leftComponent: CustomBackButton,
+            leftComponentProps: {
+                customBack: this.customBack.bind(this)
             }
         });
     }

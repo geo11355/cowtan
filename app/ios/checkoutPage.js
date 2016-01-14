@@ -90,6 +90,8 @@ class CheckoutPage extends Component {
         }
     }
 
+
+
     goToChangeAddress(type) {
         this.props.toRoute({
             name: 'Edit',
@@ -99,7 +101,7 @@ class CheckoutPage extends Component {
                 shipping: this.state.shippingAddress,
                 billing: this.state.billingAddress,
                 updateAddress: this.updateAddress.bind(this)
-            }
+            },
         });
     }
 
