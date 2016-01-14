@@ -10,13 +10,17 @@ var {
     View,
     TouchableHighlight,
     Component,
-    ScrollView
+    ScrollView,
+    ListView
 } = React;
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column'
+    },
+    patternRow: {
+        flexDirection: 'row'
     },
     checkoutButton: {
         height: 36,
@@ -75,10 +79,16 @@ var styles = StyleSheet.create({
 class CheckoutPage extends Component {
     constructor(props) {
         super(props);
+        
+        var dataSource = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+
         this.state = {
             shippingAddress: this.props.user.address,
-            billingAddress: this.props.user.address
-        }
+            billingAddress: this.props.user.address,
+            dataSource: dataSource.cloneWithRows(this.props.patterns)
+        };
     }
 
     updateAddress(type, address) {
@@ -105,9 +115,21 @@ class CheckoutPage extends Component {
         });
     }
 
+    renderRow(rowData, sectionID, rowID){
+        return(
+            <View style = {styles.patternRow}>
+                <Text>{rowData.name}</Text>
+                <Text>{rowData.productnum}</Text>
+            </View>
+        );
+    }
+
     render() {
         return (
             <View>
+                <ListView style = {styles.listView}
+                    dataSource = {this.state.dataSource}
+                    renderRow = {this.renderRow.bind(this)}/>
                 <ScrollView contentContainerStyle = {styles.scroll}>
                     <Text>
                         Billing Address: {this.state.billingAddress}

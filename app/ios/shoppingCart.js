@@ -6,6 +6,10 @@ var LoginPage = require('./loginPage');
 var CheckoutPage = require('./checkoutPage');
 var AddAndDelete = require('./addAndDelete');
 var CustomBackButton = require('./customBack');
+var AddButton = require('./addButton');
+var ManualAddButton = require('./manualAddButton');
+var DeleteButton = require('./deleteButton');
+var CancelDeleteButton = require('./cancelDeleteButton');
 
 console.disableYellowBox = true;
 
@@ -34,6 +38,7 @@ class ShoppingCart extends Component {
             patterns: [],
             dataSource: dataSource.cloneWithRows([]),
             isEmpty: true,
+            deleteMode: false
         };
 
         //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
@@ -51,6 +56,31 @@ class ShoppingCart extends Component {
                 {text: 'Yes', onPress: () => this.props.reset()},
                 {text: 'No'}
             ]
+        );
+    }
+
+
+    enterDeleteMode(){
+        if (!this.state.isEmpty){
+            this.setState(
+                {deleteMode: true}
+            );
+        }else{
+            Alert.alert('Your pattern list is empty.', null);
+        } 
+
+        var dataSource = new ListView.DataSource(
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            );
+
+        this.setState(
+            {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+        );
+    }
+
+    cancelDeleteMode(){
+        this.setState(
+            {deleteMode: false}
         );
     }
 
@@ -81,7 +111,7 @@ class ShoppingCart extends Component {
             );
 
         this.setState(
-           	{dataSource: dataSource.cloneWithRows(this.state.patterns)}
+           	{dataSource: dataSource.cloneWithRows(this.state.patterns), deleteMode: false}
       	);
 
       	this.setState(
@@ -118,12 +148,16 @@ class ShoppingCart extends Component {
 
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
+        var deleteButton = this.state.deleteMode ? 
+            (<TouchableHighlight
+                    onPress = {() => this.deletePatterns(rowData)}>
+                    <Text>Delete</Text>
+                </TouchableHighlight>):
+            (<View/>);
+
         return (
            <View>
-           		<TouchableHighlight
-           			onPress = {() => this.deletePatterns(rowData)}>
-           			<Text>Delete</Text>
-           		</TouchableHighlight>
+                {deleteButton}
                 <View style = {styles.row}>
                     <View style = {styles.itemColumn}>
                         <View style = {styles.productNameRow}>
@@ -152,6 +186,12 @@ class ShoppingCart extends Component {
                     dataSource = {this.state.dataSource}
                     renderRow = {this.renderRow.bind(this)}/>);
 
+        var deleteMode = this.state.deleteMode ?
+            (<CancelDeleteButton
+                cancelDeleteMode = {this.cancelDeleteMode.bind(this)}/>):
+            (<DeleteButton
+                enterDeleteMode = {this.enterDeleteMode.bind(this)}/>);
+
         return (
             <View style = {styles.container}>
                 <View style={styles.topRow}>
@@ -161,11 +201,13 @@ class ShoppingCart extends Component {
                 </View>
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>
-                    <AddAndDelete 
-                        style = {styles.addAndDelete}
+                    <AddButton
                         updatePatterns = {this.updatePatterns.bind(this)}
-                        deletePatterns = {this.deletePatterns.bind(this)}
                         toRoute = {this.props.toRoute.bind(this)}/>
+                    <ManualAddButton
+                        updatePatterns = {this.updatePatterns.bind(this)}
+                        toRoute = {this.props.toRoute.bind(this)}/>
+                    {deleteMode}
                     <TouchableHighlight
                         underlayColor = '#4d0000'
                         style = {styles.checkoutButton}

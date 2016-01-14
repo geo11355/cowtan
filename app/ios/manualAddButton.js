@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Button = require('react-native-button');
+var ManualAddPage = require('./manualAddPage');
 
 var {
     StyleSheet,
@@ -19,15 +20,22 @@ var styles = StyleSheet.create({
 });
 
 var ManualAddButton = React.createClass({
+    
     goToManualUpdate(){
-        this.props.goToManualUpdate;
+        this.props.toRoute({
+            name: 'Add an Item',
+            component: ManualAddPage,
+            passProps: {
+                updatePatterns: this.props.updatePatterns
+            }
+        });
     },
 
     render() {
         return (
             <Button 
                 style = {styles.manualAddButton}
-                onPress = {this.props.goToManualUpdate}> 
+                onPress = {this.goToManualUpdate}> 
             FA
             </Button>
         )

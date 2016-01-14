@@ -60,7 +60,7 @@ var AddAndDelete = React.createClass({
 	render() {
 		return (
 			<View style = {styles.iconContainer}>
-				<DeleteButton style = {styles.deleteButton} deletePatterns = {this.props.deletePatterns}/>
+				<DeleteButton style = {styles.deleteButton} enterDeleteMode = {this.props.enterDeleteMode}/>
 				<AddButton style = {styles.addButton} goToCamera = {this.goToCamera}/>
 				<ManualAddButton style = {styles.manualAddButton} goToManualUpdate = {this.goToManualUpdate}/>
 			</View>
