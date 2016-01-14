@@ -6,16 +6,16 @@ var CameraPage = require('./camera');
 
 var {
     StyleSheet,
-    Text
+    Text,
+    TouchableHighlight,
+    Image
 } = React;
 
 var styles = StyleSheet.create({
-    editButton: {
-        fontSize: 16,
-        color: 'black',
-        margin: 10,
-        borderWidth: 1
-    },
+    image: {
+        height: 36, width: 36,
+        alignSelf: 'center'
+    }
 });
 
 var AddButton = React.createClass({
@@ -33,11 +33,12 @@ var AddButton = React.createClass({
 
     render() {
         return (
-            <Button 
-                style = {styles.editButton}
+            <TouchableHighlight
                 onPress = {this.goToCamera}> 
-            Add
-            </Button>
+                <Image
+                    style = {styles.image}
+                    source = {require('./../media/camera.png')}/>
+            </TouchableHighlight>
         );
     }
 });
