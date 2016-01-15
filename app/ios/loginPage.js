@@ -221,11 +221,13 @@ class LoginPage extends Component {
     _getLocation() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                var initialPosition = JSON.stringify(position);
-                this.setState({ currentLocation: initialPosition });
-                console.log(initialPosition);
+               var crd = position.coords;
+
+               console.log("pos");
+               console.log('lat' + crd.latitude);
             },
-            (error) => alert(error.message)
+            (error) => alert(error.message),
+            {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
         );
         console.log('fin');
     }
