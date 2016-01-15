@@ -38,7 +38,8 @@ class ShoppingCart extends Component {
             patterns: [],
             dataSource: dataSource.cloneWithRows([]),
             isEmpty: true,
-            deleteMode: false
+            deleteMode: false,
+            deleteArray: [],
         };
 
         //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
@@ -102,6 +103,15 @@ class ShoppingCart extends Component {
         }
     }
 
+    addToDeleteArray(index){
+        if (this.state.deleteArray.indexOf(index) == -1)
+            this.state.deleteArray.push(index);
+        else{
+            this.state.deleteArray.splice(index);
+        }
+        console.log(this.state.deleteArray);
+    }
+
     deletePatterns(rowData){
     	var index = this.state.patterns.indexOf(rowData);
     	this.state.patterns.splice(index, 1);
@@ -150,15 +160,17 @@ class ShoppingCart extends Component {
     renderRow(rowData, sectionID, rowID) {
         var deleteButton = this.state.deleteMode ? 
             (<TouchableHighlight
-                    onPress = {() => this.deletePatterns(rowData)}>
-                    <Text>Delete</Text>
-                </TouchableHighlight>):
+                    onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
+                    style = {styles.deleteButton}>
+                    {/*<Text>Delete</Text>*/}
+                    <View/>
+            </TouchableHighlight>):
             (<View/>);
 
         return (
            <View>
-                {deleteButton}
                 <View style = {styles.row}>
+                    {deleteButton}
                     <View style = {styles.itemColumn}>
                         <View style = {styles.productNameRow}>
                             <Text style = {styles.productNameText}>{rowData.name} </Text>
@@ -254,6 +266,13 @@ var styles = StyleSheet.create({
     },
     itemColumn: {
         flex: 0.6,
+    },
+    deleteButton: {
+        borderWidth: 1,
+        height: 22, width: 22,
+        borderRadius: 11,
+        alignSelf: 'center',
+        marginLeft: 8
     },
     priceColumn: {
         flex: 0.2,

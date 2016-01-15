@@ -40,7 +40,7 @@ var AddButton = React.createClass({
                 onPress = {this.goToCamera}> 
                 <Image
                     style = {styles.image}
-                    source = {require('./../media/bar.png')}/>
+                    source = {require('./../media/bar-gray.png')}/>
             </TouchableHighlight>
         );
     }
