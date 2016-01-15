@@ -15,7 +15,8 @@ var {
     ActivityIndicatorIOS,
     Image,
     Component,
-    ScrollView
+    ScrollView,
+    DeviceEventEmitter
 } = React;
 
 var styles = StyleSheet.create({
@@ -125,8 +126,10 @@ class LoginPage extends Component {
             acctNum: '',
             lastName: '',
             isLoading: false,
-            failedLogin: false
+            failedLogin: false,
+            currrentLocation: null
         };
+        this._getLocation();
     }
 
     render() {
@@ -204,12 +207,27 @@ class LoginPage extends Component {
             this.props.toRoute({
                 name: 'Confirm',
                 component: ConfirmPage,
-                passProps: {user: response}
+                passProps: {
+                    user: response,
+                    location: this.state.currentLocation
+                }
             });
         }
         else {
             this.setState({failedLogin: true, isLoading: false});
         }
+    }
+
+    _getLocation() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                var initialPosition = JSON.stringify(position);
+                this.setState({ currentLocation: initialPosition });
+                console.log(initialPosition);
+            },
+            (error) => alert(error.message)
+        );
+        console.log('fin');
     }
 
     // Callback when the Login button is pressed, calls
