@@ -170,7 +170,7 @@ class ShoppingCart extends Component {
                         </View>
                     </View>
                     <View style = {styles.priceColumn}><Text style = {styles.productInfo}>{rowData.price}</Text></View>
-                    <View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>
+                    {/*<View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>*/}
                 </View>
             </View>
         );
@@ -197,7 +197,7 @@ class ShoppingCart extends Component {
                 <View style={styles.topRow}>
                     <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                     <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
-                    <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
+                    {/*<View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>*/}
                 </View>
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>

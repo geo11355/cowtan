@@ -12,8 +12,9 @@ var {
 
 var styles = StyleSheet.create({
     image: {
-        height: 33, width: 33,
-        alignSelf: 'center'
+        height: 32, width: 32,
+        alignSelf: 'center',
+        margin: 10
     }
 });
 

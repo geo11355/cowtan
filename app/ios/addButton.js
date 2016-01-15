@@ -13,8 +13,11 @@ var {
 
 var styles = StyleSheet.create({
     image: {
-        height: 33, width: 33,
-        alignSelf: 'center'
+        height: 34, width: 34,
+        alignSelf: 'center',
+        marginLeft: 10, 
+        marginRight: 10,
+        marginTop: 6
     }
 });
 
