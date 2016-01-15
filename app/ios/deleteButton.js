@@ -23,11 +23,11 @@ var DeleteButton = React.createClass({
 
     render() {
         return (
-            <Button 
+            <TouchableHighlight 
                 style = {styles.editButton}
                 onPress = {this.props.enterDeleteMode}> 
                 Delete
-            </Button>
+            </TouchableHighlight>
         )
     }
 });
