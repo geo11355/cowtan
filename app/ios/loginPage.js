@@ -127,7 +127,8 @@ class LoginPage extends Component {
             lastName: '',
             isLoading: false,
             failedLogin: false,
-            currrentLocation: null
+            lat: '',
+            long: '',
         };
         this._getLocation();
     }
@@ -218,18 +219,16 @@ class LoginPage extends Component {
         }
     }
 
+    // Callback function that requests current location and stores it into state
     _getLocation() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                var crd = position.coords;
-
-               console.log("pos");
-               console.log('lat' + crd.latitude);
+               this.setState({lat: crd.latitude, long: crd.longitude});
             },
             (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
+            {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
         );
-        console.log('fin');
     }
 
     // Callback when the Login button is pressed, calls

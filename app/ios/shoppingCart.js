@@ -41,10 +41,14 @@ class ShoppingCart extends Component {
             deleteMode: false,
             deleteArray: [],
         };
+        this.props.setLeftProps({
+            logout: this.logout.bind(this)
+        });
+        this.props.setRightProps({
+            enterDeleteMode: this.enterDeleteMode.bind(this),
+            cancelDeleteMode: this.cancelDeleteMode.bind(this),
+        });
 
-        //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
-        //						manualUpdatePatterns: this.manualUpdatePatterns.bind(this)});
-        this.props.setLeftProps({logout: this.logout.bind(this)});
     }
 
     // Callback function for when logout is pressed, pulls up secondary alert
@@ -66,17 +70,19 @@ class ShoppingCart extends Component {
             this.setState(
                 {deleteMode: true}
             );
-        }else{
-            Alert.alert('Your pattern list is empty.', null);
-        } 
+            var dataSource = new ListView.DataSource(
+                    {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+                );
 
-        var dataSource = new ListView.DataSource(
-                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            this.setState(
+                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
             );
-
-        this.setState(
-            {dataSource: dataSource.cloneWithRows(this.state.patterns)}
-        );
+            return true;
+        }
+        else {
+            Alert.alert('Your pattern list is empty.', null);
+            return false;
+        } 
     }
 
     cancelDeleteMode(){

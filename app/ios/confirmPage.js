@@ -4,7 +4,7 @@ var React = require('react-native');
 var ShoppingCart = require('./shoppingCart');
 var AddButton = require('./addButton');
 var LogoutButton = require('./logoutButton');
-var AddAndDelete = require('./addAndDelete');
+var EditButton = require('./editButton');
 
 var {
     StyleSheet,
@@ -83,7 +83,7 @@ class ConfirmPage extends Component{
 		this.props.toRoute({
             name: 'Pattern List',
             component: ShoppingCart,
-            //rightCorner: AddAndDelete,
+            rightCorner: EditButton,
             leftCorner: LogoutButton,
             passProps: {
             	user: this.props.user
