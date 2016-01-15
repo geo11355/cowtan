@@ -225,7 +225,8 @@ class LoginPage extends Component {
                 this.setState({ currentLocation: initialPosition });
                 console.log(initialPosition);
             },
-            (error) => alert(error.message)
+            (error) => alert(error.message),
+            
         );
         console.log('fin');
     }
