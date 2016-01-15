@@ -36,7 +36,7 @@ var ManualAddButton = React.createClass({
                 onPress = {this.goToManualUpdate}> 
                 <Image
                     style = {styles.image}
-                    source = {require('./../media/notepad.png')}/>
+                    source = {require('./../media/pencil.png')}/>
             </TouchableHighlight>
         )
     }
