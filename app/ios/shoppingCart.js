@@ -40,10 +40,14 @@ class ShoppingCart extends Component {
             isEmpty: true,
             deleteMode: false
         };
+        this.props.setLeftProps({
+            logout: this.logout.bind(this)
+        });
+        this.props.setRightProps({
+            enterDeleteMode: this.enterDeleteMode.bind(this),
+            cancelDeleteMode: this.cancelDeleteMode.bind(this),
+        });
 
-        //this.props.setRightProps({updatePatterns: this.updatePatterns.bind(this), deletePatterns: this.deletePatterns.bind(this), 
-        //						manualUpdatePatterns: this.manualUpdatePatterns.bind(this)});
-        this.props.setLeftProps({logout: this.logout.bind(this)});
     }
 
     // Callback function for when logout is pressed, pulls up secondary alert
@@ -65,17 +69,19 @@ class ShoppingCart extends Component {
             this.setState(
                 {deleteMode: true}
             );
-        }else{
-            Alert.alert('Your pattern list is empty.', null);
-        } 
+            var dataSource = new ListView.DataSource(
+                    {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+                );
 
-        var dataSource = new ListView.DataSource(
-                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
+            this.setState(
+                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
             );
-
-        this.setState(
-            {dataSource: dataSource.cloneWithRows(this.state.patterns)}
-        );
+            return true;
+        }
+        else {
+            Alert.alert('Your pattern list is empty.', null);
+            return false;
+        } 
     }
 
     cancelDeleteMode(){
@@ -170,7 +176,7 @@ class ShoppingCart extends Component {
                         </View>
                     </View>
                     <View style = {styles.priceColumn}><Text style = {styles.productInfo}>{rowData.price}</Text></View>
-                    <View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>
+                    {/*<View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>*/}
                 </View>
             </View>
         );
@@ -197,7 +203,7 @@ class ShoppingCart extends Component {
                 <View style={styles.topRow}>
                     <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                     <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
-                    <View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>
+                    {/*<View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>*/}
                 </View>
                 {emptyMessage}
                 <View style = {styles.checkoutButtonContainer}>

@@ -13,8 +13,9 @@ var {
 
 var styles = StyleSheet.create({
     image: {
-        height: 32, width: 32,
-        alignSelf: 'center'
+        height: 28, width: 28,
+        alignSelf: 'center',
+        margin: 10
     }
 });
 
@@ -36,7 +37,7 @@ var ManualAddButton = React.createClass({
                 onPress = {this.goToManualUpdate}> 
                 <Image
                     style = {styles.image}
-                    source = {require('./../media/notepad.png')}/>
+                    source = {require('./../media/pencil.png')}/>
             </TouchableHighlight>
         )
     }
