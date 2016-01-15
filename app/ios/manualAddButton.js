@@ -7,15 +7,14 @@ var ManualAddPage = require('./manualAddPage');
 var {
     StyleSheet,
     Text,
-    TouchableHighlight
+    TouchableHighlight,
+    Image
 } = React;
 
 var styles = StyleSheet.create({
-    manualAddButton: {
-        fontSize: 16,
-        color: 'black',
-        margin: 10,
-        borderWidth: 1
+    image: {
+        height: 32, width: 32,
+        alignSelf: 'center'
     }
 });
 
@@ -33,11 +32,12 @@ var ManualAddButton = React.createClass({
 
     render() {
         return (
-            <Button 
-                style = {styles.manualAddButton}
+            <TouchableHighlight 
                 onPress = {this.goToManualUpdate}> 
-            FA
-            </Button>
+                <Image
+                    style = {styles.image}
+                    source = {require('./../media/notepad.png')}/>
+            </TouchableHighlight>
         )
     }
 });
