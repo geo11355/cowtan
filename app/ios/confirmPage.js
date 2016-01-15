@@ -24,6 +24,7 @@ class ConfirmPage extends Component{
 	}
 
 	render(){
+		console.log(this.props.location);
 		return(
 
 			<View style = {styles.container}>
@@ -60,7 +61,6 @@ class ConfirmPage extends Component{
 					</View>
 				</ScrollView>
 				{/*</View>*/}
-
 
 				<View style = {styles.buttonsContainer}>
 				<TouchableHighlight
