@@ -46,7 +46,8 @@ class ToggleButton extends Component {
         (<Image
             style = {styles.image}
             source = {require('./../media/check.png')}/>):
-        (<View/>)
+        (<View/>);
+        
         return (
             <TouchableHighlight 
                 style = {[styles.toggleButton, this.state.isMarked ? {backgroundColor: '#800000'} : {}]}
