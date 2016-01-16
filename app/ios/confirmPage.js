@@ -88,9 +88,6 @@ class ConfirmPage extends Component{
             passProps: {
             	user: this.props.user
             },
-            leftCornerProps: {
-            	resetToRoute: this.props.resetToRoute,
-            },
         });
 
     }

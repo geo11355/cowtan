@@ -7,31 +7,36 @@ var CameraPage = require('./camera');
 
 var {
     StyleSheet,
+    TouchableHighlight,
     Text
 } = React;
 
 var styles = StyleSheet.create({
 	logoutButton: {
-		fontSize: 16,
-		color: 'white',
 		marginLeft: 13
-	}
+	},
+    buttonText: {
+        fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold'
+    }
 });
 
 
 var LogoutButton = React.createClass({
 
-    goToLogin() {
-        this.props.logout();
+    onPress() {
+        this.props.logout()
     },
 
     render() {
         return (
-            <Button 
+            <TouchableHighlight
                 style = {styles.logoutButton}
-                onPress = {this.goToLogin}> 
-            Logout
-            </Button>
+                underlayColor = 'transparent'
+                onPress = {this.onPress}>
+                <Text style = {styles.buttonText}> Logout </Text>
+            </TouchableHighlight>
         );
     }
 });
