@@ -122,6 +122,7 @@ class ManualAddPage extends Component{
 							onChange = {this.productNumChanged.bind(this)}
 							onSubmitEditing = {() => this.productName.focus()}/>
 						</View>
+						<View style = {styles.rowPlaceholder}/>
 					</View>
 
 					<View style = {styles.inputRow}>
@@ -139,6 +140,7 @@ class ManualAddPage extends Component{
 								onChange = {this.productNameChanged.bind(this)}
 								onSubmitEditing = {() => this.color.focus()}/>
 						</View>
+						<View style = {styles.rowPlaceholder}/>
 					</View>
 
 					<View style = {styles.inputRow}>
@@ -156,6 +158,7 @@ class ManualAddPage extends Component{
 							onChange = {this.colorChanged.bind(this)}
 							onSubmitEditing = {() => this.price.focus()}/>
 						</View>
+						<View style = {styles.rowPlaceholder}/>
 					</View>
 
 					<View style = {styles.inputRow}>
@@ -172,6 +175,7 @@ class ManualAddPage extends Component{
 							onChange = {this.priceChanged.bind(this)}
 							onSubmitEditing = {this.onAddPressed.bind(this)}/>
 						</View>
+						<View style = {styles.rowPlaceholder}/>
 					</View>
 
 

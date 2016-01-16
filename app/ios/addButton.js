@@ -15,9 +15,9 @@ var styles = StyleSheet.create({
     image: {
         height: 34, width: 34,
         alignSelf: 'center',
-        marginLeft: 10, 
+        marginLeft: 13, 
         marginRight: 10,
-        marginTop: 6
+        marginTop: 7.5
     }
 });
 
@@ -37,7 +37,8 @@ var AddButton = React.createClass({
     render() {
         return (
             <TouchableHighlight
-                onPress = {this.goToCamera}> 
+                onPress = {this.goToCamera}
+                underlayColor = 'transparent'> 
                 <Image
                     style = {styles.image}
                     source = {require('./../media/bar-gray.png')}/>
