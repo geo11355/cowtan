@@ -44,11 +44,10 @@ class ShoppingCart extends Component {
         };
         this.props.setLeftProps({
             logout: this.logout.bind(this),
-            cancelDeleteMode: this.cancelDeleteMode.bind(this),
-            deleteMode: this.state.deleteMode,
         });
         this.props.setRightProps({
             enterDeleteMode: this.enterDeleteMode.bind(this),
+            cancelDeleteMode: this.cancelDeleteMode.bind(this),
         });
 
     }
