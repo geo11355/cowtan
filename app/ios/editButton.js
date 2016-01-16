@@ -11,7 +11,7 @@ var {
 
 var styles = StyleSheet.create({
     button: {
-
+        marginRight: 13
     },
     buttonText: {
         color: 'white',
@@ -24,36 +24,29 @@ var EditButton = React.createClass({
 
     getInitialState() {
         return {
-            buttonText: 'Edit',
-            deleteMode: false
+            buttonText: 'Edit'
         }
     },
 
-    switchModes() {
-        if (this.state.deleteMode) {
-            this.props.cancelDeleteMode();
+    onPress() {
+        if (this.props.enterDeleteMode()) {
             this.setState({
-                buttonText: 'Edit',
-                deleteMode: false,
+                buttonText: 'Delete',
+                deleteMode: true,
             });
-        }
-        else {
-            if (this.props.enterDeleteMode()) {
-                this.setState({
-                    buttonText: 'Cancel',
-                    deleteMode: true,
-                });
-            }
         }
     },
 
     render() {
         return (
             <TouchableHighlight
+                style = {styles.button}
                 underlayColor = 'transparent'
-                onPress = {this.switchModes}>
+                onPress = {this.onPress}>
                 <Text
-                    style = {styles.buttonText}> {this.state.buttonText} </Text>
+                    style = {styles.buttonText}> 
+                    {this.state.buttonText} 
+                </Text>
             </TouchableHighlight>
         );
     }

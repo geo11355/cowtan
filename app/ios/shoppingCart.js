@@ -42,11 +42,11 @@ class ShoppingCart extends Component {
             deleteArray: [],
         };
         this.props.setLeftProps({
-            logout: this.logout.bind(this)
+            logout: this.logout.bind(this),
+            cancelDeleteMode: this.cancelDeleteMode.bind(this)
         });
         this.props.setRightProps({
             enterDeleteMode: this.enterDeleteMode.bind(this),
-            cancelDeleteMode: this.cancelDeleteMode.bind(this),
         });
 
     }
@@ -77,18 +77,19 @@ class ShoppingCart extends Component {
             this.setState(
                 {dataSource: dataSource.cloneWithRows(this.state.patterns)}
             );
-            return true;
+            return this.state.deleteMode;
         }
         else {
             Alert.alert('Your pattern list is empty.', null);
-            return false;
+            return this.state.deleteMode;
         } 
     }
 
     cancelDeleteMode(){
-        this.setState(
-            {deleteMode: false}
-        );
+        this.setState({
+            deleteMode: false
+        });
+        return this.state.deleteMode
     }
 
     // Callback function for updating the patterns list, creates a new dataSource
