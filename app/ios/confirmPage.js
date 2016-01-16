@@ -42,7 +42,7 @@ class ConfirmPage extends Component{
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
 						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Company: </Text></View>
-						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.name}</Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.custname}</Text></View>
 					</View>
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
