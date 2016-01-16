@@ -41,23 +41,26 @@ class ConfirmPage extends Component{
 					<Text style = {styles.description}>Client Information</Text>
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
-						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Name: </Text></View>
-						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.firstname + ' ' + this.props.user.lastname}</Text></View>
-					</View>
-					<View style = {styles.row}>
-						<View style = {styles.rowPlaceholder}></View>
 						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Company: </Text></View>
-						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.company}</Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.name}</Text></View>
 					</View>
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
 						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Address: </Text></View>
-						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.address}</Text></View>
+						<View style = {styles.userBox}>
+							<Text style = {styles.userText}>{this.props.user.addr1}</Text>
+							<Text style = {styles.userText}>{this.props.user.city}, {this.props.user.state} {this.props.user.zip}</Text>
+						</View>
 					</View>
+					{/*<View style = {styles.row}>
+						<View style = {styles.rowPlaceholder}></View>
+						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>City: </Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.city}</Text></View>
+					</View>*/}
 					<View style = {styles.row}>
 						<View style = {styles.rowPlaceholder}></View>
 						<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Phone Number: </Text></View>
-						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.phonenum}</Text></View>
+						<View style = {styles.userBox}><Text style = {styles.userText}>{this.props.user.phone}</Text></View>
 					</View>
 				</ScrollView>
 				{/*</View>*/}
@@ -71,8 +74,8 @@ class ConfirmPage extends Component{
 				</TouchableHighlight>
 				<TouchableHighlight
 					style = {styles.notYouButton}
-					underlayColor = 'white'>
-					<Text style = {styles.notYouText} underlayColor = 'white'>Not You?</Text>
+					underlayColor = 'transparent'>
+					<Text style = {styles.notYouText} underlayColor = 'transparent'>Not You?</Text>
 				</TouchableHighlight>
 				</View>
 			</View>
@@ -113,10 +116,12 @@ var styles = StyleSheet.create({
 	},
 	categoryBox: {
 		flex: 2,
+		marginTop: 10
 	},
 	userBox: {
 		flex: 3,
-		marginRight: 20
+		marginRight: 20,
+		marginTop: 10
 	},
 	description: {
 		fontSize: 22,
@@ -127,13 +132,13 @@ var styles = StyleSheet.create({
 	},
 	categoryText: {
 		fontSize: 16,
-		margin: 5,
+		//margin: 0,
 		justifyContent: 'flex-start',
 		fontWeight: 'bold'
 	},
 	userText: {
 		fontSize: 16,
-		margin: 5,
+		margin: 0,
 	}, 
 	buttonContainer: {
 		flex: 0.1,

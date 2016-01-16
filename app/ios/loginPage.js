@@ -114,8 +114,8 @@ var styles = StyleSheet.create({
 });
 
 // Private function to generate the URL for login verification
-function generateUrl(acctNum, lastName) {
-    return 'http://cowtandb.com/clients.php?accnum=' + acctNum + '&pass=' + lastName;
+function generateUrl(acctNum) {
+    return 'http://cowtandb.com/customers.php?accnum=' + acctNum;
 };
 
 // Login Screen class
@@ -234,8 +234,7 @@ class LoginPage extends Component {
     // Callback when the Login button is pressed, calls
     // _handleResponse on fetch results
     onLoginPressed() {
-        if (this.state.lastName !== '' && this.state.acctNum !== '') {
-
+        if (this.state.acctNum !== '') {
             var query = generateUrl(this.state.acctNum, this.state.lastName);
             this.setState({isLoading: true});
             fetch(query)
