@@ -110,18 +110,20 @@ class ShoppingCart extends Component {
         }
     }
 
-    addToDeleteArray(index){
-        if (this.state.deleteArray.indexOf(index) == -1)
-            this.state.deleteArray.push(index);
+    editDeleteArray(index){
+        if (this.state.deleteArray.indexOf(index) > -1)
+            this.state.deleteArray.splice(this.state.deleteArray.indexOf(index), 1);
         else{
-            this.state.deleteArray.splice(index);
+            this.state.deleteArray.push(index);
         }
         console.log(this.state.deleteArray);
     }
 
-    deletePatterns(rowData){
-    	var index = this.state.patterns.indexOf(rowData);
-    	this.state.patterns.splice(index, 1);
+    deletePatterns(){
+    	this.state.patterns.sort();
+        for (i = this.state.patterns.length - 1; i >= 0; i--){
+            this.state.patterns.splice(i, 1);
+        }
 
     	var dataSource = new ListView.DataSource(
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
@@ -175,7 +177,7 @@ class ShoppingCart extends Component {
             // </TouchableHighlight>):
             (<ToggleButton
                 onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
-                addToDeleteArray = {this.addToDeleteArray.bind(this)}
+                editDeleteArray = {this.editDeleteArray.bind(this)}
                 index = {this.state.patterns.indexOf(rowData)}/>):
             (<View/>);
 
