@@ -10,6 +10,7 @@ var AddButton = require('./addButton');
 var ManualAddButton = require('./manualAddButton');
 var DeleteButton = require('./deleteButton');
 var CancelDeleteButton = require('./cancelDeleteButton');
+var ToggleButton = require('./toggleButton')
 
 console.disableYellowBox = true;
 
@@ -87,7 +88,7 @@ class ShoppingCart extends Component {
 
     cancelDeleteMode(){
         this.setState(
-            {deleteMode: false}
+            {deleteMode: false, deleteArray: []}
         );
     }
 
@@ -162,15 +163,20 @@ class ShoppingCart extends Component {
         });
     }
 
+
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
         var deleteButton = this.state.deleteMode ? 
-            (<TouchableHighlight
-                    onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
-                    style = {styles.deleteButton}>
-                    {/*<Text>Delete</Text>*/}
-                    <View/>
-            </TouchableHighlight>):
+            // (<TouchableHighlight
+            //         onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
+            //         style = {deleteButtonStyle()}>
+            //         {/*<Text>Delete</Text>*/}
+            //         <View/>
+            // </TouchableHighlight>):
+            (<ToggleButton
+                onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
+                addToDeleteArray = {this.addToDeleteArray.bind(this)}
+                index = {this.state.patterns.indexOf(rowData)}/>):
             (<View/>);
 
         return (
