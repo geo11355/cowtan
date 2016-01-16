@@ -244,9 +244,14 @@ class ShoppingCart extends Component {
                 </TouchableHighlight>
             </View>);
 
+        var deleteModeTopRow = this.state.deleteMode ?
+            (<View style = {styles.topRowPlaceholder}/>):
+            (<View/>);
+
         return (
             <View style = {styles.container}>
                 <View style={styles.topRow}>
+                    {deleteModeTopRow}
                     <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                     <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
                     {/*<View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>*/}
@@ -274,6 +279,10 @@ var styles = StyleSheet.create({
         color: '#656565',
         textAlign: 'center',
         fontSize: 16
+    },
+    topRowPlaceholder: {
+        width: 20,
+        marginLeft: 8
     },
     row: {
         flexDirection: 'row',
