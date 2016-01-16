@@ -8,8 +8,6 @@ var AddAndDelete = require('./addAndDelete');
 var CustomBackButton = require('./customBack');
 var AddButton = require('./addButton');
 var ManualAddButton = require('./manualAddButton');
-var DeleteButton = require('./deleteButton');
-var CancelDeleteButton = require('./cancelDeleteButton');
 var ToggleButton = require('./toggleButton')
 
 console.disableYellowBox = true;
@@ -76,19 +74,18 @@ class ShoppingCart extends Component {
                     {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
                 );
             this.setState(
-                {dataSource: this.state.dataSource.cloneWithRows(this.state.patterns)}
+                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
             );
             this.props.setRightProps({
                 deleteMode: true,
                 buttonText: 'Cancel',
                 cancelDeleteMode: this.cancelDeleteMode.bind(this),
             });
-            return this.state.deleteMode;
         }
         else {
             Alert.alert('Your pattern list is empty.', null);
-            return this.state.deleteMode;
         } 
+        return this.state.deleteMode;
     }
 
     cancelDeleteMode(){
@@ -130,8 +127,8 @@ class ShoppingCart extends Component {
     }
 
     deletePatterns(){
-    	this.state.patterns.sort();
-        for (i = this.state.patterns.length - 1; i >= 0; i--){
+    	this.state.deleteArray.sort();
+        for (var i = this.state.deleteArray.length - 1; i >= 0; i--){
             this.state.patterns.splice(i, 1);
         }
 
@@ -140,12 +137,10 @@ class ShoppingCart extends Component {
             );
 
         this.setState(
-           	{dataSource: dataSource.cloneWithRows(this.state.patterns), deleteMode: false}
+           	{dataSource: dataSource.cloneWithRows(this.state.patterns),
+             isEmpty: (this.state.patterns.length > 0 ? false: true)}
       	);
-
-      	this.setState(
-      		{isEmpty: this.state.patterns.length > 0 ? false: true}
-      	);
+        this.cancelDeleteMode();
     }
 
     customBack() {
@@ -216,7 +211,7 @@ class ShoppingCart extends Component {
     render() {
         var emptyMessage = this.state.isEmpty ?
             (<ScrollView contentContainerStyle = {styles.emptyTextContainer}>
-                <Text style = {styles.emptyText}>Your pattern list is empty. Click "Add" to scan fabric barcodes.</Text>
+                <Text style = {styles.emptyText}>Click the icons below to scan products or enter them manually.</Text>
             </ScrollView>):
             (<ListView style = {styles.listView}
                     dataSource = {this.state.dataSource}
