@@ -48,6 +48,7 @@ class ShoppingCart extends Component {
         this.props.setRightProps({
             enterDeleteMode: this.enterDeleteMode.bind(this),
             cancelDeleteMode: this.cancelDeleteMode.bind(this),
+            buttonText: 'Edit',
         });
 
     }
@@ -74,10 +75,14 @@ class ShoppingCart extends Component {
             var dataSource = new ListView.DataSource(
                     {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
                 );
-
             this.setState(
                 {dataSource: this.state.dataSource.cloneWithRows(this.state.patterns)}
             );
+            this.props.setRightProps({
+                deleteMode: true,
+                buttonText: 'Cancel',
+                cancelDeleteMode: this.cancelDeleteMode.bind(this),
+            });
             return this.state.deleteMode;
         }
         else {
@@ -90,6 +95,11 @@ class ShoppingCart extends Component {
         this.setState(
             {deleteMode: false, deleteArray: []}
         );
+        this.props.setRightProps({
+            deleteMode: false,
+            buttonText: 'Edit',
+            enterDeleteMode: this.enterDeleteMode.bind(this),
+        });
     }
 
     // Callback function for updating the patterns list, creates a new dataSource
