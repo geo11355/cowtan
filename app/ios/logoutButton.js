@@ -13,10 +13,10 @@ var {
 
 var styles = StyleSheet.create({
 	logoutButton: {
-		marginLeft: 13
+		marginLeft: 10
 	},
     buttonText: {
-        fontSize: 16,
+        fontSize: 15,
         color: 'white',
         fontWeight: 'bold'
     }

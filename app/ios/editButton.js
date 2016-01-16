@@ -11,36 +11,23 @@ var {
 
 var styles = StyleSheet.create({
     button: {
-        marginRight: 12
+        marginRight: 10
     },
     buttonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: 'bold'
     }
 });
 
 var EditButton = React.createClass({
 
-    // getInitialState() {
-    //     return {
-    //         buttonText: 'Edit',
-    //         deleteMode: false
-    //     }
-    // },
-
     switchModes() {
         if (this.props.deleteMode) {
             this.props.cancelDeleteMode();
         }
         else {
-            var updatedState = this.props.enterDeleteMode();
-            // if (updatedState) {
-            //     // this.setState({
-            //     //     buttonText: 'Cancel',
-            //     //     deleteMode: true,
-
-            // }
+            this.props.enterDeleteMode();
         }
     },
 

@@ -91,6 +91,7 @@ class CheckoutPage extends Component {
         };
     }
 
+
     updateAddress(type, address) {
         if (type == 'billing') {
             this.setState({ billingAddress: address });
@@ -99,7 +100,6 @@ class CheckoutPage extends Component {
             this.setState({ shippingAddress: address });
         }
     }
-
 
 
     goToChangeAddress(type) {
@@ -156,10 +156,15 @@ class CheckoutPage extends Component {
                         multiline = {true}
                         placeholder = 'Sidemark'/>
                 </ScrollView>
+                <TouchableHighlight
+                    style = {styles.checkoutButton}>
+                    <Text style = {styles.buttonText}> Email </Text>
+                </TouchableHighlight>
                 <TouchableHighlight 
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}> Checkout </Text>
                 </TouchableHighlight>
+
             </View>
         )
     }
