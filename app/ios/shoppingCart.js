@@ -10,6 +10,7 @@ var AddButton = require('./addButton');
 var ManualAddButton = require('./manualAddButton');
 var DeleteButton = require('./deleteButton');
 var CancelDeleteButton = require('./cancelDeleteButton');
+var ToggleButton = require('./toggleButton')
 
 console.disableYellowBox = true;
 
@@ -43,7 +44,8 @@ class ShoppingCart extends Component {
         };
         this.props.setLeftProps({
             logout: this.logout.bind(this),
-            cancelDeleteMode: this.cancelDeleteMode.bind(this)
+            cancelDeleteMode: this.cancelDeleteMode.bind(this),
+            deleteMode: this.state.deleteMode,
         });
         this.props.setRightProps({
             enterDeleteMode: this.enterDeleteMode.bind(this),
@@ -75,7 +77,7 @@ class ShoppingCart extends Component {
                 );
 
             this.setState(
-                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+                {dataSource: this.state.dataSource.cloneWithRows(this.state.patterns)}
             );
             return this.state.deleteMode;
         }
@@ -86,10 +88,9 @@ class ShoppingCart extends Component {
     }
 
     cancelDeleteMode(){
-        this.setState({
-            deleteMode: false
-        });
-        return this.state.deleteMode
+        this.setState(
+            {deleteMode: false, deleteArray: []}
+        );
     }
 
     // Callback function for updating the patterns list, creates a new dataSource
@@ -163,15 +164,20 @@ class ShoppingCart extends Component {
         });
     }
 
+
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
         var deleteButton = this.state.deleteMode ? 
-            (<TouchableHighlight
-                    onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
-                    style = {styles.deleteButton}>
-                    {/*<Text>Delete</Text>*/}
-                    <View/>
-            </TouchableHighlight>):
+            // (<TouchableHighlight
+            //         onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
+            //         style = {deleteButtonStyle()}>
+            //         {/*<Text>Delete</Text>*/}
+            //         <View/>
+            // </TouchableHighlight>):
+            (<ToggleButton
+                onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
+                addToDeleteArray = {this.addToDeleteArray.bind(this)}
+                index = {this.state.patterns.indexOf(rowData)}/>):
             (<View/>);
 
         return (
@@ -206,10 +212,30 @@ class ShoppingCart extends Component {
                     renderRow = {this.renderRow.bind(this)}/>);
 
         var deleteMode = this.state.deleteMode ?
-            (<CancelDeleteButton
-                cancelDeleteMode = {this.cancelDeleteMode.bind(this)}/>):
-            (<DeleteButton
-                enterDeleteMode = {this.enterDeleteMode.bind(this)}/>);
+            // Just the delete button
+            (<View style = {styles.checkoutButtonContainer}>
+                <TouchableHighlight
+                    underlayColor = 'transparent'
+                    style = {styles.deleteButton}
+                    onPress = {this.deletePatterns.bind(this)}>
+                    <Text style = {styles.buttonText}>Delete</Text>
+                </TouchableHighlight>
+            </View>):
+            // Checkout and add buttons
+            (<View style = {styles.checkoutButtonContainer}>
+                <AddButton
+                    updatePatterns = {this.updatePatterns.bind(this)}
+                    toRoute = {this.props.toRoute.bind(this)}/>
+                <ManualAddButton
+                    updatePatterns = {this.updatePatterns.bind(this)}
+                    toRoute = {this.props.toRoute.bind(this)}/>
+                <TouchableHighlight
+                    underlayColor = '#4d0000'
+                    style = {styles.checkoutButton}
+                    onPress = {this.goToCheckout.bind(this)}>
+                    <Text style = {styles.buttonText}>Checkout</Text>
+                </TouchableHighlight>
+            </View>);
 
         return (
             <View style = {styles.container}>
@@ -219,21 +245,7 @@ class ShoppingCart extends Component {
                     {/*<View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>*/}
                 </View>
                 {emptyMessage}
-                <View style = {styles.checkoutButtonContainer}>
-                    <AddButton
-                        updatePatterns = {this.updatePatterns.bind(this)}
-                        toRoute = {this.props.toRoute.bind(this)}/>
-                    <ManualAddButton
-                        updatePatterns = {this.updatePatterns.bind(this)}
-                        toRoute = {this.props.toRoute.bind(this)}/>
-                    {deleteMode}
-                    <TouchableHighlight
-                        underlayColor = '#4d0000'
-                        style = {styles.checkoutButton}
-                        onPress = {this.goToCheckout.bind(this)}>
-                        <Text style = {styles.buttonText}>Checkout</Text>
-                    </TouchableHighlight>
-             	</View>
+                {deleteMode}
             </View>
         );
     }
@@ -361,6 +373,28 @@ var styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 16,
     },
+    deleteButton: {
+        height: 36,
+        //borderWidth: 1,
+        borderColor: 'red',
+        backgroundColor: 'red',
+        borderRadius: 8,
+        marginBottom: 10,
+        marginRight: 15,
+        marginLeft: 15,
+        marginTop: 10,
+        flex: 0.2,
+        
+        //Keeps text aligned
+        justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    }
 });
 
 module.exports = ShoppingCart;

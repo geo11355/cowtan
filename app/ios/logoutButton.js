@@ -25,30 +25,8 @@ var styles = StyleSheet.create({
 
 var LogoutButton = React.createClass({
 
-    getInitialState() {
-        return {
-            buttonText: 'Logout',
-            deleteMode: false
-        }
-    },
-
     onPress() {
-        if (this.state.deleteMode) {
-            this.switchModes();
-        }
-        else {
-            this.props.logout();
-        }
-    },
-
-    switchModes() {
-        var updatedMode = this.props.cancelDeleteMode();
-        if (!updatedMode) {
-            this.setState({
-                buttonText: 'Logout',
-                deleteMode: false
-            });
-        }
+        this.props.logout()
     },
 
     render() {
@@ -57,7 +35,7 @@ var LogoutButton = React.createClass({
                 style = {styles.logoutButton}
                 underlayColor = 'transparent'
                 onPress = {this.onPress}>
-                <Text style = {styles.buttonText}> {this.state.buttonText} </Text>
+                <Text style = {styles.buttonText}> Logout </Text>
             </TouchableHighlight>
         );
     }
