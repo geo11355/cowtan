@@ -112,7 +112,7 @@ var styles = StyleSheet.create({
 		//borderColor: 'pink',
 	},
 	rowPlaceholder: {
-		flex: 0.8,
+		flex: 0.4,
 	},
 	categoryBox: {
 		flex: 2,
@@ -134,7 +134,8 @@ var styles = StyleSheet.create({
 		fontSize: 16,
 		//margin: 0,
 		justifyContent: 'flex-start',
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		marginRight: 10
 	},
 	userText: {
 		fontSize: 16,

@@ -128,8 +128,9 @@ class ShoppingCart extends Component {
 
     deletePatterns(){
     	this.state.deleteArray.sort();
+        console.log(this.state.deleteArray);
         for (var i = this.state.deleteArray.length - 1; i >= 0; i--){
-            this.state.patterns.splice(i, 1);
+            this.state.patterns.splice(this.state.deleteArray[i], 1);
         }
 
     	var dataSource = new ListView.DataSource(
@@ -315,6 +316,7 @@ var styles = StyleSheet.create({
     itemText: {
         margin: 7,
         marginRight: 10,
+        marginLeft: 10,
         fontSize: 16,
         fontWeight: 'bold',
     },
