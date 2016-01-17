@@ -68,7 +68,7 @@ var styles = StyleSheet.create({
     productText: {
         marginTop: 2,
         marginBottom: 2,
-        fontSize: 15
+        fontSize: 16
     },
     checkoutButton: {
         height: 36,

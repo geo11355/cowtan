@@ -298,13 +298,13 @@ var styles = StyleSheet.create({
     itemColumn: {
         flex: 0.6,
     },
-    deleteButton: {
-        borderWidth: 1,
-        height: 22, width: 22,
-        borderRadius: 11,
-        alignSelf: 'center',
-        marginLeft: 8
-    },
+    // deleteButton: {
+    //     borderWidth: 1,
+    //     height: 22, width: 22,
+    //     borderRadius: 11,
+    //     alignSelf: 'center',
+    //     marginLeft: 8
+    // },
     priceColumn: {
         flex: 0.2,
     },
@@ -367,7 +367,7 @@ var styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 10,
         marginRight: 15,
-        marginLeft: 15,
+        marginLeft: 13,
         marginTop: 10,
         flex: 0.2,
         

@@ -17,6 +17,9 @@ var styles = StyleSheet.create({
         alignSelf: 'center',
         margin: 10,
         marginTop: 12.5
+    },
+    button: {
+        height: 56
     }
 });
 
@@ -36,7 +39,8 @@ var ManualAddButton = React.createClass({
         return (
             <TouchableHighlight 
                 onPress = {this.goToManualUpdate}
-                underlayColor = 'transparent'> 
+                underlayColor = '#A9A9A9'
+                style = {styles.button}> 
                 <Image
                     style = {styles.image}
                     source = {require('./../media/pencil.png')}/>
