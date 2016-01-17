@@ -8,7 +8,7 @@ var AddAndDelete = require('./addAndDelete');
 var CustomBackButton = require('./customBack');
 var AddButton = require('./addButton');
 var ManualAddButton = require('./manualAddButton');
-var ToggleButton = require('./toggleButton')
+var ToggleButton = require('./toggleButton');
 
 console.disableYellowBox = true;
 
@@ -123,7 +123,7 @@ class ShoppingCart extends Component {
         else{
             this.state.deleteArray.push(index);
         }
-        console.log(this.state.deleteArray);
+        //console.log(this.state.deleteArray);
     }
 
     deletePatterns(){
@@ -157,11 +157,12 @@ class ShoppingCart extends Component {
 
     // Callback function to move to the checkout page upon button press
     goToCheckout() {
+        var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({
             name: 'Checkout',
             component: CheckoutPage,
             passProps: {
-                patterns: this.state.patterns,
+                patterns: patternListCopy,
                 user: this.props.user
             },
             leftComponent: CustomBackButton,
@@ -175,12 +176,6 @@ class ShoppingCart extends Component {
     // Function for rendering each individual row
     renderRow(rowData, sectionID, rowID) {
         var deleteButton = this.state.deleteMode ? 
-            // (<TouchableHighlight
-            //         onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
-            //         style = {deleteButtonStyle()}>
-            //         {/*<Text>Delete</Text>*/}
-            //         <View/>
-            // </TouchableHighlight>):
             (<ToggleButton
                 onPress = {() => this.addToDeleteArray(this.state.patterns.indexOf(rowData))}
                 editDeleteArray = {this.editDeleteArray.bind(this)}
@@ -210,6 +205,7 @@ class ShoppingCart extends Component {
 
     // Pass render row to another function
     render() {
+        //console.log(this.state.patterns);
         var emptyMessage = this.state.isEmpty ?
             (<ScrollView contentContainerStyle = {styles.emptyTextContainer}>
                 <Text style = {styles.emptyText}>Click the icons below to scan products or enter them manually.</Text>
@@ -323,7 +319,7 @@ var styles = StyleSheet.create({
         marginBottom: 7
     },
     itemText: {
-        margin: 7,
+        marginTop: 7, marginBottom: 7,
         marginRight: 10,
         marginLeft: 10,
         fontSize: 16,

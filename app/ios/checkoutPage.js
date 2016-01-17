@@ -76,9 +76,48 @@ var styles = StyleSheet.create({
     }
 });
 
+function compressPatternsList(patterns){
+    var finalPatternList = [];
+    for (var i = 0; i < patterns.length; i++){
+        //Create new patternObject at beginning
+        if (i == 0){
+            var patternObject = {
+                "productnum": patterns[i].productnum,
+                "quantity": 1
+            };
+        }else if(patterns[i].productnum === patternObject.productnum){
+            patternObject.quantity++;
+        }else{
+            finalPatternList.push(patternObject);
+            patternObject = {
+                "productnum": patterns[i].productnum,
+                "quantity": 1
+            };
+        }
+        //If at end of list, push to finalPatternList
+        if (i == patterns.length - 1){
+            finalPatternList.push(patternObject);
+        }
+    }
+    return finalPatternList;
+}
+
 class CheckoutPage extends Component {
     constructor(props) {
         super(props);
+
+        //Sort original pattern list
+        this.props.patterns.sort(function (a, b){
+            if (a.productnum < b.productnum){
+                return -1;
+            }else if (a.productnum > b.productnum){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
+
+        var finalPatternList = compressPatternsList(this.props.patterns);
         
         var dataSource = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
@@ -87,7 +126,7 @@ class CheckoutPage extends Component {
         this.state = {
             shippingAddress: this.props.user.address,
             billingAddress: this.props.user.address,
-            dataSource: dataSource.cloneWithRows(this.props.patterns)
+            dataSource: dataSource.cloneWithRows(finalPatternList)
         };
     }
 
@@ -118,8 +157,8 @@ class CheckoutPage extends Component {
     renderRow(rowData, sectionID, rowID){
         return(
             <View style = {styles.patternRow}>
-                <Text>{rowData.name}</Text>
                 <Text>{rowData.productnum}</Text>
+                <Text>{rowData.quantity}</Text>
             </View>
         );
     }
