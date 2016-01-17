@@ -23,7 +23,7 @@ var styles = StyleSheet.create({
         height: 150,
         //borderWidth: 1
         backgroundColor: '#f0eeee',
-        borderBottomWidth: 1,
+        borderBottomWidth: 1.5,
         borderColor: '#d2d0d0',
         marginBottom: 15,
     },
@@ -34,7 +34,7 @@ var styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 16.
     },
     topRow: {
         flexDirection: 'row',
@@ -68,6 +68,7 @@ var styles = StyleSheet.create({
     productText: {
         marginTop: 2,
         marginBottom: 2,
+        fontSize: 15
     },
     checkoutButton: {
         height: 36,
