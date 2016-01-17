@@ -277,8 +277,9 @@ var styles = StyleSheet.create({
         fontSize: 16
     },
     topRowPlaceholder: {
-        width: 20,
-        marginLeft: 8
+        width: 30,
+        //marginLeft: 8
+        marginLeft: 5
     },
     row: {
         flexDirection: 'row',

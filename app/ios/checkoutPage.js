@@ -20,7 +20,7 @@ var styles = StyleSheet.create({
         flexDirection: 'column'
     },
     listView: {
-        height: 150,
+        height: 180,
         //borderWidth: 1
         backgroundColor: '#f0eeee',
         borderBottomWidth: 1.5,
@@ -45,8 +45,8 @@ var styles = StyleSheet.create({
     topRowText: {
         fontWeight: 'bold',
         fontSize: 16,
-        marginTop: 2.5,
-        marginBottom: 2.5
+        marginTop: 3,
+        marginBottom: 3
     },
     itemColumn: {
         flex: 0.6,
@@ -56,18 +56,18 @@ var styles = StyleSheet.create({
         flex: 0.25,
     },
     quantityColumn: {
-        flex: 0.15,
+        flex: 0.1,
         marginRight: 10,
     },
     patternRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderColor: '#d2d0d0',
-        //backgroundColor: '#fff2f2',
+        borderColor: '#800000',
+        backgroundColor: '#fff2f2',
     },
     productText: {
-        marginTop: 2,
-        marginBottom: 2,
+        marginTop: 3,
+        marginBottom: 3,
         fontSize: 16
     },
     checkoutButton: {
