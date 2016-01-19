@@ -154,6 +154,10 @@ function compressPatternList(patterns){
     return finalPatternList;
 }
 
+function combineAddress(city, state, zip) {
+    return city + ', ' + state + ' ' + zip;
+}
+
 class CheckoutPage extends Component {
     constructor(props) {
         super(props);
@@ -176,13 +180,22 @@ class CheckoutPage extends Component {
         });
 
         this.state = {
-            shippingAddress: this.props.user.address,
-            billingAddress: this.props.user.address,
+            shippingAddress: {
+                addr1: this.props.user.addr1,
+                addr2: this.props.user.addr2,
+                rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
+            },
+            billingAddress: {
+                addr1: this.props.user.addr1,
+                addr2: this.props.user.addr2,
+                rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
+            },
             dataSource: dataSource.cloneWithRows(finalPatternList)
         };
     }
 
-
+    // Updates the proper address based on the type, and addresss should be json
+    // following format {addr1, addr2, city, state, zip}
     updateAddress(type, address) {
         if (type == 'billing') {
             this.setState({ billingAddress: address });
@@ -191,7 +204,6 @@ class CheckoutPage extends Component {
             this.setState({ shippingAddress: address });
         }
     }
-
 
     goToChangeAddress(type) {
         this.props.toRoute({
@@ -204,6 +216,14 @@ class CheckoutPage extends Component {
                 updateAddress: this.updateAddress.bind(this)
             },
         });
+    }
+
+    _buildAddress(addr1, addr2, rest) {
+        var completeAddr = addr1 + '\n';
+        if (addr2 == '') {
+            return completeAddr + rest;
+        }
+        return completeAddr + addr2 + '\n' + rest;
     }
 
     renderRow(rowData, sectionID, rowID){
@@ -219,6 +239,14 @@ class CheckoutPage extends Component {
     }
 
     render() {
+
+        var billingAddr = this._buildAddress(this.state.billingAddress.addr1, 
+                                            this.state.billingAddress.addr2,
+                                            this.state.billingAddress.rest);
+        var shippingAddr = this._buildAddress(this.state.shippingAddress.addr1, 
+                                              this.state.shippingAddress.addr2, 
+                                              this.state.shippingAddress.rest);
+
         return (
             <ScrollView>
                 <View style = {styles.titleContainer}>
@@ -236,7 +264,7 @@ class CheckoutPage extends Component {
                     renderRow = {this.renderRow.bind(this)}/>
                 <ScrollView contentContainerStyle = {styles.scroll}>
                     <Text>
-                        Billing Address: {this.state.billingAddress}
+                        Billing Address: {'\n'} {billingAddr}
                     </Text>
                     <TouchableHighlight
                         underlayColor = 'transparent'
@@ -246,7 +274,7 @@ class CheckoutPage extends Component {
                         </Text>
                     </TouchableHighlight>
                     <Text>
-                        Shipping Address: {this.state.shippingAddress}
+                        Shipping Address: {'\n'} {shippingAddr}
                     </Text>
                     <TouchableHighlight
                         underlayColor = 'transparent'

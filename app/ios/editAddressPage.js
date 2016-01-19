@@ -112,15 +112,29 @@ class EditAddressPage extends Component {
     }
 
     onUpdatePressed() {
-        var newAddress = this.state.addr1 + ' ' + this.state.addr2 + ' ' +
-            this.state.city + ', ' + this.state.state + ' ' + this.state.zip;
+        var newAddress = {
+            addr1: this.state.addr1,
+            addr2: this.state.addr2,
+            rest: this.state.city + ', ' + this.state.state + ' ' + this.state.zip
+        }
         this.props.updateAddress(this.props.types, newAddress);
         this.props.toBack();
     }
 
+    _buildAddress(addr1, addr2, rest) {
+        var completeAddr = addr1 + '\n';
+        if (addr2 == '') {
+            return completeAddr + rest;
+        }
+        return completeAddr + addr2 + '\n' + rest;
+    }
+
     render() {
-        var oldAddress = (this.props.types == 'billing') ? (<Text> {this.props.billing} </Text>) :
-            (<Text> {this.props.shipping} </Text>);
+        var billingAddr = this._buildAddress(this.props.billing.addr1, this.props.billing.addr2, this.props.billing.rest);
+        var shippingAddr = this._buildAddress(this.props.shipping.addr1, this.props.shipping.addr2, this.props.shipping.rest);
+
+        var oldAddress = (this.props.types == 'billing') ? (<Text> {billingAddr} </Text>) :
+            (<Text> {shippingAddr} </Text>);
         return (
             <ScrollView
                 keyboardShouldPersistTaps = {true}>

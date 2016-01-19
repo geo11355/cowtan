@@ -8,7 +8,7 @@ var CameraPage = require('react-native-camera');
 
 // ------------------- CONSTANTS -------------------
 
-var BOUNDS = .05;         // Bound limit on login by lat/long units
+var BOUNDS = Infinity;         // Bound limit on login by lat/long units
 
 // -------------------------------------------------
 
@@ -119,33 +119,32 @@ function generateUrl(acctNum) {
 function distanceSq(l1, l2) {
     var lats = Math.pow(+l1.lat - +l2.lat, 2);
     var longs = Math.pow(+l1.long - +l2.long, 2);
-    console.log('lats; ' + lats);
-    console.log('longs: ' + longs);
     return lats + longs;
 }
 
 var showroomLocations = {
-    'New York': {lat: 40.7127, long: 74.0059},
-    'Philidelphia': {lat: 39.9500, long: 75.1667},
-    'Washington DC': {lat: 38.9047, long: 77.0164},
-    'Boston': {lat: 42.3601, long: 71.0589},
-    'Atlanta': {lat: 33.7550, long: 84.3900},
-    'Dania': {lat: 26.0550, long: 80.1531},
-    'Dallas': {lat: 32.7767, long: 96.7970},
-    'Houston': {lat: 29.7604, long: 95.3698},
-    'Chicago': {lat: 41.8369, long: 41.8369},
-    'Cleveland': {lat: 41.4822, long: 81.6697},
-    'Kansas City': {lat: 39.0997, long: 94.5783},
-    'Minneapolis': {lat: 44.9778, long: 93.2650},
-    'St. Louis': {lat: 38.6272, long: 90.1978},
-    'Troy': {lat: 42.5803, long: 83.1431},
-    'Los Angeles': {lat: 34.0500, long: 118.2500},
-    'San Francisco': {lat: 37.7833, long: 122.4167},
-    'Denver': {lat: 39.7392, long: 104.9903},
-    'Scottsdale': {lat: 33.5000, long: 111.9333},
-    'Portland': {lat: 45.5200, long: 122.6819},
-    'San Diego': {lat: 32.7150, long: 117.1625},
-    'Seattle': {lat: 47.6097, long: 122.3331}
+    'New York': {lat: 40.7127, long: -74.0059},
+    'Philidelphia': {lat: 39.9500, long: -75.1667},
+    'Washington DC': {lat: 38.9047, long: -77.0164},
+    'Boston': {lat: 42.3601, long: -71.0589},
+    'Atlanta': {lat: 33.7550, long: -84.3900},
+    'Dania': {lat: 26.0550, long: -80.1531},
+    'Dallas': {lat: 32.7767, long: -96.7970},
+    'Houston': {lat: 29.7604, long: -95.3698},
+    'Chicago': {lat: 41.8369, long: -41.8369},
+    'Cleveland': {lat: 41.4822, long: -81.6697},
+    'Kansas City': {lat: 39.0997, long: -94.5783},
+    'Minneapolis': {lat: 44.9778, long: -93.2650},
+    'St. Louis': {lat: 38.6272, long: -90.1978},
+    'Troy': {lat: 42.5803, long: -83.1431},
+    'Los Angeles': {lat: 34.0500, long: -118.2500},
+    'San Francisco': {lat: 37.7833, long: -122.4167},
+    'Denver': {lat: 39.7392, long: -104.9903},
+    'Scottsdale': {lat: 33.5000, long: -111.9333},
+    'Portland': {lat: 45.5200, long: -122.6819},
+    'San Diego': {lat: 32.7150, long: -117.1625},
+    'Seattle': {lat: 47.6097, long: -122.3331},
+    'Cupertino': {lat: 37.33525552 , long: -122.03254838}
 };
 
 // Login Screen class
@@ -157,10 +156,12 @@ class LoginPage extends Component {
             lastName: '',
             isLoading: false,
             failedLogin: false,
-            lat: '',
-            long: '',
+            location: {},
             located: false
         };
+    }
+
+    componentDidMount() {
         this._getLocation();
     }
 
@@ -227,7 +228,6 @@ class LoginPage extends Component {
 
     // Handle a response, reset state fields and then move to the next page
     _handleResponse(response) {
-        while (!this.state.located) {}
         if (response !== null) {
             this.setState({
                 acctNum: '',
@@ -261,12 +261,8 @@ class LoginPage extends Component {
                     closestCity = city;
                     closestDistance = d;
                 }
-                console.log(d);
             }
         }
-        console.log(this.state.location);
-        console.log('CITY' + showroomLocations[closestCity]);
-        console.log(closestCity);
         return closestCity;
     }
 
@@ -277,9 +273,10 @@ class LoginPage extends Component {
             (position) => {
                 var crd = position.coords;
                 this.setState({
-                    location: {lat: crd.latitude, long: crd.longitude},
+                    location: {lat: crd.latitude, long: crd.longitude, city: null},
                     located: true
                 });
+                console.log(crd);
             },
             (error) => alert(error.message),
             {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
@@ -291,7 +288,6 @@ class LoginPage extends Component {
     // _handleResponse on fetch results
     // Fails when gps hasn't been detected or not within range
     onLoginPressed() {
-
         if (!this.state.located) {
             Alert.alert('Error', 'Location has not been detected yet, please try again in a moment');
             return;
@@ -301,6 +297,9 @@ class LoginPage extends Component {
             Alert.alert('Access Denied', 'Not within showroom bounds');
             return;
         }
+
+        // Set current location's city to closestCity
+        this.state.location.city = closestCity;
         if (this.state.acctNum !== '') {
             var query = generateUrl(this.state.acctNum, this.state.lastName);
             this.setState({isLoading: true});
