@@ -12,18 +12,24 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+    squareButton: {
+        height: 30, width: 30,
+        marginLeft: 5,
+        alignSelf: 'center',
+        //marginLeft: 8
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     toggleButton: {
         borderWidth: 1.3,
         borderColor: '#800000',
-        height: 20, width: 20,
-        borderRadius: 10,
-        alignSelf: 'center',
-        marginLeft: 8
+        height: 22, width: 22,
+        borderRadius: 11,
     },
     image: {
         height: 12, width: 12,
         marginTop: 2,
-        marginLeft: 3,
+        marginLeft: 3.3,
         backgroundColor: 'rgba(0,0,0,0)',
     }
 });
@@ -50,9 +56,13 @@ class ToggleButton extends Component {
         
         return (
             <TouchableHighlight 
-                style = {[styles.toggleButton, this.state.isMarked ? {backgroundColor: '#800000'} : {}]}
-                onPress = {this.markedButton.bind(this)}> 
-                {checkSymbol}
+                style = {styles.squareButton}
+                onPress = {this.markedButton.bind(this)}
+                underlayColor = 'transparent'>
+                <View
+                    style = {[styles.toggleButton, this.state.isMarked ? {backgroundColor: '#800000'} : {}]}>
+                    {checkSymbol}
+                </View>
             </TouchableHighlight>
         )
     }

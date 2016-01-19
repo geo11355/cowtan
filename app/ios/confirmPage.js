@@ -116,12 +116,12 @@ var styles = StyleSheet.create({
 		flex: 0.4,
 	},
 	categoryBox: {
-		flex: 2,
+		flex: 1.5,
 		marginTop: 10
 	},
 	userBox: {
 		flex: 3,
-		marginRight: 20,
+		marginRight: 15,
 		marginTop: 10
 	},
 	description: {

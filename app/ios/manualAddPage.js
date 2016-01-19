@@ -18,7 +18,6 @@ var styles = StyleSheet.create({
 		flexDirection: 'row',
 		marginTop: 20,
 		alignItems: 'flex-end',
-
 	},
 	rowPlaceholder: {
 		flex: 0.075,
