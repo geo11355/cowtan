@@ -8,17 +8,27 @@ var CameraPage = require('./camera');
 var {
     StyleSheet,
     TouchableHighlight,
-    Text
+    Text,
+    View
 } = React;
 
 var styles = StyleSheet.create({
 	logoutButton: {
-		marginLeft: 10
+
+		marginLeft: 10,
+        borderWidth: 1
 	},
     buttonText: {
         fontSize: 15,
+        alignSelf: 'flex-start',
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        margin: 0
+    },
+    view: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
     }
 });
 
@@ -32,10 +42,12 @@ var LogoutButton = React.createClass({
     render() {
         return (
             <TouchableHighlight
-                style = {styles.logoutButton}
+                style = {styles.logoutButton}      
                 underlayColor = 'transparent'
                 onPress = {this.onPress}>
+                <View style = {styles.view}>
                 <Text style = {styles.buttonText}> Logout </Text>
+                </View>
             </TouchableHighlight>
         );
     }

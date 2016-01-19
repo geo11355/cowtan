@@ -47,6 +47,7 @@ class ShoppingCart extends Component {
             enterDeleteMode: this.enterDeleteMode.bind(this),
             cancelDeleteMode: this.cancelDeleteMode.bind(this),
             buttonText: 'Edit',
+            deleteMode: this.state.deleteMode,
         });
 
     }

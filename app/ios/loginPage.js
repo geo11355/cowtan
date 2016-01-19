@@ -118,6 +118,36 @@ function generateUrl(acctNum) {
     return 'http://cowtandb.com/customers.php?accnum=' + acctNum;
 };
 
+function distanceSq(l1, l2) {
+    var lats = Math.pow(l1.lat - l2.lat, 2);
+    var longs = Math.pow(l1.long - l2.long, 2);
+    return lats + longs;
+}
+
+var showroomLocations = {
+    'New York': {lat: 40.7127, long: 74.0059},
+    'Philidelphia': {lat: 39.9500, long: 75.1667},
+    'Washington DC': {lat: 38.9047, long: 77.0164},
+    'Boston': {lat: 42.3601, long: 71.0589},
+    'Atlanta': {lat: 33.7550, long: 84.3900},
+    'Dania': {lat: 26.0550, long: 80.1531},
+    'Dallas': {lat: 32.7767, long: 96.7970},
+    'Houston': {lat: 29.7604, long: 95.3698},
+    'Chicago': {lat: 41.8369, long: 41.8369},
+    'Cleveland': {lat: 41.4822, long: 81.6697},
+    'Kansas City': {lat: 39.0997, long: 94.5783},
+    'Minneapolis': {lat: 44.9778, long: 93.2650},
+    'St. Louis': {lat: 38.6272, long: 90.1978},
+    'Troy': {lat: 42.5803, long: 83.1431},
+    'Los Angeles': {lat: 34.0500, long: 118.2500},
+    'San Francisco': {lat: 37.7833, long: 122.4167},
+    'Denver': {lat: 39.7392, long: 104.9903},
+    'Scottsdale': {lat: 33.5000, long: 111.9333},
+    'Portland': {lat: 45.5200, long: 122.6819},
+    'San Diego': {lat: 32.7150, long: 117.1625},
+    'Seattle': {lat: 47.6097, long: 122.3331}
+};
+
 // Login Screen class
 class LoginPage extends Component {
     constructor(props) {
@@ -153,8 +183,6 @@ class LoginPage extends Component {
                 onPress = {this.onLoginPressed.bind(this)}>
                 <Text style = {styles.buttonText}>Login</Text>
             </TouchableHighlight>);
-
-            
 
         return (
             <View style = {styles.mainContainer}>
@@ -198,6 +226,7 @@ class LoginPage extends Component {
 
     // Handle a response, reset state fields and then move to the next page
     _handleResponse(response) {
+        while (!this.state.located) {}
         if (response !== null) {
             this.setState({
                 acctNum: '',
@@ -210,7 +239,7 @@ class LoginPage extends Component {
                 component: ConfirmPage,
                 passProps: {
                     user: response,
-                    location: this.state.currentLocation
+                    location: this.state.location
                 }
             });
         }
@@ -219,17 +248,37 @@ class LoginPage extends Component {
         }
     }
 
+    // Returns the closest showroom city to current location ONLY if its within 2 miles,
+    // else returns null
+    _confirmLocation() {
+        var closestCity = null;
+        for (var city in showroomLocations) {
+            if (showroomLocations.hasOwnProperty(city)) {
+                var d = distanceSq(showroomLocations.city, this.state.location);
+                if (d < 4) {
+                    closestCity = city;
+                }
+            }
+        }
+        return closestCity;
+    }
+
+
     // Callback function that requests current location and stores it into state
     _getLocation() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-               var crd = position.coords;
-               this.setState({lat: crd.latitude, long: crd.longitude});
+                var crd = position.coords;
+                this.setState({
+                    location: {lat: crd.latitude, long: crd.longitude},
+                    located: true
+                });
             },
             (error) => alert(error.message),
             {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
         );
     }
+
 
     // Callback when the Login button is pressed, calls
     // _handleResponse on fetch results
@@ -250,10 +299,12 @@ class LoginPage extends Component {
         }
     }
 
+
     // Event handler for when AcctNum input is updated
     acctNumChanged(event) {
         this.setState({ acctNum: event.nativeEvent.text });
     }
+
 
     // Event handler for when lastName input is updated
     lastNameChanged(event) {

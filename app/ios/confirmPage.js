@@ -21,13 +21,14 @@ var {
 class ConfirmPage extends Component{
 	constructor(props){
 		super(props);
+		this.deleteMode = false;
 	}
 
 	render(){
-		console.log(this.props.location);
 		return(
 
 			<View style = {styles.container}>
+				<Text style = {styles.location}> Hi </Text>
 				{/*<View style = {styles.userInfo}>
 					<Text style = {styles.description}>You are about to log in as:</Text>
 					<Text style = {styles.userText}>Name: {this.props.user.firstname + ' ' + this.props.user.lastname}</Text>
@@ -89,7 +90,7 @@ class ConfirmPage extends Component{
             rightCorner: EditButton,
             leftCorner: LogoutButton,
             passProps: {
-            	user: this.props.user
+            	user: this.props.user,
             },
         });
 
@@ -178,6 +179,11 @@ var styles = StyleSheet.create({
 	notYouText: {
 		padding: 5,
 		color: '#800000'
+	},
+	location: {
+		color: 'black',
+		alignSelf: 'center',
+		fontSize: 18
 	}
 });
 
