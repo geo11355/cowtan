@@ -31,6 +31,13 @@ var styles = StyleSheet.create({
 		marginBottom: 6.2,
 		fontSize: 16,
 	},
+	priceRowInput: {
+		flex: 0.2,
+		borderBottomWidth: 1,
+		borderColor: '#800000',
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
+	},
 	rowInput: {
 		flex: 0.7,
 		borderBottomWidth: 1,
@@ -49,6 +56,24 @@ var styles = StyleSheet.create({
         //borderColor: '#800000',
         color: 'black',
         alignSelf: 'stretch'
+    },
+    priceRowTextInput: {
+    	height: 30,
+        //padding: 4,
+        marginRight: 5,
+        marginLeft: 15,
+        flex: 1,
+        fontSize: 18,
+        //borderWidth: 1,
+        //borderColor: '#800000',
+        color: 'black',
+        alignSelf: 'stretch'
+    },
+    overTenPlaceholder: {
+    	flex: 0.5
+    },
+    overTenText: {
+    	fontSize: 18
     },
     addButton: {
         height: 36,
@@ -176,8 +201,6 @@ class ManualAddPage extends Component{
 						</View>
 						<View style = {styles.rowPlaceholder}/>
 					</View>
-
-
 	
 					<TouchableHighlight
 		                style = {styles.addButton}
@@ -192,7 +215,13 @@ class ManualAddPage extends Component{
 
 	onAddPressed(){
 		//console.log(this.props);
-		if (this.state.productName !== '' && this.state.productNum !== '' && this.state.color !== '' && this.state.price !== ''){
+		if (this.state.productName === '' || this.state.productNum === '' || this.state.color === '' || this.state.price === ''){
+			Alert.alert('All fields must be filled out.', null);
+		}else if (this.state.productNum.match(/[a-z]/i)){
+			Alert.alert('Invalid Product', 'Product number field should have no letters.');
+		}else if (this.state.price.match(/[a-z]/i)){
+			Alert.alert('Invalid Price', 'Price field should have no letters.');
+		}else{
 			var JSONproduct = {
 				"name": this.state.productName,
 				"productnum": this.state.productNum,
@@ -201,8 +230,6 @@ class ManualAddPage extends Component{
 			};
 			this.props.updatePatterns(JSONproduct);
 			this.props.toBack();
-		}else{
-			Alert.alert('All fields must be filled out.', null);
 		}
 	}
 
