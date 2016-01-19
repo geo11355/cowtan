@@ -6,6 +6,12 @@ var AddButton = require('./addButton');
 var ConfirmPage = require('./confirmPage');
 var CameraPage = require('react-native-camera');
 
+// ------------------- CONSTANTS -------------------
+
+var BOUNDS = .05;         // Bound limit on login by lat/long units
+
+// -------------------------------------------------
+
 var {
     StyleSheet,
     Text,
@@ -16,7 +22,8 @@ var {
     Image,
     Component,
     ScrollView,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Alert
 } = React;
 
 var styles = StyleSheet.create({
@@ -33,16 +40,7 @@ var styles = StyleSheet.create({
         flex: 1,
     },
     mainContainer: {
-        //padding: 30,
-        
-        //to account for navigator
-        //marginTop: 30,
-        
-        //aligns all items in the center
-        //alignItems: 'center',
-        
         flex: 1,
-        
     },
     subContainer: {
         alignItems: 'center',
@@ -119,8 +117,10 @@ function generateUrl(acctNum) {
 };
 
 function distanceSq(l1, l2) {
-    var lats = Math.pow(l1.lat - l2.lat, 2);
-    var longs = Math.pow(l1.long - l2.long, 2);
+    var lats = Math.pow(+l1.lat - +l2.lat, 2);
+    var longs = Math.pow(+l1.long - +l2.long, 2);
+    console.log('lats; ' + lats);
+    console.log('longs: ' + longs);
     return lats + longs;
 }
 
@@ -159,6 +159,7 @@ class LoginPage extends Component {
             failedLogin: false,
             lat: '',
             long: '',
+            located: false
         };
         this._getLocation();
     }
@@ -252,14 +253,20 @@ class LoginPage extends Component {
     // else returns null
     _confirmLocation() {
         var closestCity = null;
+        var closestDistance = Infinity;
         for (var city in showroomLocations) {
             if (showroomLocations.hasOwnProperty(city)) {
-                var d = distanceSq(showroomLocations.city, this.state.location);
-                if (d < 4) {
+                var d = distanceSq(showroomLocations[city], this.state.location);
+                if (d < BOUNDS && d < closestDistance) {
                     closestCity = city;
+                    closestDistance = d;
                 }
+                console.log(d);
             }
         }
+        console.log(this.state.location);
+        console.log('CITY' + showroomLocations[closestCity]);
+        console.log(closestCity);
         return closestCity;
     }
 
@@ -282,7 +289,18 @@ class LoginPage extends Component {
 
     // Callback when the Login button is pressed, calls
     // _handleResponse on fetch results
+    // Fails when gps hasn't been detected or not within range
     onLoginPressed() {
+
+        if (!this.state.located) {
+            Alert.alert('Error', 'Location has not been detected yet, please try again in a moment');
+            return;
+        }
+        var closestCity = this._confirmLocation();
+        if (closestCity == null) {
+            Alert.alert('Access Denied', 'Not within showroom bounds');
+            return;
+        }
         if (this.state.acctNum !== '') {
             var query = generateUrl(this.state.acctNum, this.state.lastName);
             this.setState({isLoading: true});
