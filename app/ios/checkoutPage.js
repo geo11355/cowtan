@@ -56,7 +56,7 @@ var styles = StyleSheet.create({
         flex: 0.25,
     },
     quantityColumn: {
-        flex: 0.5,
+        flex: 0.15,
         marginRight: 10,
     },
     patternRow: {
