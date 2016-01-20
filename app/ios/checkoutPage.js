@@ -194,17 +194,8 @@ class CheckoutPage extends Component {
         };
     }
 
-    // Updates the proper address based on the type, and addresss should be json
-    // following format {addr1, addr2, city, state, zip}
-    updateAddress(type, address) {
-        if (type == 'billing') {
-            this.setState({ billingAddress: address });
-        }
-        else {
-            this.setState({ shippingAddress: address });
-        }
-    }
-
+    // Callback function to move to Edit page, passes along address type for generic
+    // edit page.
     goToChangeAddress(type) {
         this.props.toRoute({
             name: 'Edit',
@@ -218,6 +209,25 @@ class CheckoutPage extends Component {
         });
     }
 
+    // Callback function for handling emails of patterns list, posts to server
+    // for server to handle.
+    handleEmail() {
+        return;
+    }
+
+    // Updates the proper address based on the type, and addresss should be json
+    // following format {addr1, addr2, city, state, zip}
+    updateAddress(type, address) {
+        if (type == 'billing') {
+            this.setState({ billingAddress: address });
+        }
+        else {
+            this.setState({ shippingAddress: address });
+        }
+    }
+
+    // Helper function that builds a proper string with addr1, addr2 and rest. If addr2
+    // is empty then ignores it properly
     _buildAddress(addr1, addr2, rest) {
         var completeAddr = addr1 + '\n';
         if (addr2 == '') {
@@ -289,7 +299,8 @@ class CheckoutPage extends Component {
                         placeholder = 'Sidemark'/>
                 </ScrollView>
                 <TouchableHighlight
-                    style = {styles.checkoutButton}>
+                    style = {styles.checkoutButton}
+                    onPress = {this.handleEmail}>
                     <Text style = {styles.buttonText}> Email </Text>
                 </TouchableHighlight>
                 <TouchableHighlight 
