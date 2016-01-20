@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
     },
     listViewContainer: {
         borderBottomWidth: 1.5,
-        borderColor: '#d2d0d0',
+        borderColor: '#b9b6b6',
         marginBottom: 15
     },
     titleContainer: {
@@ -47,7 +47,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         borderTopWidth: 1.5,
         borderBottomWidth: 1.5,
-        borderColor: '#d2d0d0',
+        borderColor: '#b9b6b6',
     },
     topRowText: {
         fontWeight: 'bold',
