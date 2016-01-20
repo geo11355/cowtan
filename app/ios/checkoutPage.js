@@ -20,12 +20,17 @@ var styles = StyleSheet.create({
         flexDirection: 'column'
     },
     listView: {
-        height: 180,
+        height: 200,
         //borderWidth: 1
         backgroundColor: '#f0eeee',
+        //borderBottomWidth: 1.5,
+        //borderColor: '#d2d0d0',
+        //marginBottom: 15,
+    },
+    listViewContainer: {
         borderBottomWidth: 1.5,
         borderColor: '#d2d0d0',
-        marginBottom: 15,
+        marginBottom: 15
     },
     titleContainer: {
         marginLeft: 10,
@@ -296,9 +301,12 @@ class CheckoutPage extends Component {
                      <View style = {styles.quantityColumn}><Text style = {styles.topRowText}>Qty.</Text></View>
                 </View>
 
-                <ListView style = {styles.listView}
-                    dataSource = {this.state.dataSource}
-                    renderRow = {this.renderRow.bind(this)}/>
+                <View style = {styles.listViewContainer}>
+                    <ListView style = {styles.listView}
+                        dataSource = {this.state.dataSource}
+                        renderRow = {this.renderRow.bind(this)}/>
+                </View>
+
                 <View>
                     <View style = {styles.addressInfoContainer}>
                         <View style = {styles.titleRow}>
