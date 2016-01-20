@@ -30,11 +30,13 @@ var styles = StyleSheet.create({
     titleContainer: {
         marginLeft: 10,
         marginTop: 6,
-        marginBottom: 3
+        marginBottom: 3,
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 16.
+        fontSize: 16,
+        alignSelf: 'flex-start',
+        flex: 1
     },
     topRow: {
         flexDirection: 'row',
@@ -76,10 +78,31 @@ var styles = StyleSheet.create({
         borderColor: '#800000',
         backgroundColor: '#800000',
         borderRadius: 8,
+        marginBottom: 20,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10,
+        
+        //Keeps text aligned
+        justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
+    emailButton: {
+        height: 36,
+        //borderWidth: 1,
+        borderColor: '#800000',
+        backgroundColor: '#800000',
+        borderRadius: 8,
         marginBottom: 5,
-        marginRight: 25,
-        marginLeft: 25,
-        marginTop: 0,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10,
         
         //Keeps text aligned
         justifyContent: 'center',
@@ -101,27 +124,41 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 0.8
     },
-    editButton: {
-        alignSelf: 'center',
-        marginBottom: 10,
-    },
     editButtonText: {
-        padding: 5,
-        color: 'blue'
+        color: '#800000',
+        fontSize: 16
     },
     sidemarkInput: {
         height: 80,
         padding: 4,
-        marginRight: 25,
-        marginLeft: 25,
+        marginRight: 10,
+        marginLeft: 10,
         marginBottom: 10,
+        marginTop: 5,
         //flex: 1,
-        fontSize: 18,
+        fontSize: 16,
         borderWidth: 1,
         borderColor: '#800000',
-        borderRadius: 8,
+        borderRadius: 6,
         color: 'black',
-    }
+    },
+    addressInfoContainer: {
+        marginLeft: 10
+    },
+    addressText: {
+        fontSize: 15,
+        marginBottom: 15
+    },
+    titleRow: {
+        flexDirection: 'row',
+        borderBottomWidth: 1.5,
+        marginBottom: 2,
+        marginTop: 10,
+    },
+    editButtonContainer: {
+        alignSelf: 'flex-end',
+        marginRight: 10
+    },
 });
 
 function compressPatternList(patterns){
@@ -262,39 +299,55 @@ class CheckoutPage extends Component {
                 <ListView style = {styles.listView}
                     dataSource = {this.state.dataSource}
                     renderRow = {this.renderRow.bind(this)}/>
-                <ScrollView contentContainerStyle = {styles.scroll}>
-                    <Text>
-                        Billing Address: {'\n'} {billingAddr}
-                    </Text>
-                    <TouchableHighlight
-                        underlayColor = 'transparent'
-                        onPress = {this.goToChangeAddress.bind(this, 'billing')}>
-                        <Text style = {styles.editButton}>
-                            Edit
+                <View>
+                    <View style = {styles.addressInfoContainer}>
+                        <View style = {styles.titleRow}>
+                            <Text style = {styles.title}>
+                                Billing Address: 
+                            </Text>
+                            <TouchableHighlight
+                                underlayColor = 'transparent'
+                                onPress = {this.goToChangeAddress.bind(this, 'billing')}
+                                style = {styles.editButtonContainer}>
+                                <Text style = {styles.editButtonText}>
+                                    Edit
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
+                        <Text style = {styles.addressText}>
+                            {billingAddr}
                         </Text>
-                    </TouchableHighlight>
-                    <Text>
-                        Shipping Address: {'\n'} {shippingAddr}
-                    </Text>
-                    <TouchableHighlight
-                        underlayColor = 'transparent'
-                        onPress = {this.goToChangeAddress.bind(this, 'shipping')}>
-                        <Text style = {styles.editButton}>
-                            Edit
+
+                        <View style = {styles.titleRow}>
+                            <Text style = {styles.title}>
+                                Shipping Address: 
+                            </Text>
+                            <TouchableHighlight
+                                underlayColor = 'transparent'
+                                onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                                style = {styles.editButtonContainer}>
+                                <Text style = {styles.editButtonText}>
+                                    Edit
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
+
+                        <Text style = {styles.addressText}>
+                            {shippingAddr}
                         </Text>
-                    </TouchableHighlight>
+                    </View>
                     <TextInput
                         style = {styles.sidemarkInput}
                         multiline = {true}
-                        placeholder = 'Sidemark'/>
-                </ScrollView>
+                        placeholder = 'Any additional comments?'/>
+                </View>
                 <TouchableHighlight
-                    style = {styles.checkoutButton}>
-                    <Text style = {styles.buttonText}> Email </Text>
+                    style = {styles.emailButton}>
+                    <Text style = {styles.buttonText}>Email</Text>
                 </TouchableHighlight>
                 <TouchableHighlight 
                     style = {styles.checkoutButton}>
-                    <Text style = {styles.buttonText}> Checkout </Text>
+                    <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
 
             </ScrollView>
