@@ -11,7 +11,8 @@ var {
     TouchableHighlight,
     Component,
     ScrollView,
-    ListView
+    ListView,
+    Alert
 } = React;
 
 var styles = StyleSheet.create({
@@ -20,27 +21,34 @@ var styles = StyleSheet.create({
         flexDirection: 'column'
     },
     listView: {
-        height: 180,
+        height: 200,
         //borderWidth: 1
         backgroundColor: '#f0eeee',
+        //borderBottomWidth: 1.5,
+        //borderColor: '#d2d0d0',
+        //marginBottom: 15,
+    },
+    listViewContainer: {
         borderBottomWidth: 1.5,
-        borderColor: '#d2d0d0',
-        marginBottom: 15,
+        borderColor: '#b9b6b6',
+        marginBottom: 15
     },
     titleContainer: {
         marginLeft: 10,
         marginTop: 6,
-        marginBottom: 3
+        marginBottom: 3,
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 16.
+        fontSize: 16,
+        alignSelf: 'flex-start',
+        flex: 1
     },
     topRow: {
         flexDirection: 'row',
         borderTopWidth: 1.5,
         borderBottomWidth: 1.5,
-        borderColor: '#d2d0d0',
+        borderColor: '#b9b6b6',
     },
     topRowText: {
         fontWeight: 'bold',
@@ -76,10 +84,31 @@ var styles = StyleSheet.create({
         borderColor: '#800000',
         backgroundColor: '#800000',
         borderRadius: 8,
+        marginBottom: 20,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10,
+        
+        //Keeps text aligned
+        justifyContent: 'center',
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
+    emailButton: {
+        height: 36,
+        //borderWidth: 1,
+        borderColor: '#800000',
+        backgroundColor: '#800000',
+        borderRadius: 8,
         marginBottom: 5,
-        marginRight: 25,
-        marginLeft: 25,
-        marginTop: 0,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10,
         
         //Keeps text aligned
         justifyContent: 'center',
@@ -101,28 +130,73 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 0.8
     },
-    editButton: {
-        alignSelf: 'center',
-        marginBottom: 10,
-    },
     editButtonText: {
-        padding: 5,
-        color: 'blue'
+        color: '#800000',
+        fontSize: 16
     },
     sidemarkInput: {
         height: 80,
         padding: 4,
-        marginRight: 25,
-        marginLeft: 25,
+        marginRight: 10,
+        marginLeft: 10,
         marginBottom: 10,
+        marginTop: 5,
         //flex: 1,
-        fontSize: 18,
+        fontSize: 16,
         borderWidth: 1,
         borderColor: '#800000',
-        borderRadius: 8,
+        borderRadius: 6,
         color: 'black',
-    }
+    },
+    addressInfoContainer: {
+        marginLeft: 10
+    },
+    addressText: {
+        fontSize: 15,
+        marginBottom: 15
+    },
+    titleRow: {
+        flexDirection: 'row',
+        borderBottomWidth: 1.5,
+        marginBottom: 2,
+        marginTop: 10,
+    },
+    editButtonContainer: {
+        alignSelf: 'flex-end',
+        marginRight: 10
+    },
 });
+
+function postReq(url, obj) {
+   return new Promise(function (resolve, reject) {
+       var req = new XMLHttpRequest();
+       req.open("POST", url, true);
+
+       var params = "";
+       //convert obj to url encoded
+       for (var i in obj) {
+           params += encodeURIComponent(i) + "=";
+           params += encodeURIComponent(obj[i]) + "&";
+       }
+       params = params.slice(0, -1); //remove trailing ampersand
+       console.log(params);
+       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       req.onload = function () {
+           if (req.status === 200) {
+               resolve(req.responseText)
+                    .then((text) => text);
+               console.log(req.responseText);
+           } 
+           else {
+                Alert.alert('Error', 'Email failed with:' + req.responseText);
+                console.log(req.responseText);
+               reject(Error(req.responseText));
+           }
+       };
+       req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
+       req.send(params);
+   });
+}
 
 function compressPatternList(patterns){
     var finalPatternList = [];
@@ -212,7 +286,17 @@ class CheckoutPage extends Component {
     // Callback function for handling emails of patterns list, posts to server
     // for server to handle.
     handleEmail() {
-        return;
+        if (this.props.patterns.length == 0) {
+            Alert.alert('Error', 'There are no patterns in the cart');
+            return;
+        }
+
+        var patternObject = {address: 'ryan.f.dong', domain: 'gmail.com'};
+        for (var i=0; i<this.props.patterns.length; i++) {
+            patternObject[i] = this.props.patterns[i].productnum;
+        }
+        var result = postReq('http://cowtandb.com/generatepdf.php', patternObject);
+        console.log(result);
     }
 
     // Updates the proper address based on the type, and addresss should be json
@@ -269,43 +353,62 @@ class CheckoutPage extends Component {
                      <View style = {styles.quantityColumn}><Text style = {styles.topRowText}>Qty.</Text></View>
                 </View>
 
-                <ListView style = {styles.listView}
-                    dataSource = {this.state.dataSource}
-                    renderRow = {this.renderRow.bind(this)}/>
-                <ScrollView contentContainerStyle = {styles.scroll}>
-                    <Text>
-                        Billing Address: {'\n'} {billingAddr}
-                    </Text>
-                    <TouchableHighlight
-                        underlayColor = 'transparent'
-                        onPress = {this.goToChangeAddress.bind(this, 'billing')}>
-                        <Text style = {styles.editButton}>
-                            Edit
+                <View style = {styles.listViewContainer}>
+                    <ListView style = {styles.listView}
+                        dataSource = {this.state.dataSource}
+                        renderRow = {this.renderRow.bind(this)}/>
+                </View>
+
+                <View>
+                    <View style = {styles.addressInfoContainer}>
+                        <View style = {styles.titleRow}>
+                            <Text style = {styles.title}>
+                                Billing Address: 
+                            </Text>
+                            <TouchableHighlight
+                                underlayColor = 'transparent'
+                                onPress = {this.goToChangeAddress.bind(this, 'billing')}
+                                style = {styles.editButtonContainer}>
+                                <Text style = {styles.editButtonText}>
+                                    Edit
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
+                        <Text style = {styles.addressText}>
+                            {billingAddr}
                         </Text>
-                    </TouchableHighlight>
-                    <Text>
-                        Shipping Address: {'\n'} {shippingAddr}
-                    </Text>
-                    <TouchableHighlight
-                        underlayColor = 'transparent'
-                        onPress = {this.goToChangeAddress.bind(this, 'shipping')}>
-                        <Text style = {styles.editButton}>
-                            Edit
+
+                        <View style = {styles.titleRow}>
+                            <Text style = {styles.title}>
+                                Shipping Address: 
+                            </Text>
+                            <TouchableHighlight
+                                underlayColor = 'transparent'
+                                onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                                style = {styles.editButtonContainer}>
+                                <Text style = {styles.editButtonText}>
+                                    Edit
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
+
+                        <Text style = {styles.addressText}>
+                            {shippingAddr}
                         </Text>
-                    </TouchableHighlight>
+                    </View>
                     <TextInput
                         style = {styles.sidemarkInput}
                         multiline = {true}
-                        placeholder = 'Sidemark'/>
-                </ScrollView>
+                        placeholder = 'Any additional comments?'/>
+                </View>
                 <TouchableHighlight
-                    style = {styles.checkoutButton}
-                    onPress = {this.handleEmail}>
-                    <Text style = {styles.buttonText}> Email </Text>
+                    style = {styles.emailButton}
+                    onPress = {this.handleEmail.bind(this)}>
+                    <Text style = {styles.buttonText}>Email</Text>
                 </TouchableHighlight>
                 <TouchableHighlight 
                     style = {styles.checkoutButton}>
-                    <Text style = {styles.buttonText}> Checkout </Text>
+                    <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
 
             </ScrollView>
