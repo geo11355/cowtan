@@ -28,10 +28,26 @@ var styles = StyleSheet.create({
         //borderColor: '#d2d0d0',
         //marginBottom: 15,
     },
+    boxContainer: {
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
     listViewContainer: {
         borderBottomWidth: 1.5,
         borderColor: '#b9b6b6',
-        marginBottom: 15
+        marginBottom: 15,
+        shadowRadius: 3,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
     },
     titleContainer: {
         marginLeft: 10,
@@ -42,12 +58,19 @@ var styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         alignSelf: 'flex-start',
-        flex: 1
+        flex: 1,
+        marginLeft: 10
+    },
+    titleTop: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        alignSelf: 'flex-start',
+        flex: 1,
     },
     topRow: {
         flexDirection: 'row',
-        borderTopWidth: 1.5,
-        borderBottomWidth: 1.5,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#b9b6b6',
     },
     topRowText: {
@@ -130,6 +153,31 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 0.8
     },
+    addressButton: {
+        //flexDirection: 'row',
+        marginTop: 0,
+        backgroundColor: '#f0eeee',
+        //borderBottomWidth: 1.5,
+        //borderColor: '#b9b6b6',
+        marginBottom: 20,
+        shadowRadius: 3,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
+    addressRow: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    carat: {
+        color: '#800000',
+        alignSelf: 'center',
+        marginRight: 10,
+        fontSize: 22
+    },
     editButtonText: {
         color: '#800000',
         fontSize: 16
@@ -153,13 +201,15 @@ var styles = StyleSheet.create({
     },
     addressText: {
         fontSize: 15,
-        marginBottom: 15
+        //marginBottom: 15
+        flex: 1,
+        marginLeft: 10
     },
     titleRow: {
         flexDirection: 'row',
         borderBottomWidth: 1.5,
-        marginBottom: 2,
-        marginTop: 10,
+        //marginBottom: 2,
+        marginTop: 5,
     },
     editButtonContainer: {
         alignSelf: 'flex-end',
@@ -359,57 +409,75 @@ class CheckoutPage extends Component {
         return (
             <ScrollView>
                 <View style = {styles.titleContainer}>
-                    <Text style = {styles.title}>Summary: </Text>
+                    <Text style = {styles.titleTop}>Summary: </Text>
                 </View>
 
-                <View style = {styles.topRow}>
-                     <View style = {styles.itemColumn}><Text style = {styles.topRowText}>Item</Text></View>
-                     <View style = {styles.priceColumn}><Text style = {styles.topRowText}>Price</Text></View>
-                     <View style = {styles.quantityColumn}><Text style = {styles.topRowText}>Qty.</Text></View>
-                </View>
+                <View style = {styles.boxContainer}>
+                    <View style = {styles.topRow}>
+                         <View style = {styles.itemColumn}><Text style = {styles.topRowText}>Item</Text></View>
+                         <View style = {styles.priceColumn}><Text style = {styles.topRowText}>Price</Text></View>
+                         <View style = {styles.quantityColumn}><Text style = {styles.topRowText}>Qty.</Text></View>
+                    </View>
 
-                <View style = {styles.listViewContainer}>
-                    <ListView style = {styles.listView}
-                        dataSource = {this.state.dataSource}
-                        renderRow = {this.renderRow.bind(this)}/>
+                    <View style = {styles.listViewContainer}>
+                        <ListView style = {styles.listView}
+                            dataSource = {this.state.dataSource}
+                            renderRow = {this.renderRow.bind(this)}/>
+                    </View>
                 </View>
 
                 <View>
-                    <View style = {styles.addressInfoContainer}>
+                    {/*<View style = {styles.addressInfoContainer}>*/}
                         <View style = {styles.titleRow}>
                             <Text style = {styles.title}>
                                 Billing Address: 
                             </Text>
-                            <TouchableHighlight
+                            {/*<TouchableHighlight
                                 underlayColor = 'transparent'
                                 onPress = {this.goToChangeAddress.bind(this, 'billing')}
                                 style = {styles.editButtonContainer}>
                                 <Text style = {styles.editButtonText}>
                                     Edit
                                 </Text>
-                            </TouchableHighlight>
+                            </TouchableHighlight>*/}
                         </View>
-                        <Text style = {styles.addressText}>
-                            {billingAddr}
-                        </Text>
+                        <TouchableHighlight 
+                            onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                            style = {styles.addressButton}
+                            underlayColor = '#A9A9A9'>
+                            <View style = {styles.addressRow}>
+                                <Text style = {styles.addressText}>
+                                    {billingAddr}
+                                </Text>
+                                <Text style = {styles.carat}>></Text>
+                            </View>
+                        </TouchableHighlight>
                         <View style = {styles.titleRow}>
-                            <Text style = {styles.title}>
-                                Shipping Address: 
-                            </Text>
-                            <TouchableHighlight
+                            
+                                <Text style = {styles.title}>
+                                    Shipping Address: 
+                                </Text>
+                            {/*<TouchableHighlight
                                 underlayColor = 'transparent'
                                 onPress = {this.goToChangeAddress.bind(this, 'shipping')}
                                 style = {styles.editButtonContainer}>
                                 <Text style = {styles.editButtonText}>
                                     Edit
                                 </Text>
-                            </TouchableHighlight>
+                            </TouchableHighlight>*/}
                         </View>
-
-                        <Text style = {styles.addressText}>
-                            {shippingAddr}
-                        </Text>
-                    </View>
+                        <TouchableHighlight 
+                            onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                            style = {styles.addressButton}
+                            underlayColor = '#A9A9A9'>
+                                <View style = {styles.addressRow}>
+                                    <Text style = {styles.addressText}>
+                                        {shippingAddr}
+                                    </Text>
+                                    <Text style = {styles.carat}>></Text>
+                                </View>
+                        </TouchableHighlight>
+                    {/*</View>*/}
                     <TextInput
                         style = {styles.sidemarkInput}
                         multiline = {true}
