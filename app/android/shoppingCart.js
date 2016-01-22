@@ -164,8 +164,7 @@ class ShoppingCart extends Component {
             component: CheckoutPage,
             passProps: {
                 patterns: patternListCopy,
-                user: this.props.user,
-                location: this.props.location
+                user: this.props.user
             },
             leftComponent: CustomBackButton,
             leftComponentProps: {

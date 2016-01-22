@@ -8,7 +8,7 @@ var CameraPage = require('react-native-camera');
 
 // ------------------- CONSTANTS -------------------
 
-var BOUNDS = 1;         // Bound limit on login by lat/long units
+var BOUNDS = 200;         // Bound limit on login by lat/long units
 
 // -------------------------------------------------
 
@@ -123,23 +123,28 @@ function distanceSq(l1, l2) {
 }
 
 var showroomLocations = {
-    'New York': {city: 'New York', lat: 40.760897, long: -73.966376, code: '00'},
-    'Primavera': {city: 'Primavera', lat: 43.675163, long: -79.399339, code: '01'},
-    'Philidelphia': {city: 'Philidelphia', lat: 39.953568, long: -75.179375, code: '02'},
-    'Washington DC': {city: 'Washington DC', lat: 38.903364, long: -77.031224, code: '03'},
-    'Boston': {city: 'Boston', lat: 42.344189, long: -71.032813, code: '04'},
-    'West Canada': {city: 'West Canada', lat: 49.284026, long: -123.091239, code: '05'},
-    'Atlanta': {city: 'Atlanta', lat: 33.817611, long: -84.374773, code: '06'},
-    'Florida': {city: 'Florida', lat: 26.059659, long: -80.161519, code: '07'},
-    'Dallas': {city: 'Dallas', lat: 32.788440, long: -96.814413, code: '08'},
-    'Houston': {city: 'Houston', lat: 29.762561, long: -95.466267, code: '09'},
-    'Denver': {city: 'Devner', lat: 39.706273, long: -104.990627, code: '10'},
-    'Chicago': {city: 'Chicago', lat: 41.888519, long: -87.635480, code: '11'},
-    'Troy': {city: 'Troy', lat: 42.551595, long: -83.177836, code: '12'},
-    'Cleveland': {city: 'Cleveland', lat: 41.459648, long: -81.509372, code: '14'},
-    'Los Angeles': {city: 'Lost Angeles', lat: 34.082157, long: -118.382384, code: '16'},
-    'San Francisco': {city: 'San Francisco', lat: 37.769149, long: -122.404440, code: '17'},
-    'Scottsdale': {city: 'Scottsdale', lat: 33.479783, long: -111.934773, code: '19'},
+    'New York': {lat: 40.7127, long: -74.0059},
+    'Philidelphia': {lat: 39.9500, long: -75.1667},
+    'Washington DC': {lat: 38.9047, long: -77.0164},
+    'Boston': {lat: 42.3601, long: -71.0589},
+    'Atlanta': {lat: 33.7550, long: -84.3900},
+    'Dania': {lat: 26.0550, long: -80.1531},
+    'Dallas': {lat: 32.7767, long: -96.7970},
+    'Houston': {lat: 29.7604, long: -95.3698},
+    'Chicago': {lat: 41.8369, long: -41.8369},
+    'Cleveland': {lat: 41.4822, long: -81.6697},
+    'Kansas City': {lat: 39.0997, long: -94.5783},
+    'Minneapolis': {lat: 44.9778, long: -93.2650},
+    'St. Louis': {lat: 38.6272, long: -90.1978},
+    'Troy': {lat: 42.5803, long: -83.1431},
+    'Los Angeles': {lat: 34.0500, long: -118.2500},
+    'San Francisco': {lat: 37.7833, long: -122.4167},
+    'Denver': {lat: 39.7392, long: -104.9903},
+    'Scottsdale': {lat: 33.5000, long: -111.9333},
+    'Portland': {lat: 45.5200, long: -122.6819},
+    'San Diego': {lat: 32.7150, long: -117.1625},
+    'Seattle': {lat: 47.6097, long: -122.3331},
+    'Cupertino': {lat: 37.33525552 , long: -122.03254838}
 };
 
 // Login Screen class
@@ -253,11 +258,12 @@ class LoginPage extends Component {
             if (showroomLocations.hasOwnProperty(city)) {
                 var d = distanceSq(showroomLocations[city], this.state.location);
                 if (d < BOUNDS && d < closestDistance) {
-                    closestCity = showroomLocations[city];
+                    closestCity = city;
                     closestDistance = d;
                 }
             }
         }
+        console.log(closestDistance);
         return closestCity;
     }
 
@@ -294,7 +300,7 @@ class LoginPage extends Component {
         }
 
         // Set current location's city to closestCity
-        this.state.location = closestCity;
+        this.state.location.city = closestCity;
         if (this.state.acctNum !== '') {
             var query = generateUrl(this.state.acctNum, this.state.lastName);
             this.setState({isLoading: true});

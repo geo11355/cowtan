@@ -168,30 +168,33 @@ var styles = StyleSheet.create({
 });
 
 function postReq(url, obj) {
-    return new Promise(function (resolve, reject) {
-        var req = new XMLHttpRequest();
-        req.open("POST", url, true);
+   return new Promise(function (resolve, reject) {
+       var req = new XMLHttpRequest();
+       req.open("POST", url, true);
 
-        var params = "";
-        //convert obj to url encoded
-        for (var i in obj) {
+       var params = "";
+       //convert obj to url encoded
+       for (var i in obj) {
            params += encodeURIComponent(i) + "=";
            params += encodeURIComponent(obj[i]) + "&";
-        }
-        params = params.slice(0, -1); //remove trailing ampersand
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        req.onload = function () {
-            if (req.status === 200) {
-                Alert.alert('Success', 'Email sent to: ' + obj.address + '@' + obj.domain);
-                resolve(req.responseText)
-            } 
-            else {
+       }
+       params = params.slice(0, -1); //remove trailing ampersand
+       console.log(params);
+       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       req.onload = function () {
+           if (req.status === 200) {
+               resolve(req.responseText)
+                    .then((text) => text);
+               console.log(req.responseText);
+           } 
+           else {
                 Alert.alert('Error', 'Email failed with:' + req.responseText);
-                reject(Error(req.responseText));then
-            }
-        };
-        req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
-        req.send(params);
+                console.log(req.responseText);
+               reject(Error(req.responseText));
+           }
+       };
+       req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
+       req.send(params);
    });
 }
 
@@ -261,8 +264,7 @@ class CheckoutPage extends Component {
                 addr2: this.props.user.addr2,
                 rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
             },
-            dataSource: dataSource.cloneWithRows(finalPatternList),
-            emailSent: false
+            dataSource: dataSource.cloneWithRows(finalPatternList)
         };
     }
 
@@ -284,35 +286,17 @@ class CheckoutPage extends Component {
     // Callback function for handling emails of patterns list, posts to server
     // for server to handle.
     handleEmail() {
-        // Throw an alert if there aren't any patterns to email
         if (this.props.patterns.length == 0) {
             Alert.alert('Error', 'There are no patterns in the cart');
             return;
         }
 
-        // Throw an alert if we've already sent an email
-        if (this.state.emailSent) {
-            Alert.alert('Sent', 'Email has already been sent');
-            return;
-        }
-
-        // Set up pattern objects and then send all the pattern numbers
-        var patternObject = {
-            address: 'ryan.f.dong',
-            domain: 'gmail.com', 
-            locationCode: this.props.location.code,
-            locationCity: this.props.location.city
-        };
+        var patternObject = {address: 'ryan.f.dong', domain: 'gmail.com'};
         for (var i=0; i<this.props.patterns.length; i++) {
             patternObject[i] = this.props.patterns[i].productnum;
         }
-        postReq('http://cowtandb.com/generatepdf.php', patternObject)
-            .then((result) => {
-                console.log('RESPONSE: ' + result);
-                if (result == 'success') {
-                    this.setState({ emailSent: true });
-                }
-            });
+        var result = postReq('http://cowtandb.com/generatepdf.php', patternObject);
+        console.log(result);
     }
 
     // Updates the proper address based on the type, and addresss should be json
@@ -349,6 +333,7 @@ class CheckoutPage extends Component {
     }
 
     render() {
+
         var billingAddr = this._buildAddress(this.state.billingAddress.addr1, 
                                             this.state.billingAddress.addr2,
                                             this.state.billingAddress.rest);
@@ -392,6 +377,7 @@ class CheckoutPage extends Component {
                         <Text style = {styles.addressText}>
                             {billingAddr}
                         </Text>
+
                         <View style = {styles.titleRow}>
                             <Text style = {styles.title}>
                                 Shipping Address: 
@@ -424,6 +410,7 @@ class CheckoutPage extends Component {
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
+
             </ScrollView>
         )
     }

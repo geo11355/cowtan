@@ -1,52 +1,63 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
+var Router = require('gb-native-router');
+var LoginPage = require('./android/loginPage');
+var LoadingPage = require('./android/loadingPage');
+
 var {
+  Component,
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  NavigatorIOS
 } = React;
 
-var cowtan = React.createClass({
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+var styles = StyleSheet.create({
+  text: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 30,
+    margin: 80
+  },
+  container: {
+    flex: 1
+  },
+  header: {
+    backgroundColor: '#800000'
   }
 });
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
-AppRegistry.registerComponent('cowtan', () => cowtan);
+class CowtanApp extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      timePassed: false
+    };
+  }
+
+  componentDidMount(){
+    setTimeout( () => {
+      this.setTimePassed();
+    }, 500);
+  }
+
+  setTimePassed(){
+    this.setState({timePassed: true});
+  }
+
+  render() {
+      return (
+        <Router
+          firstRoute = {{
+            component: LoginPage,
+            name: 'Sign In',
+          }}
+          headerStyle = {styles.header}/>
+      );
+  }
+}
+
+AppRegistry.registerComponent('cowtan', () => CowtanApp);

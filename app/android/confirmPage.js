@@ -91,7 +91,6 @@ class ConfirmPage extends Component{
             leftCorner: LogoutButton,
             passProps: {
             	user: this.props.user,
-            	location: this.props.location
             },
         });
 
