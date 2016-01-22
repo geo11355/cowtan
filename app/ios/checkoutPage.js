@@ -41,7 +41,7 @@ var styles = StyleSheet.create({
         borderBottomWidth: 1.5,
         borderColor: '#b9b6b6',
         marginBottom: 15,
-        shadowRadius: 4,
+        shadowRadius: 3,
         shadowOpacity: 0.8,
         shadowColor: 'gray',
         shadowOffset: {
@@ -69,8 +69,8 @@ var styles = StyleSheet.create({
     },
     topRow: {
         flexDirection: 'row',
-        borderTopWidth: 1.5,
-        borderBottomWidth: 1.5,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#b9b6b6',
     },
     topRowText: {
