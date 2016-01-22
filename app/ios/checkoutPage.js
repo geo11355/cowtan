@@ -11,7 +11,8 @@ var {
     TouchableHighlight,
     Component,
     ScrollView,
-    ListView
+    ListView,
+    Alert
 } = React;
 
 var styles = StyleSheet.create({
@@ -166,6 +167,37 @@ var styles = StyleSheet.create({
     },
 });
 
+function postReq(url, obj) {
+   return new Promise(function (resolve, reject) {
+       var req = new XMLHttpRequest();
+       req.open("POST", url, true);
+
+       var params = "";
+       //convert obj to url encoded
+       for (var i in obj) {
+           params += encodeURIComponent(i) + "=";
+           params += encodeURIComponent(obj[i]) + "&";
+       }
+       params = params.slice(0, -1); //remove trailing ampersand
+       console.log(params);
+       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       req.onload = function () {
+           if (req.status === 200) {
+               resolve(req.responseText)
+                    .then((text) => text);
+               console.log(req.responseText);
+           } 
+           else {
+                Alert.alert('Error', 'Email failed with:' + req.responseText);
+                console.log(req.responseText);
+               reject(Error(req.responseText));
+           }
+       };
+       req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
+       req.send(params);
+   });
+}
+
 function compressPatternList(patterns){
     var finalPatternList = [];
     for (var i = 0; i < patterns.length; i++){
@@ -236,17 +268,8 @@ class CheckoutPage extends Component {
         };
     }
 
-    // Updates the proper address based on the type, and addresss should be json
-    // following format {addr1, addr2, city, state, zip}
-    updateAddress(type, address) {
-        if (type == 'billing') {
-            this.setState({ billingAddress: address });
-        }
-        else {
-            this.setState({ shippingAddress: address });
-        }
-    }
-
+    // Callback function to move to Edit page, passes along address type for generic
+    // edit page.
     goToChangeAddress(type) {
         this.props.toRoute({
             name: 'Edit',
@@ -260,6 +283,35 @@ class CheckoutPage extends Component {
         });
     }
 
+    // Callback function for handling emails of patterns list, posts to server
+    // for server to handle.
+    handleEmail() {
+        if (this.props.patterns.length == 0) {
+            Alert.alert('Error', 'There are no patterns in the cart');
+            return;
+        }
+
+        var patternObject = {address: 'ryan.f.dong', domain: 'gmail.com'};
+        for (var i=0; i<this.props.patterns.length; i++) {
+            patternObject[i] = this.props.patterns[i].productnum;
+        }
+        var result = postReq('http://cowtandb.com/generatepdf.php', patternObject);
+        console.log(result);
+    }
+
+    // Updates the proper address based on the type, and addresss should be json
+    // following format {addr1, addr2, city, state, zip}
+    updateAddress(type, address) {
+        if (type == 'billing') {
+            this.setState({ billingAddress: address });
+        }
+        else {
+            this.setState({ shippingAddress: address });
+        }
+    }
+
+    // Helper function that builds a proper string with addr1, addr2 and rest. If addr2
+    // is empty then ignores it properly
     _buildAddress(addr1, addr2, rest) {
         var completeAddr = addr1 + '\n';
         if (addr2 == '') {
@@ -350,7 +402,8 @@ class CheckoutPage extends Component {
                         placeholder = 'Any additional comments?'/>
                 </View>
                 <TouchableHighlight
-                    style = {styles.emailButton}>
+                    style = {styles.emailButton}
+                    onPress = {this.handleEmail.bind(this)}>
                     <Text style = {styles.buttonText}>Email</Text>
                 </TouchableHighlight>
                 <TouchableHighlight 
