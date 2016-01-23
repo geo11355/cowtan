@@ -5,10 +5,11 @@ var ShoppingCart = require('./shoppingCart');
 var AddButton = require('./addButton');
 var ConfirmPage = require('./confirmPage');
 var CameraPage = require('react-native-camera');
+var KeyboardHandler = require('./keyboardHandler');
 
 // ------------------- CONSTANTS -------------------
 
-var BOUNDS = 1;         // Bound limit on login by lat/long units
+var BOUNDS = .5;         // Bound limit on login by lat/long units
 
 // -------------------------------------------------
 
@@ -36,18 +37,12 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         color: '#656565'
     },
-    scroll: {
-        flex: 1,
-    },
     mainContainer: {
-        flex: 1,
+        flex: 1
     },
     subContainer: {
         alignItems: 'center',
-        //borderWidth: 1,
-        //borderColor: 'blue',
         alignSelf: 'stretch',
-        //justifyContent: 'center',
         flex: 6,
         marginBottom: 30
     },
@@ -58,8 +53,6 @@ var styles = StyleSheet.create({
     },
     button: {
         height: 36,
-        //flex: 1,
-        //flexDirection: 'row',
         backgroundColor: '#800000',
         borderColor: '#800000',
         borderWidth: 1,
@@ -84,7 +77,6 @@ var styles = StyleSheet.create({
         marginRight: 25,
         marginLeft: 25,
         marginBottom: 10,
-        //flex: 1,
         fontSize: 18,
         borderWidth: 1,
         borderColor: '#800000',
@@ -101,13 +93,15 @@ var styles = StyleSheet.create({
    logoBox: {
         flexDirection: 'row',
         flex: 1,
-        marginTop: 25
+        height: 10,
+        padding: 20,
+        marginTop: 20,
+        marginBottom: 10
     },
     image: {
         alignSelf: 'center',
         flex: 1,
         resizeMode: 'contain',
-        margin: 15,
     }
 });
 
@@ -182,9 +176,7 @@ class LoginPage extends Component {
             </TouchableHighlight>);
 
         return (
-            <View style = {styles.mainContainer}>
-                {/*<ScrollView contentContainerStyle = {styles.scroll}
-                            >*/}
+            <KeyboardHandler style = {styles.mainContainer}>
                 <View style = {styles.logoBox}>  
                     <Image 
                         style = {styles.image}
@@ -217,7 +209,7 @@ class LoginPage extends Component {
                     {loginButton}
                 </View>
                 {/*</ScrollView>*/}
-            </View>
+            </KeyboardHandler>
         );
     }
 

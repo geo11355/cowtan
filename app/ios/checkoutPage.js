@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var EditAddressPage = require('./editAddressPage');
+var KeyboardHandler = require('./keyboardHandler');
 
 var {
     StyleSheet,
@@ -407,7 +408,7 @@ class CheckoutPage extends Component {
                                               this.state.shippingAddress.rest);
 
         return (
-            <ScrollView>
+            <KeyboardHandler ref = 'scrollContainer'>
                 <View style = {styles.titleContainer}>
                     <Text style = {styles.titleTop}>Summary: </Text>
                 </View>
@@ -427,72 +428,56 @@ class CheckoutPage extends Component {
                 </View>
 
                 <View>
-                    {/*<View style = {styles.addressInfoContainer}>*/}
-                        <View style = {styles.titleRow}>
-                            <Text style = {styles.title}>
-                                Billing Address: 
+                    <View style = {styles.titleRow}>
+                        <Text style = {styles.title}>
+                            Billing Address: 
+                        </Text>
+                    </View>
+                    <TouchableHighlight 
+                        onPress = {this.goToChangeAddress.bind(this, 'billing')}
+                        style = {styles.addressButton}
+                        underlayColor = '#A9A9A9'>
+                        <View style = {styles.addressRow}>
+                            <Text style = {styles.addressText}>
+                                {billingAddr}
                             </Text>
-                            {/*<TouchableHighlight
-                                underlayColor = 'transparent'
-                                onPress = {this.goToChangeAddress.bind(this, 'billing')}
-                                style = {styles.editButtonContainer}>
-                                <Text style = {styles.editButtonText}>
-                                    Edit
-                                </Text>
-                            </TouchableHighlight>*/}
+                            <Text style = {styles.carat}>></Text>
                         </View>
-                        <TouchableHighlight 
-                            onPress = {this.goToChangeAddress.bind(this, 'billing')}
-                            style = {styles.addressButton}
-                            underlayColor = '#A9A9A9'>
+                    </TouchableHighlight>
+                    <View style = {styles.titleRow}>
+                        <Text style = {styles.title}>
+                            Shipping Address: 
+                        </Text>
+                    </View>
+                    <TouchableHighlight 
+                        onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                        style = {styles.addressButton}
+                        underlayColor = '#A9A9A9'>
                             <View style = {styles.addressRow}>
                                 <Text style = {styles.addressText}>
-                                    {billingAddr}
+                                    {shippingAddr}
                                 </Text>
                                 <Text style = {styles.carat}>></Text>
                             </View>
-                        </TouchableHighlight>
-                        <View style = {styles.titleRow}>
-                            
-                                <Text style = {styles.title}>
-                                    Shipping Address: 
-                                </Text>
-                            {/*<TouchableHighlight
-                                underlayColor = 'transparent'
-                                onPress = {this.goToChangeAddress.bind(this, 'shipping')}
-                                style = {styles.editButtonContainer}>
-                                <Text style = {styles.editButtonText}>
-                                    Edit
-                                </Text>
-                            </TouchableHighlight>*/}
-                        </View>
-                        <TouchableHighlight 
-                            onPress = {this.goToChangeAddress.bind(this, 'shipping')}
-                            style = {styles.addressButton}
-                            underlayColor = '#A9A9A9'>
-                                <View style = {styles.addressRow}>
-                                    <Text style = {styles.addressText}>
-                                        {shippingAddr}
-                                    </Text>
-                                    <Text style = {styles.carat}>></Text>
-                                </View>
-                        </TouchableHighlight>
-                    {/*</View>*/}
+                    </TouchableHighlight>
                     <TextInput
+                        onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'checkout')}
                         style = {styles.sidemarkInput}
                         multiline = {true}
                         placeholder = 'Additional comments?'/>
                 </View>
+
                 <TouchableHighlight
                     style = {styles.emailButton}
                     onPress = {this.handleEmail.bind(this)}>
                     <Text style = {styles.buttonText}>Email</Text>
                 </TouchableHighlight>
-                <TouchableHighlight 
+                <TouchableHighlight
+                    ref = 'checkout'
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
-            </ScrollView>
+            </KeyboardHandler>
         )
     }
 }

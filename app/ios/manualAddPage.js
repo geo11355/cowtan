@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var KeyboardHandler = require('./keyboardHandler');
 
 var {
 	StyleSheet,
@@ -130,7 +131,7 @@ class ManualAddPage extends Component{
 
 		return(
 			
-				<ScrollView
+				<KeyboardHandler
 					keyboardShouldPersistTaps = {true}>
 					<View style = {styles.inputRow}>
 						<View style = {styles.rowPlaceholder}/>
@@ -208,7 +209,7 @@ class ManualAddPage extends Component{
 		                onPress = {this.onAddPressed.bind(this)}>
 		                <Text style = {styles.buttonText}>Add</Text>
 		            </TouchableHighlight>
-	            </ScrollView>
+	            </KeyboardHandler>
             
 		);
 	}
