@@ -442,7 +442,7 @@ class CheckoutPage extends Component {
                             </TouchableHighlight>*/}
                         </View>
                         <TouchableHighlight 
-                            onPress = {this.goToChangeAddress.bind(this, 'shipping')}
+                            onPress = {this.goToChangeAddress.bind(this, 'billing')}
                             style = {styles.addressButton}
                             underlayColor = '#A9A9A9'>
                             <View style = {styles.addressRow}>
@@ -481,7 +481,7 @@ class CheckoutPage extends Component {
                     <TextInput
                         style = {styles.sidemarkInput}
                         multiline = {true}
-                        placeholder = 'Any additional comments?'/>
+                        placeholder = 'Additional comments?'/>
                 </View>
                 <TouchableHighlight
                     style = {styles.emailButton}
