@@ -180,9 +180,7 @@ class LoginPage extends Component {
                 <View style = {styles.logoBox}>  
                     <Image 
                         style = {styles.image}
-                        source = {require('./../media/logo.jpg')}
-                    >
-                    </Image>
+                        source = {require('./../media/logo.jpg')} />
                 </View>
 
                 <View style = {styles.subContainer}>
@@ -194,10 +192,10 @@ class LoginPage extends Component {
                         style = {styles.textInput}
                         placeholder = 'Account Number'
                         value = {this.state.acctNum}
-                        returnKeyType = 'next'
-                        onSubmitEditing = {() => this.passInput.focus()}
+                        returnKeyType = 'go'
+                        onSubmitEditing = {this.onLoginPressed.bind(this)}
                         onChange = {this.acctNumChanged.bind(this)}/>
-                    <TextInput
+                    {/*<TextInput
                         ref = {(ref) => this.passInput = ref}
                         style = {styles.textInput}
                         placeholder = 'Last Name'
@@ -205,10 +203,9 @@ class LoginPage extends Component {
                         returnKeyType = 'go'
                         secureTextEntry = {true}
                         onChange = {this.lastNameChanged.bind(this)}
-                        onSubmitEditing = {this.onLoginPressed.bind(this)}/>
+                        onSubmitEditing = {this.onLoginPressed.bind(this)}/>*/}
                     {loginButton}
                 </View>
-                {/*</ScrollView>*/}
             </KeyboardHandler>
         );
     }

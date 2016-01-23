@@ -28,15 +28,7 @@ class ConfirmPage extends Component{
 		return(
 
 			<View style = {styles.container}>
-				<Text style = {styles.location}> Welcome to the {this.props.location.city} showroom. </Text>
-				{/*<View style = {styles.userInfo}>
-					<Text style = {styles.description}>You are about to log in as:</Text>
-					<Text style = {styles.userText}>Name: {this.props.user.firstname + ' ' + this.props.user.lastname}</Text>
-					<Text style = {styles.userText}>Company: {this.props.user.company}</Text>
-					<Text style = {styles.userText}>Address: {this.props.user.address}</Text>
-					<Text style = {styles.userText}>Phone Number: {this.props.user.phonenum}</Text>
-				</View>*/}
-			
+				<Text style = {styles.location}> Welcome to the {this.props.location.city} showroom. </Text>	
 				{/*<View style = {styles.userInfo}>*/}
 				<ScrollView contentContainerStyle = {styles.scroll}>
 					<Text style = {styles.description}>Client Information</Text>
