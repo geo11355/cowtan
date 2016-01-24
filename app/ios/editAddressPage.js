@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var KeyboardHandler = require('./keyboardHandler');
 
 var {
     StyleSheet,
@@ -78,6 +79,7 @@ var styles = StyleSheet.create({
     staticText: {
         marginBottom: 6.2,
         fontSize: 16,
+        //marginRight: 5
     },
     rowInput: {
         flex: 0.7,
@@ -89,7 +91,8 @@ var styles = StyleSheet.create({
         borderRadius: 6,
         borderColor: '#b9b6b6',
         marginRight: 10,
-        borderWidth: 1
+        borderWidth: 1,
+        marginLeft: 10
     },
     lastRowStaticText: {
         marginLeft: 10,
@@ -103,8 +106,8 @@ var styles = StyleSheet.create({
     textInput: {
         height: 30,
         //padding: 4,
-        marginRight: 25,
-        marginLeft: 15,
+        marginRight: 5,
+        marginLeft: 5,
         flex: 1,
         fontSize: 18,
         //borderWidth: 1,
@@ -251,6 +254,7 @@ class EditAddressPage extends Component {
         
         console.log(this.props.types);
         return (
+            <KeyboardHandler ref = 'scrollContainer'>
             <ScrollView
                 keyboardShouldPersistTaps = {true}>
                 <View style = {styles.titleContainer}>
@@ -279,7 +283,8 @@ class EditAddressPage extends Component {
                             value = {this.state.addr1}
                             returnKeyType = 'next'
                             onSubmitEditing = {() => this.addr2.focus()}
-                            onChange = {this.onAddr1Change.bind(this)}/>
+                            onChange = {this.onAddr1Change.bind(this)}
+                            onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
                         </View>
                     </View>
 
@@ -298,7 +303,8 @@ class EditAddressPage extends Component {
                                 value = {this.state.addr2}
                                 returnKeyType = 'next'
                                 onSubmitEditing = {() => this.city.focus()}
-                                onChange = {this.onAddr2Change.bind(this)}/>
+                                onChange = {this.onAddr2Change.bind(this)}
+                                onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
                         </View>
                     </View>
 
@@ -316,7 +322,8 @@ class EditAddressPage extends Component {
                                 value = {this.state.city}
                                 returnKeyType = 'next'
                                 onSubmitEditing = {() => this.geoState.focus()}
-                                onChange = {this.onCityChange.bind(this)}/>
+                                onChange = {this.onCityChange.bind(this)}
+                                onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
                         </View>
                     </View>
 
@@ -337,7 +344,8 @@ class EditAddressPage extends Component {
                                 returnKeyType = 'next'
                                 onSubmitEditing = {() => this.zip.focus()}
                                 maxLength = {2}
-                                onChange = {this.onStateChange.bind(this)}/>
+                                onChange = {this.onStateChange.bind(this)}
+                                onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
                         </View>
 
                         <View style = {styles.lastRowStaticText}>
@@ -353,7 +361,8 @@ class EditAddressPage extends Component {
                                 returnKeyType = 'go'
                                 onSubmitEditing = {this.onUpdatePressed.bind(this)}
                                 maxLength = {5}
-                                onChange = {this.onZipChange.bind(this)}/>
+                                onChange = {this.onZipChange.bind(this)}
+                                onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
                         </View>
                     </View>
 
@@ -379,10 +388,12 @@ class EditAddressPage extends Component {
                 
                 <TouchableHighlight
                     style = {styles.addButton}
-                    onPress = {this.onUpdatePressed.bind(this)}>
+                    onPress = {this.onUpdatePressed.bind(this)}
+                    ref = 'update'>
                     <Text style = {styles.buttonText}> Update </Text>
                 </TouchableHighlight>
             </ScrollView>
+            </KeyboardHandler>
         );
     }
 }

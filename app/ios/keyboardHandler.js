@@ -56,7 +56,8 @@ var KeyboardHandler=React.createClass({
   },
   render(){
     return (
-      <ScrollView ref='scrollView' {...this.scrollviewProps}>
+      <ScrollView ref='scrollView' {...this.scrollviewProps}
+        keyboardShouldPersistTaps = {true}>
         {this.props.children}
         <View style={{height:this.state.keyboardSpace}}></View>
       </ScrollView>
