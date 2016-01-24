@@ -119,8 +119,9 @@ class ShoppingCart extends Component {
     }
 
     editDeleteArray(index){
-        if (this.state.deleteArray.indexOf(index) > -1)
-            this.state.deleteArray.splice(this.state.deleteArray.indexOf(index), 1);
+        var location = this.state.deleteArray.indexOf(index);
+        if (location > -1)
+            this.state.deleteArray.splice(location, 1);
         else{
             this.state.deleteArray.push(index);
         }
@@ -129,7 +130,6 @@ class ShoppingCart extends Component {
 
     deletePatterns(){
     	this.state.deleteArray.sort();
-        console.log(this.state.deleteArray);
         for (var i = this.state.deleteArray.length - 1; i >= 0; i--){
             this.state.patterns.splice(this.state.deleteArray[i], 1);
         }

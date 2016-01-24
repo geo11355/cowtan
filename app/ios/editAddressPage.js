@@ -366,24 +366,6 @@ class EditAddressPage extends Component {
                         </View>
                     </View>
 
-                    {/*<View style = {styles.inputRow}>
-                        <View style = {styles.rowPlaceholder}/>
-                        <View style = {styles.rowStaticText}>
-                            <Text style = {styles.staticText}>Zip Code: </Text>
-                        </View>
-                        <View style = {styles.rowInput}>
-                            <TextInput
-                                ref = {(ref) => this.zip = ref}
-                                style = {styles.textInput}
-                                placeholderTextColor = '#ffcccc'
-                                placeholder = 'Zip'
-                                value = {this.state.zip}
-                                returnKeyType = 'go'
-                                onSubmitEditing = {this.onUpdatePressed.bind(this)}
-                                maxLength = {5}
-                                onChange = {this.onZipChange.bind(this)}/>
-                        </View>
-                    </View>*/}
                 </View>
                 
                 <TouchableHighlight
