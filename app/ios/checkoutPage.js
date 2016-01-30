@@ -3,6 +3,7 @@
 var React = require('react-native');
 var EditAddressPage = require('./editAddressPage');
 var KeyboardHandler = require('./keyboardHandler');
+var SuccessPage = require('./successPage');
 
 var {
     StyleSheet,
@@ -317,6 +318,14 @@ class CheckoutPage extends Component {
         };
     }
 
+    // Callback function to move to the success page
+    goToSuccessPage() {
+        this.props.toRoute({
+            name: 'Success',
+            component: SuccessPage
+        })
+    }
+
     // Callback function to move to Edit page, passes along address type for generic
     // edit page.
     goToChangeAddress(type) {
@@ -341,12 +350,6 @@ class CheckoutPage extends Component {
             return;
         }
 
-        // Throw an alert if we've already sent an email
-        if (this.state.emailSent) {
-            Alert.alert('Sent', 'Email has already been sent');
-            return;
-        }
-
         // Set up pattern objects and then send all the pattern numbers
         var patternObject = {
             address: 'ryan.f.dong',
@@ -361,7 +364,37 @@ class CheckoutPage extends Component {
             .then((result) => {
                 console.log('RESPONSE: ' + result);
                 if (result == 'success') {
-                    this.setState({ emailSent: true });
+                    this.goToSuccessPage();
+                }
+            });
+    }
+
+    // Callback function for handling the Checkout button. Creates an json object
+    // to send to cowtandb
+    handleCheckout() {
+        // Send an alert if there aren't any patterns to send
+        if (this.props.patterns.length == 0) {
+            Alert.alert('Error', 'There are no patterns in the cart');
+            return;
+        }
+
+        // Send an alert so we don't checkout more than once
+        if (this.state.checkoutConfirmed) {
+            Aler.alert('Checked out already');
+            return;
+        }
+
+        var object = {
+            TC: this.props.location.code,
+        };
+        for (var i=0; i<this.props.patterns.length; i++) {
+            patternObject[i] = this.props.patterns[i].productnum;
+        }
+        postReq('http://cotwandb.com/checkout.php', object)
+            .then((result) => {
+                console.log('CHECKOUT: ' + result);
+                if (result == 'success') {
+                    this.setState({ checkoutConfirmed: true });
                 }
             });
     }
@@ -474,6 +507,7 @@ class CheckoutPage extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     ref = 'checkout'
+                    onPress = {this.handleCheckout.bind(this)}
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
