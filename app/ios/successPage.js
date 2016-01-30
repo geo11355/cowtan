@@ -1,5 +1,7 @@
 'use strict';
 
+var React = require('react-native');
+
 var {
     StyleSheet,
     Text,
@@ -35,7 +37,7 @@ var styles = StyleSheet.create({
 
 class SuccessPage extends Component {
 	constructor(props) {
-
+		super(props);
 	}
 
 	render() {

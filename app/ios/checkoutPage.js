@@ -239,7 +239,7 @@ function postReq(url, obj) {
             } 
             else {
                 Alert.alert('Error', 'Email failed with:' + req.responseText);
-                reject(Error(req.responseText));then
+                reject(Error(req.responseText));
             }
         };
         req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
@@ -314,7 +314,8 @@ class CheckoutPage extends Component {
                 rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
             },
             dataSource: dataSource.cloneWithRows(finalPatternList),
-            emailSent: false
+            emailSent: false,
+            condensedPatterns: finalPatternList,
         };
     }
 
@@ -357,8 +358,10 @@ class CheckoutPage extends Component {
             locationCode: this.props.location.code,
             locationCity: this.props.location.city
         };
-        for (var i=0; i<this.props.patterns.length; i++) {
-            patternObject[i] = this.props.patterns[i].productnum;
+        // Go through condensed patterns and append to objects with quantity comma separated
+        for (var i=0; i<this.state.condensedPatterns.length; i++) {
+            patternObject[i+1] = this.state.condensedPatterns[i].productnum + ',' 
+                        + this.state.condensedPatterns[i].quantity;
         }
         postReq('http://cowtandb.com/generatepdf.php', patternObject)
             .then((result) => {
@@ -385,12 +388,15 @@ class CheckoutPage extends Component {
         }
 
         var object = {
-            TC: this.props.location.code,
+            TC: parseInt(this.props.location.code),
         };
-        for (var i=0; i<this.props.patterns.length; i++) {
-            patternObject[i] = this.props.patterns[i].productnum;
+        for (var i=0; i<this.state.condensedPatterns.length; i++) {
+            console.log(this.state.condensedPatterns[i].productnum.replace(/ /g, '') + 'NUMBER');
+            object[i+1] = this.state.condensedPatterns[i].productnum + ',' 
+                        + this.state.condensedPatterns[i].quantity;
         }
-        postReq('http://cotwandb.com/checkout.php', object)
+        console.log(object);
+        postReq('http://cowtandb.com/checkout.php', object)
             .then((result) => {
                 console.log('CHECKOUT: ' + result);
                 if (result == 'success') {

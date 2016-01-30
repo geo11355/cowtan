@@ -103,6 +103,8 @@ class ShoppingCart extends Component {
     // Callback function for updating the patterns list, creates a new dataSource
     // each time, probably can be optimized. 
     updatePatterns(response) {
+        console.log(response);
+        response.productnum = response.productnum.replace(/ /g, '');
         if (response != null) {
             this.state.patterns.push(response);
 
