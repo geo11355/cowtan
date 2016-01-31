@@ -25,20 +25,16 @@ var {
 } = React;
 
 class ShoppingCart extends Component {
-    // Constructor stores dataSource that implements a comparator and patterns
-    // in the state for updating
     constructor(props) {
         super(props);
-        var dataSource = new ListView.DataSource(
-            // TODO: check r1 and r2 pattern nums format in server storage
-            {rowHasChanged: (r1, r2) => r1 !== r2});
-
+        var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             patterns: [],
             dataSource: dataSource.cloneWithRows([]),
             isEmpty: true,
             deleteMode: false,
             deleteArray: [],
+            isLoading: true,
         };
         this.props.setLeftProps({
             logout: this.logout.bind(this),
@@ -65,7 +61,7 @@ class ShoppingCart extends Component {
         );
     }
 
-
+    // Function to start delete mode
     enterDeleteMode(){
         if (!this.state.isEmpty){
             this.setState(
@@ -89,6 +85,7 @@ class ShoppingCart extends Component {
         return this.state.deleteMode;
     }
 
+    // Function to exit delete mode, changes the top-right button to match proper text
     cancelDeleteMode(){
         this.setState(
             {deleteMode: false, deleteArray: []}
@@ -103,19 +100,20 @@ class ShoppingCart extends Component {
     // Callback function for updating the patterns list, creates a new dataSource
     // each time, probably can be optimized. 
     updatePatterns(response) {
-        console.log(response);
-        response.productnum = response.productnum.replace(/ /g, '');
+        response.productnum = response.productnum.replace(/ /g, ''); // Strip white spaces from numbers
         if (response != null) {
             this.state.patterns.push(response);
-
             var dataSource = new ListView.DataSource(
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
             );
-
-            this.setState(
-                {dataSource: dataSource.cloneWithRows(this.state.patterns), isEmpty: false}
-            );
-        }else{
+            this.setState({
+                dataSource: dataSource.cloneWithRows(this.state.patterns),
+                isEmpty: false,
+                isLoading: false,
+            });
+            console.log('finished updating');
+        }
+        else {
             Alert.alert("Not a recognized fabric.", null);
         }
     }
@@ -124,10 +122,9 @@ class ShoppingCart extends Component {
         var location = this.state.deleteArray.indexOf(index);
         if (location > -1)
             this.state.deleteArray.splice(location, 1);
-        else{
+        else {
             this.state.deleteArray.push(index);
         }
-        //console.log(this.state.deleteArray);
     }
 
     deletePatterns(){
@@ -147,6 +144,7 @@ class ShoppingCart extends Component {
         this.cancelDeleteMode();
     }
 
+    // Callback function for logging out, raises and Alert to make sure to confirm
     customBack() {
         Alert.alert(
             'Confirm',
@@ -160,6 +158,10 @@ class ShoppingCart extends Component {
 
     // Callback function to move to the checkout page upon button press
     goToCheckout() {
+        if (this.state.isLoading) {
+            return;
+        }
+        this.setState({ isLoading: true });
         var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({
             name: 'Checkout',
@@ -200,8 +202,9 @@ class ShoppingCart extends Component {
                             <Text style = {styles.productColorText}>{rowData.color}</Text>
                         </View>
                     </View>
-                    <View style = {styles.priceColumn}><Text style = {styles.productInfo}>{rowData.price}</Text></View>
-                    {/*<View style = {styles.quantityColumn}><Text style = {styles.productInfo}>1</Text></View>*/}
+                    <View style = {styles.priceColumn}>
+                        <Text style = {styles.productInfo}> {rowData.price} </Text>
+                    </View>
                 </View>
             </View>
         );
@@ -209,7 +212,6 @@ class ShoppingCart extends Component {
 
     // Pass render row to another function
     render() {
-        //console.log(this.state.patterns);
         var emptyMessage = this.state.isEmpty ?
             (<ScrollView contentContainerStyle = {styles.emptyTextContainer}>
                 <Text style = {styles.emptyText}>Click the icons below to scan products or enter them manually.</Text>
@@ -254,7 +256,6 @@ class ShoppingCart extends Component {
                     {deleteModeTopRow}
                     <View style = {styles.itemColumn}><Text style = {styles.itemText}>Item</Text></View>
                     <View style = {styles.priceColumn}><Text style = {styles.categoryText}>Price</Text></View>
-                    {/*<View style = {styles.quantityColumn}><Text style = {styles.categoryText}>Qty.</Text></View>*/}
                 </View>
                 {emptyMessage}
                 {deleteMode}

@@ -260,7 +260,6 @@ class LoginPage extends Component {
                     location: {lat: crd.latitude, long: crd.longitude, city: null},
                     located: true
                 });
-                console.log(crd);
             },
             (error) => alert(error.message),
             {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}

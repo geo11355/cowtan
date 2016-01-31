@@ -386,7 +386,7 @@ class CheckoutPage extends Component {
             Aler.alert('Checked out already');
             return;
         }
-
+        // Initialize the object with the territory code, then add in all fabrics
         var object = {
             TC: parseInt(this.props.location.code),
         };
@@ -395,7 +395,6 @@ class CheckoutPage extends Component {
             object[i+1] = this.state.condensedPatterns[i].productnum + ',' 
                         + this.state.condensedPatterns[i].quantity;
         }
-        console.log(object);
         postReq('http://cowtandb.com/checkout.php', object)
             .then((result) => {
                 console.log('CHECKOUT: ' + result);
