@@ -14,6 +14,10 @@ var {
 	Alert
 } = React;
 
+function generateUrl(productNum) {
+   return 'http://cowtandb.com/inventory.php?productnum=' + productNum;
+};
+
 var styles = StyleSheet.create({
 	inputRow: {
 		flexDirection: 'row',
@@ -227,7 +231,13 @@ class ManualAddPage extends Component{
 				"color": this.state.color,
 				"price": this.state.price
 			};
-			this.props.updatePatterns(JSONproduct);
+
+			fetch(generateUrl(JSONproduct.productnum))
+			  .then(response => response.json())
+			  .then(json => this.props.updatePatterns(json))
+			  .catch(error => {
+			    console.log("Fetch failed: " + error);
+			  });
 			this.props.toBack();
 		}
 	}

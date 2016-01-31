@@ -49,7 +49,7 @@ var styles = StyleSheet.create({
 
 //Vut???
 function generateUrl(productNum) {
-   return 'http://cowtandb.com/products.php?productnum=' + productNum;
+   return 'http://cowtandb.com/inventory.php?productnum=' + productNum;
 };
 
 var CameraPage = React.createClass({

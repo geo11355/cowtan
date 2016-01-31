@@ -3,6 +3,7 @@
 var React = require('react-native');
 var EditAddressPage = require('./editAddressPage');
 var KeyboardHandler = require('./keyboardHandler');
+var SuccessPage = require('./successPage');
 
 var {
     StyleSheet,
@@ -238,7 +239,7 @@ function postReq(url, obj) {
             } 
             else {
                 Alert.alert('Error', 'Email failed with:' + req.responseText);
-                reject(Error(req.responseText));then
+                reject(Error(req.responseText));
             }
         };
         req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
@@ -313,8 +314,17 @@ class CheckoutPage extends Component {
                 rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
             },
             dataSource: dataSource.cloneWithRows(finalPatternList),
-            emailSent: false
+            emailSent: false,
+            condensedPatterns: finalPatternList,
         };
+    }
+
+    // Callback function to move to the success page
+    goToSuccessPage() {
+        this.props.toRoute({
+            name: 'Success',
+            component: SuccessPage
+        })
     }
 
     // Callback function to move to Edit page, passes along address type for generic
@@ -341,12 +351,6 @@ class CheckoutPage extends Component {
             return;
         }
 
-        // Throw an alert if we've already sent an email
-        if (this.state.emailSent) {
-            Alert.alert('Sent', 'Email has already been sent');
-            return;
-        }
-
         // Set up pattern objects and then send all the pattern numbers
         var patternObject = {
             address: 'ryan.f.dong',
@@ -354,14 +358,48 @@ class CheckoutPage extends Component {
             locationCode: this.props.location.code,
             locationCity: this.props.location.city
         };
-        for (var i=0; i<this.props.patterns.length; i++) {
-            patternObject[i] = this.props.patterns[i].productnum;
+        // Go through condensed patterns and append to objects with quantity comma separated
+        for (var i=0; i<this.state.condensedPatterns.length; i++) {
+            patternObject[i+1] = this.state.condensedPatterns[i].productnum + ',' 
+                        + this.state.condensedPatterns[i].quantity;
         }
         postReq('http://cowtandb.com/generatepdf.php', patternObject)
             .then((result) => {
                 console.log('RESPONSE: ' + result);
                 if (result == 'success') {
-                    this.setState({ emailSent: true });
+                    this.goToSuccessPage();
+                }
+            });
+    }
+
+    // Callback function for handling the Checkout button. Creates an json object
+    // to send to cowtandb
+    handleCheckout() {
+        // Send an alert if there aren't any patterns to send
+        if (this.props.patterns.length == 0) {
+            Alert.alert('Error', 'There are no patterns in the cart');
+            return;
+        }
+
+        // Send an alert so we don't checkout more than once
+        if (this.state.checkoutConfirmed) {
+            Aler.alert('Checked out already');
+            return;
+        }
+        // Initialize the object with the territory code, then add in all fabrics
+        var object = {
+            TC: parseInt(this.props.location.code),
+        };
+        for (var i=0; i<this.state.condensedPatterns.length; i++) {
+            console.log(this.state.condensedPatterns[i].productnum.replace(/ /g, '') + 'NUMBER');
+            object[i+1] = this.state.condensedPatterns[i].productnum + ',' 
+                        + this.state.condensedPatterns[i].quantity;
+        }
+        postReq('http://cowtandb.com/checkout.php', object)
+            .then((result) => {
+                console.log('CHECKOUT: ' + result);
+                if (result == 'success') {
+                    this.setState({ checkoutConfirmed: true });
                 }
             });
     }
@@ -474,6 +512,7 @@ class CheckoutPage extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     ref = 'checkout'
+                    onPress = {this.handleCheckout.bind(this)}
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>

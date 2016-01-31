@@ -1,6 +1,7 @@
 package com.cowtan;
 
 import android.app.Activity;
+import com.lwansbrough.ReactCamera.ReactCamera;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
@@ -26,8 +27,10 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
+                .addPackage(new ReactCamera())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
+                .addPackage(new RCTCameraPackage())
                 .build();
 
         mReactRootView.startReactApplication(mReactInstanceManager, "cowtan", null);
