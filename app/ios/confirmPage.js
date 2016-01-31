@@ -25,14 +25,22 @@ class ConfirmPage extends Component{
 	}
 
 	render(){
+		var address2 = this.props.user.addr2 == '' ?
+			(<View/>):
+			(<Text style = {styles.userText}>{this.props.user.addr2}</Text>)
+			
+
+		
 		return(
 
 			<View style = {styles.container}>
-				<Text style = {styles.location}> Showroom: {this.props.location.city} </Text>	
 				<ScrollView contentContainerStyle = {styles.scroll}>
+					{/*<View style = {styles.showroomBanner}>
+						<Text style = {styles.location}>Welcome to the {this.props.location.city} Showroom</Text>
+					</View>	*/}
 					<View style = {styles.titleRow}>
 						<Text style = {styles.description}>
-							Client Information
+							Welcome to the {this.props.location.city} Showroom
 						</Text>
 					</View>
 
@@ -48,6 +56,7 @@ class ConfirmPage extends Component{
 							<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Address: </Text></View>
 							<View style = {styles.userBox}>
 								<Text style = {styles.userText}>{this.props.user.addr1}</Text>
+								{address2}
 								<Text style = {styles.userText}>{this.props.user.city}, {this.props.user.state} {this.props.user.zip}</Text>
 							</View>
 						</View>
@@ -67,13 +76,13 @@ class ConfirmPage extends Component{
 						underlayColor = '#4d0000'>
 						<Text style = {styles.buttonText}>Continue</Text>
 					</TouchableHighlight>
-					<TouchableHighlight
+					{/*<TouchableHighlight
 						style = {styles.notYouButton}
 						underlayColor = 'transparent'>
 						<Text style = {styles.notYouText} underlayColor = 'transparent'>Not You?</Text>
-					</TouchableHighlight>
-					</View>
+					</TouchableHighlight>*/}
 				</View>
+			</View>
 		);
 	}
 
@@ -100,16 +109,25 @@ var styles = StyleSheet.create({
 	scroll: {
 		justifyContent: 'center',
 		flex: 1,
-		borderBottomWidth: 1.5,
-		borderColor: '#b9b6b6',
+		//borderBottomWidth: 1.5,
+		//borderColor: '#b9b6b6',
 		marginBottom: 15,
-		shadowRadius: 3,
-		shadowOpacity: 0.8,
-		shadowColor: 'gray',
-		shadowOffset: {
-		    width: 2,
-		    height: 2
-		}
+	},
+	showroomBanner: {
+		backgroundColor: '#f0eeee',
+        //borderBottomWidth: 1.5,
+        //borderColor: '#b9b6b6',
+        marginBottom: 20,
+        shadowRadius: 3,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: -2,
+            height: 2
+        },
+        //borderWidth: 1,
+        //borderColor: '#b9b6b6'
 	},
 	row: {
 		flexDirection: 'row',
@@ -154,7 +172,7 @@ var styles = StyleSheet.create({
 		borderColor: '#800000',
 		backgroundColor: '#800000',
         borderRadius: 8,
-        marginBottom: 5,
+        marginBottom: 20,
         marginRight: 25,
         marginLeft: 25,
         marginTop: 0,
@@ -184,8 +202,8 @@ var styles = StyleSheet.create({
 		color: '#800000'
 	},
 	location: {
-		marginTop: 5,
-		marginBottom: 5,
+		marginTop: 10,
+		marginBottom: 10,
 		color: 'black',
 		alignSelf: 'center',
 		fontSize: 18
@@ -194,19 +212,11 @@ var styles = StyleSheet.create({
 	    flexDirection: 'row',
 	    marginTop: 5,
 	    borderBottomWidth: 1.5,
-	    justifyContent: 'center'
+	    justifyContent: 'center',
 	},
 	outerTextbox: {
-		flex: 1,
-		marginTop: 0,
-		backgroundColor: '#f0eeee',
-		shadowRadius: 3,
-		shadowOpacity: 0.8,
-		shadowColor: 'gray',
-		shadowOffset: {
-		    width: 2,
-		    height: 2
-		}
+		//flex: 1,
+		marginTop: 30,
 	}
 
 });
