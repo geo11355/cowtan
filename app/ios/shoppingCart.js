@@ -160,7 +160,7 @@ class ShoppingCart extends Component {
         if (this.state.isLoading) {
             return;
         }
-        this.setState({ isLoading: true });
+        //this.setState({ isLoading: true });
         var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({
             name: 'Checkout',
@@ -202,7 +202,7 @@ class ShoppingCart extends Component {
                         </View>
                     </View>
                     <View style = {styles.priceColumn}>
-                        <Text style = {styles.productInfo}> {rowData.price} </Text>
+                        <Text style = {styles.productInfo}>{rowData.price} </Text>
                     </View>
                 </View>
             </View>

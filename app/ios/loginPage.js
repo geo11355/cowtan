@@ -9,7 +9,7 @@ var KeyboardHandler = require('./keyboardHandler');
 
 // ------------------- CONSTANTS -------------------
 
-var BOUNDS = .5;         // Bound limit on login by lat/long units
+var BOUNDS = Infinity;         // Bound limit on login by lat/long units
 
 // -------------------------------------------------
 
