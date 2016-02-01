@@ -512,7 +512,7 @@ class CheckoutPage extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     ref = 'checkout'
-                    onPress = {this.goToSuccessPage}
+                    onPress = {this.goToSuccessPage.bind(this)}
                     style = {styles.checkoutButton}>
                     <Text style = {styles.buttonText}>Checkout</Text>
                 </TouchableHighlight>
