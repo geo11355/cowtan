@@ -248,11 +248,18 @@ var styles = StyleSheet.create({
 		height: 150,
 		width: 150,
 		borderRadius: 75,
-		borderWidth: 1,
+		//borderWidth: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#800000',
-		borderColor: 'white'
+		borderColor: 'white',
+		shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
 		//opacity: 0.8
 	},
 	showroomText: {
