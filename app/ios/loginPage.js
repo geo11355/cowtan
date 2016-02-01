@@ -31,8 +31,8 @@ var styles = StyleSheet.create({
     description: {
         marginRight: 20,
         marginLeft: 20,
-        marginBottom: 10,
-        marginTop: 5,
+        marginBottom: 18,
+        marginTop: 15,
         fontSize: 18,
         textAlign: 'center',
         color: '#656565'
@@ -58,9 +58,9 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         marginBottom: 10,
-        marginRight: 25,
-        marginLeft: 25,
-        marginTop: 15,
+        marginRight: 23,
+        marginLeft: 23,
+        marginTop: 5,
         alignSelf: 'stretch',
         justifyContent: 'center',
         shadowRadius: 4,
@@ -74,9 +74,10 @@ var styles = StyleSheet.create({
     textInput: {
         height: 30,
         padding: 4,
-        marginRight: 25,
-        marginLeft: 25,
-        marginBottom: 10,
+        marginRight: 23,
+        marginLeft: 23,
+        marginBottom: 5,
+        marginTop: 5,
         fontSize: 18,
         borderWidth: 1,
         borderColor: '#800000',
@@ -94,8 +95,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         height: 10,
-        padding: 20,
-        marginTop: 20,
+        padding: 15,
+        marginTop: 25,
         marginBottom: 10
     },
     image: {
@@ -156,7 +157,7 @@ class LoginPage extends Component {
 
     render() {
         var errorMessage = this.state.failedLogin ? 
-            (<Text style = {styles.error}>*Incorrect account number or last name</Text>):
+            (<Text style = {styles.error}>*Incorrect account number</Text>):
             (<View/>);
 
         var loginButton = this.state.isLoading ?
@@ -185,7 +186,7 @@ class LoginPage extends Component {
 
                 <View style = {styles.subContainer}>
                     <Text style = {styles.description}>
-                        Sign in with your account number and last name below
+                        Sign in with your account number:
                     </Text>
                     {errorMessage}
                     <TextInput
