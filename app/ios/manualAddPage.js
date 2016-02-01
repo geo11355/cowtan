@@ -219,7 +219,6 @@ class ManualAddPage extends Component{
 	}
 
 	onAddPressed(){
-		//console.log(this.props);
 		if (this.state.productName === '' || this.state.productNum === '' || this.state.color === '' || this.state.price === ''){
 			Alert.alert('All fields must be filled out.', null);
 		}else if (this.state.price.match(/[a-z]/i)){

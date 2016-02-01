@@ -34,7 +34,7 @@ class ShoppingCart extends Component {
             isEmpty: true,
             deleteMode: false,
             deleteArray: [],
-            isLoading: true,
+            isLoading: false,
         };
         this.props.setLeftProps({
             logout: this.logout.bind(this),
@@ -111,7 +111,6 @@ class ShoppingCart extends Component {
                 isEmpty: false,
                 isLoading: false,
             });
-            console.log('finished updating');
         }
         else {
             Alert.alert("Not a recognized fabric.", null);
