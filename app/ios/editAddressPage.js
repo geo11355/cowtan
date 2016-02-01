@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
         marginLeft: 10,
     },
     addressContainer: {
-        backgroundColor: '#f0eeee',
+        backgroundColor: '#f6f4f4',
         //borderBottomWidth: 1.5,
         //borderColor: '#b9b6b6',
         marginBottom: 10,
@@ -43,7 +43,7 @@ var styles = StyleSheet.create({
         marginBottom: 5
     },
     formContainer: {
-        backgroundColor: '#f0eeee',
+        backgroundColor: '#f6f4f4',
         //borderBottomWidth: 1.5,
         //borderColor: '#b9b6b6',
         //marginBottom: 20,

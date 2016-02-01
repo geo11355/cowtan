@@ -25,12 +25,6 @@ class ConfirmPage extends Component{
 	}
 
 	render(){
-		var address2 = this.props.user.addr2 == '' ?
-			(<View/>):
-			(<Text style = {styles.userText}>{this.props.user.addr2}</Text>)
-			
-
-		
 		return(
 			<ScrollView contentContainerStyle = {styles.scroll}>
 				{/*<View style = {styles.showroomBanner}>
@@ -63,8 +57,7 @@ class ConfirmPage extends Component{
 							<View style = {styles.rowPlaceholder}></View>
 							<View style = {styles.categoryBox}><Text style = {styles.categoryText}>Address: </Text></View>
 							<View style = {styles.userBox}>
-								<Text style = {styles.userText}>{this.props.user.addr1}</Text>
-								{address2}
+								<Text style = {styles.userText}>{this.props.user.addr1} {this.props.user.addr2}</Text>
 								<Text style = {styles.userText}>{this.props.user.city}, {this.props.user.state} {this.props.user.zip}</Text>
 							</View>
 						</View>
@@ -151,6 +144,9 @@ var styles = StyleSheet.create({
            	height:2,
         }
 	},
+	blankSpace: {
+		margin: 0, height: 0, width: 0, padding: 0
+	},
 	row: {
 		flexDirection: 'row',
 		//borderColor: 'pink',
@@ -160,12 +156,12 @@ var styles = StyleSheet.create({
 	},
 	categoryBox: {
 		flex: 1.5,
-		marginTop: 10
+		marginTop: 8
 	},
 	userBox: {
 		flex: 3,
 		marginRight: 15,
-		marginTop: 10
+		marginTop: 8
 	},
 	description: {
 		fontSize: 20,
@@ -183,7 +179,7 @@ var styles = StyleSheet.create({
 	},
 	userText: {
 		fontSize: 16,
-		margin: 0,
+		margin: 0, padding: 0
 	}, 
 	buttonContainer: {
 		flex: 0.1,
@@ -252,10 +248,18 @@ var styles = StyleSheet.create({
 		height: 150,
 		width: 150,
 		borderRadius: 75,
-		borderWidth: 1,
+		//borderWidth: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#800000',
+		borderColor: 'white',
+		shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
 		//opacity: 0.8
 	},
 	showroomText: {

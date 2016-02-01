@@ -157,6 +157,9 @@ class ShoppingCart extends Component {
 
     // Callback function to move to the checkout page upon button press
     goToCheckout() {
+        if (this.state.isEmpty){
+            Alert.alert("Your pattern list is empty.", null);
+        }
         if (this.state.isLoading) {
             return;
         }

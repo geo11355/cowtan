@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
     listView: {
         height: 200,
         //borderWidth: 1
-        backgroundColor: '#f0eeee',
+        backgroundColor: '#f6f4f4',
         //borderBottomWidth: 1.5,
         //borderColor: '#d2d0d0',
         //marginBottom: 15,
@@ -158,7 +158,7 @@ var styles = StyleSheet.create({
     addressButton: {
         //flexDirection: 'row',
         marginTop: 0,
-        backgroundColor: '#f0eeee',
+        backgroundColor: '#f6f4f4',
         //borderBottomWidth: 1.5,
         //borderColor: '#b9b6b6',
         marginBottom: 20,
