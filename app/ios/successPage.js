@@ -1,9 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var ShoppingCart = require('./shoppingCart');
-var EditButton = require('./editButton');
-var LogoutButton = require('./logoutButton');
 
 var {
     StyleSheet,
@@ -48,10 +45,6 @@ var styles = StyleSheet.create({
         borderColor: '#800000',
         backgroundColor: '#800000',
         borderRadius: 8,
-        // marginBottom: 10,
-        // marginRight: 15,
-        // marginLeft: 13,
-        // marginTop: 10,
         flex: 1,
         
         //Keeps text aligned
@@ -71,6 +64,7 @@ class SuccessPage extends Component {
         super(props);
     }
 
+    // Callback function to return back to the shoppingCart page
     goToShopping() {
         this.props.clearShoppingCart();
         var routes = this.props.getCurrentRoutes()

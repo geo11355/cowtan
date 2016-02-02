@@ -34,7 +34,6 @@ class ShoppingCart extends Component {
             isEmpty: true,
             deleteMode: false,
             deleteArray: [],
-            isLoading: false,
         };
         this.props.setLeftProps({
             logout: this.logout.bind(this),
@@ -45,7 +44,6 @@ class ShoppingCart extends Component {
             buttonText: 'Edit',
             deleteMode: this.state.deleteMode,
         });
-
     }
 
     // Callback function for when logout is pressed, pulls up secondary alert
@@ -61,6 +59,8 @@ class ShoppingCart extends Component {
         );
     }
 
+    // Resets the shopping cart information to intial state, called when returning from
+    // success page
     clearShoppingCart() {
         var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
@@ -69,22 +69,19 @@ class ShoppingCart extends Component {
             isEmpty: true,
             deleteMode: false,
             deleteArray: [],
-            isLoading: false,
         });
     }
 
     // Function to start delete mode
     enterDeleteMode(){
         if (!this.state.isEmpty){
-            this.setState(
-                {deleteMode: true}
-            );
             var dataSource = new ListView.DataSource(
-                    {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
-                );
-            this.setState(
-                {dataSource: dataSource.cloneWithRows(this.state.patterns)}
+                {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
             );
+            this.setState({
+                dataSource: dataSource.cloneWithRows(this.state.patterns),
+                deleteMode: true
+            });
             this.props.setRightProps({
                 deleteMode: true,
                 buttonText: 'Cancel',
@@ -121,7 +118,6 @@ class ShoppingCart extends Component {
             this.setState({
                 dataSource: dataSource.cloneWithRows(this.state.patterns),
                 isEmpty: false,
-                isLoading: false,
             });
         }
         else {
@@ -148,10 +144,10 @@ class ShoppingCart extends Component {
                 {rowHasChanged: (r1, r2) => r1.productnum !== r2.productnum}
             );
 
-        this.setState(
-           	{dataSource: dataSource.cloneWithRows(this.state.patterns),
-             isEmpty: (this.state.patterns.length > 0 ? false: true)}
-      	);
+        this.setState({
+            dataSource: dataSource.cloneWithRows(this.state.patterns),
+            isEmpty: (this.state.patterns.length > 0 ? false: true)
+        });
         this.cancelDeleteMode();
     }
 
@@ -173,10 +169,6 @@ class ShoppingCart extends Component {
             Alert.alert("Your pattern list is empty.", null);
             // return;
         }   
-        if (this.state.isLoading) {
-            return;
-        }
-        this.setState({ isLoading: true });
         var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({
             name: 'Checkout',

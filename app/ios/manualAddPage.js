@@ -234,10 +234,11 @@ class ManualAddPage extends Component{
 			fetch(generateUrl(JSONproduct.productnum))
 			  .then(response => response.json())
 			  .then(json => this.props.updatePatterns(json))
+			  .then(this.props.toBack)
 			  .catch(error => {
 			    console.log("Fetch failed: " + error);
 			  });
-			this.props.toBack();
+
 		}
 	}
 
