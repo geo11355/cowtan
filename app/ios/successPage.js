@@ -1,6 +1,9 @@
 'use strict';
 
 var React = require('react-native');
+var ShoppingCart = require('./shoppingCart');
+var EditButton = require('./editButton');
+var LogoutButton = require('./logoutButton');
 
 var {
     StyleSheet,
@@ -68,6 +71,11 @@ class SuccessPage extends Component {
         super(props);
     }
 
+    goToShopping() {
+        var routes = this.props.getCurrentRoutes()
+        this.props.popToRoute(routes[2]);
+    }
+
     render() {
         return (
         <View style = {styles.mainContainer}>
@@ -88,6 +96,7 @@ class SuccessPage extends Component {
                     style = {styles.button}>
                     <Text 
                         style = {styles.buttonText}
+                        onPress = {this.props.reset.bind(this)}
                         underlayColor = '#4d0000'> 
                         Logout
                     </Text>
@@ -97,6 +106,7 @@ class SuccessPage extends Component {
                     style = {styles.button}>
                     <Text
                         style = {styles.buttonText}
+                        onPress = {this.goToShopping.bind(this)}
                         underlayColor = 'transparent'>
                         Shop Again
                     </Text>

@@ -159,6 +159,7 @@ class ShoppingCart extends Component {
     goToCheckout() {
         if (this.state.isEmpty){
             Alert.alert("Your pattern list is empty.", null);
+            // return;
         }
         if (this.state.isLoading) {
             return;

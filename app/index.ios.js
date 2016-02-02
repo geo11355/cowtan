@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Router = require('gb-native-router');
+var Router = require('react-native-simple-router');
 var LoginPage = require('./ios/loginPage');
 var LoadingPage = require('./ios/loadingPage');
 

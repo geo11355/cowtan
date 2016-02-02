@@ -323,7 +323,11 @@ class CheckoutPage extends Component {
     goToSuccessPage() {
         this.props.toRoute({
             name: 'Success',
-            component: SuccessPage
+            component: SuccessPage,
+            passProps: {
+                user: this.props.user,
+                location: this.props.location
+            }
         })
     }
 
