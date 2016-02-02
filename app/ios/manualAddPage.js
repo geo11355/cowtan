@@ -236,7 +236,7 @@ class ManualAddPage extends Component{
 			  .then(json => this.props.updatePatterns(json))
 			  .then(this.props.toBack)
 			  .catch(error => {
-			    console.log("Fetch failed: " + error);
+			  	Alert.alert('Fetch failed', 'error');
 			  });
 
 		}
