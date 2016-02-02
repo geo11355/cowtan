@@ -326,7 +326,8 @@ class CheckoutPage extends Component {
             component: SuccessPage,
             passProps: {
                 user: this.props.user,
-                location: this.props.location
+                location: this.props.location,
+                clearShoppingCart: this.props.clearShoppingCart
             }
         })
     }

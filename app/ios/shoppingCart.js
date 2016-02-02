@@ -61,6 +61,18 @@ class ShoppingCart extends Component {
         );
     }
 
+    clearShoppingCart() {
+        var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+            patterns: [],
+            dataSource: dataSource.cloneWithRows([]),
+            isEmpty: true,
+            deleteMode: false,
+            deleteArray: [],
+            isLoading: false,
+        });
+    }
+
     // Function to start delete mode
     enterDeleteMode(){
         if (!this.state.isEmpty){
@@ -164,7 +176,7 @@ class ShoppingCart extends Component {
         if (this.state.isLoading) {
             return;
         }
-        //this.setState({ isLoading: true });
+        this.setState({ isLoading: true });
         var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({
             name: 'Checkout',
@@ -172,7 +184,8 @@ class ShoppingCart extends Component {
             passProps: {
                 patterns: patternListCopy,
                 user: this.props.user,
-                location: this.props.location
+                location: this.props.location,
+                clearShoppingCart: this.clearShoppingCart.bind(this)
             },
             leftComponent: CustomBackButton,
             leftComponentProps: {

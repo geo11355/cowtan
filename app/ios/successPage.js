@@ -72,6 +72,7 @@ class SuccessPage extends Component {
     }
 
     goToShopping() {
+        this.props.clearShoppingCart();
         var routes = this.props.getCurrentRoutes()
         this.props.popToRoute(routes[2]);
     }
