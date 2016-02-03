@@ -251,8 +251,7 @@ class EditAddressPage extends Component {
 
         var addressType = (this.props.types == 'billing') ? (<Text style = {styles.title}>Original Billing Address: </Text>): 
             (<Text style = {styles.title}>Original Shipping Address: </Text>);
-        
-        console.log(this.props.types);
+       
         return (
             <KeyboardHandler ref = 'scrollContainer'>
             <ScrollView
