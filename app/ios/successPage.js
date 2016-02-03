@@ -20,8 +20,16 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        flex: 1,
         fontSize: 25,
+        marginBottom: 15
+    },
+    h2: {
+        fontSize: 16,
+        marginRight: 22,
+        marginLeft: 22,
+        marginBottom: 25,
+        color: 'gray',
+        alignSelf: 'center'
     },
     spacer: {
         flex: 1,
@@ -30,6 +38,8 @@ var styles = StyleSheet.create({
         flex: 2,
         resizeMode: 'contain',
         alignItems: 'center',
+        backgroundColor: 'white',
+        marginTop: 20
     },
     buttonContainer: {
         flex: 1,
@@ -40,8 +50,8 @@ var styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 16,
         margin: 5,
-        marginLeft: 15, 
-        marginRight: 15
+        marginLeft: 20, 
+        marginRight: 20
     },
     button: {
         height: 36,
@@ -77,11 +87,15 @@ class SuccessPage extends Component {
 
     render() {
         return (
-        <ScrollView contentContainerStyle = {styles.mainContainer}>
+        <ScrollView contentContainerStyle = {styles.mainContainer}
+            keyboardShouldPersistTaps = {true}>
             <View style = {styles.spacer} />
 
             <Text style = {styles.title}>
                 Success!
+            </Text>
+            <Text style = {styles.h2}>
+                Your order has been processed. Thank you for shopping with Cowtan & Tout.
             </Text>
 
             <Image
