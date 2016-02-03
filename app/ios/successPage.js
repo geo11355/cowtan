@@ -70,8 +70,10 @@ class SuccessPage extends Component {
 
     // Callback function to return back to the shoppingCart page
     goToShopping() {
+        console.log('working');
         this.props.clearShoppingCart();
         var routes = this.props.getCurrentRoutes()
+        console.log(routes);
         this.props.popToRoute(routes[2]);
     }
 
@@ -92,21 +94,21 @@ class SuccessPage extends Component {
 
             <View style = {styles.buttonContainer}>
                 <TouchableHighlight
-                    style = {styles.button}>
+                    style = {styles.button}
+                    underlayColor = '#4d0000'
+                    onPress = {this.props.reset.bind(this)}>
                     <Text 
-                        style = {styles.buttonText}
-                        onPress = {this.props.reset.bind(this)}
-                        underlayColor = '#4d0000'> 
+                        style = {styles.buttonText}> 
                         Logout
                     </Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight
-                    style = {styles.button}>
+                    style = {styles.button}
+                    underlayColor = '#4d0000'
+                    onPress = {this.goToShopping.bind(this)}>
                     <Text
-                        style = {styles.buttonText}
-                        onPress = {this.goToShopping.bind(this)}
-                        underlayColor = 'transparent'>
+                        style = {styles.buttonText}>
                         Shop Again
                     </Text>
                 </TouchableHighlight>
