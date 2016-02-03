@@ -202,8 +202,9 @@ var styles = StyleSheet.create({
         marginLeft: 10
     },
     addressText: {
+        marginTop: 3,
         fontSize: 15,
-        //marginBottom: 15
+        marginBottom: 3,
         flex: 1,
         marginLeft: 10
     },
@@ -324,6 +325,7 @@ class CheckoutPage extends Component {
         this.props.toRoute({
             name: 'Success',
             component: SuccessPage,
+            leftCorner: View,
             passProps: {
                 user: this.props.user,
                 location: this.props.location,

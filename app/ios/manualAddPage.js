@@ -153,7 +153,7 @@ class ManualAddPage extends Component{
 						</View>
 						<View style = {styles.rowPlaceholder}/>
 					</View>
-
+					{/*
 					<View style = {styles.inputRow}>
 						<View style = {styles.rowPlaceholder}/>
 						<View style = {styles.rowStaticText}>
@@ -206,6 +206,7 @@ class ManualAddPage extends Component{
 						</View>
 						<View style = {styles.rowPlaceholder}/>
 					</View>
+					*/}
 	
 					<TouchableHighlight
 		                style = {styles.addButton}
@@ -246,15 +247,15 @@ class ManualAddPage extends Component{
 	productNumChanged(event) {
         this.setState({ productNum: event.nativeEvent.text });
     }
-    productNameChanged(event) {
-        this.setState({ productName: event.nativeEvent.text });
-    }
-    colorChanged(event) {
-        this.setState({ color: event.nativeEvent.text });
-    }
-    priceChanged(event) {
-        this.setState({ price: event.nativeEvent.text });
-    }
+    // productNameChanged(event) {
+    //     this.setState({ productName: event.nativeEvent.text });
+    // }
+    // colorChanged(event) {
+    //     this.setState({ color: event.nativeEvent.text });
+    // }
+    // priceChanged(event) {
+    //     this.setState({ price: event.nativeEvent.text });
+    // }
 }
 
 module.exports = ManualAddPage;

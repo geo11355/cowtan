@@ -37,10 +37,11 @@ var styles = StyleSheet.create({
         }
     },
     addressText: {
+        marginTop: 3,
         marginLeft: 10,
         fontSize: 15,
         color: 'black',
-        marginBottom: 5
+        marginBottom: 3
     },
     formContainer: {
         backgroundColor: '#f6f4f4',
@@ -252,7 +253,6 @@ class EditAddressPage extends Component {
         var addressType = (this.props.types == 'billing') ? (<Text style = {styles.title}>Original Billing Address: </Text>): 
             (<Text style = {styles.title}>Original Shipping Address: </Text>);
         
-        console.log(this.props.types);
         return (
             <KeyboardHandler ref = 'scrollContainer'>
             <ScrollView
