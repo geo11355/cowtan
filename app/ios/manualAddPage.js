@@ -220,27 +220,20 @@ class ManualAddPage extends Component{
 	}
 
 	onAddPressed(){
-		if (this.state.productName === '' || this.state.productNum === '' || this.state.color === '' || this.state.price === ''){
-			Alert.alert('All fields must be filled out.', null);
-		}else if (this.state.price.match(/[a-z]/i)){
-			Alert.alert('Invalid Price', 'Price field should have no letters.');
-		}else{
-			var JSONproduct = {
-				"name": this.state.productName,
-				"productnum": this.state.productNum,
-				"color": this.state.color,
-				"price": this.state.price
-			};
+		var JSONproduct = {
+			"name": this.state.productName,
+			"productnum": this.state.productNum,
+			"color": this.state.color,
+			"price": this.state.price
+		};
 
-			fetch(generateUrl(JSONproduct.productnum))
-			  .then(response => response.json())
-			  .then(json => this.props.updatePatterns(json))
-			  .then(this.props.toBack)
-			  .catch(error => {
-			  	Alert.alert('Fetch failed', 'error');
-			  });
-
-		}
+		fetch(generateUrl(JSONproduct.productnum))
+		  .then(response => response.json())
+		  .then(json => this.props.updatePatterns(json))
+		  .then(this.props.toBack)
+		  .catch(error => {
+		  	Alert.alert('Fetch failed', 'error');
+		  });
 	}
 
 	//Event Handlers
