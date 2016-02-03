@@ -149,7 +149,7 @@ class ManualAddPage extends Component{
 							value = {this.state.productNum}
 							returnKeyType = 'next'
 							onChange = {this.productNumChanged.bind(this)}
-							onSubmitEditing = {() => this.productName.focus()}/>
+							onSubmitEditing = {this.onAddPressed.bind(this)}/>
 						</View>
 						<View style = {styles.rowPlaceholder}/>
 					</View>

@@ -288,7 +288,7 @@ class CheckoutPage extends Component {
 
         //Sort original pattern list
         this.props.patterns.sort(function (a, b){
-            if (a.productnum < b.productnum){
+            if (a.name < b.name){
                 return -1;
             }else if (a.productnum > b.productnum){
                 return 1;
