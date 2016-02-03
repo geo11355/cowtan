@@ -39,6 +39,9 @@ var styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontSize: 16,
+        margin: 5,
+        marginLeft: 15, 
+        marginRight: 15
     },
     button: {
         height: 36,
@@ -46,6 +49,7 @@ var styles = StyleSheet.create({
         backgroundColor: '#800000',
         borderRadius: 8,
         flex: 1,
+        margin: 10,
         
         //Keeps text aligned
         justifyContent: 'center',
@@ -73,7 +77,7 @@ class SuccessPage extends Component {
 
     render() {
         return (
-        <View style = {styles.mainContainer}>
+        <ScrollView contentContainerStyle = {styles.mainContainer}>
             <View style = {styles.spacer} />
 
             <Text style = {styles.title}>
@@ -107,7 +111,7 @@ class SuccessPage extends Component {
                     </Text>
                 </TouchableHighlight>
             </View>
-        </View>
+        </ScrollView>
         )
     }
 }
