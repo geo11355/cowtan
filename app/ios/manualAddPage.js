@@ -11,7 +11,8 @@ var {
 	TouchableHighlight,
 	Component,
 	ScrollView,
-	Alert
+	Alert,
+	ActivityIndicatorIOS
 } = React;
 
 function generateUrl(productNum) {
@@ -19,18 +20,41 @@ function generateUrl(productNum) {
 };
 
 var styles = StyleSheet.create({
+	titleContainer: {
+        marginTop: 10,
+        borderBottomWidth: 1.5,
+    },
+    formContainer: {
+        backgroundColor: '#f6f4f4',
+        //borderBottomWidth: 1.5,
+        //borderColor: '#b9b6b6',
+        //marginBottom: 20,
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowColor: 'gray',
+        shadowOffset: {
+            width: 2,
+            height: 2
+        }
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        marginTop: 5
+    },
 	inputRow: {
 		flexDirection: 'row',
-		marginTop: 20,
-		alignItems: 'flex-end',
+        marginTop: 15,
+        alignItems: 'flex-end',
+        marginBottom: 15
 	},
 	rowPlaceholder: {
-		flex: 0.075,
+		flex: 0,
 	},
 	rowStaticText: {
-		flex: 0.27,
-		borderBottomWidth: 1,
-		borderColor: '#800000', 
+		//flex: 0.27,
+        marginLeft: 10
 	},
 	staticText: {
 		marginBottom: 6.2,
@@ -45,16 +69,22 @@ var styles = StyleSheet.create({
 	},
 	rowInput: {
 		flex: 0.7,
-		borderBottomWidth: 1,
-		borderColor: '#800000',
-		flexDirection: 'column',
-		justifyContent: 'flex-end',
+        //borderBottomWidth: 1,
+        //borderColor: '#800000',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        backgroundColor: 'white',
+        borderRadius: 6,
+        borderColor: '#b9b6b6',
+        marginRight: 25,
+        borderWidth: 1,
+        marginLeft: 5
 	},
 	textInput: {
         height: 30,
         //padding: 4,
-        marginRight: 25,
-        marginLeft: 15,
+        marginRight: 5,
+        marginLeft: 5,
         flex: 1,
         fontSize: 18,
         //borderWidth: 1,
@@ -124,7 +154,8 @@ class ManualAddPage extends Component{
 			productName: '',
 			color: '',
 			price: '',
-			failedEntry: false
+			failedEntry: false,
+			isLoading: false,
 		}
 	}
 
@@ -133,26 +164,49 @@ class ManualAddPage extends Component{
             (<Text style = {styles.error}>*All fields must be filled out</Text>):
             (<View/>);
 
+        var addButton = this.state.isLoading ?
+            (<TouchableHighlight
+                style = {styles.addButton}
+                underlayColor = '#4d0000'>
+                <View>
+                    <ActivityIndicatorIOS
+                        size = 'small'/>
+                </View>
+            </TouchableHighlight>):
+            (<TouchableHighlight
+                style = {styles.addButton}
+                underlayColor = '#4d0000'
+                onPress = {this.onAddPressed.bind(this)}>
+                <Text style = {styles.buttonText}>Add</Text>
+            </TouchableHighlight>);
+
 		return(
 			
 				<KeyboardHandler
 					keyboardShouldPersistTaps = {true}>
-					<View style = {styles.inputRow}>
-						<View style = {styles.rowPlaceholder}/>
-						<View style = {styles.rowStaticText}>
-							<Text style = {styles.staticText}>Product #: </Text>
+					<View style = {styles.titleContainer}>
+                    	<Text style = {styles.title}>Manually Add Item</Text>
+                	</View>
+                	<View style = {styles.formContainer}>
+						<View style = {styles.inputRow}>
+							<View style = {styles.rowPlaceholder}/>
+							<View style = {styles.rowStaticText}>
+								<Text style = {styles.staticText}>Product Number: </Text>
+							</View>
+							<View style = {styles.rowInput}>
+								<TextInput
+								style = {styles.textInput}
+								placeholder = 'Ex: 11335-03'
+								value = {this.state.productNum}
+								returnKeyType = 'next'
+								onChange = {this.productNumChanged.bind(this)}
+								onSubmitEditing = {this.onAddPressed.bind(this)}/>
+							</View>
+							<View style = {styles.rowPlaceholder}/>
 						</View>
-						<View style = {styles.rowInput}>
-							<TextInput
-							style = {styles.textInput}
-							placeholder = 'Ex: 11335-03'
-							value = {this.state.productNum}
-							returnKeyType = 'next'
-							onChange = {this.productNumChanged.bind(this)}
-							onSubmitEditing = {this.onAddPressed.bind(this)}/>
-						</View>
-						<View style = {styles.rowPlaceholder}/>
 					</View>
+
+
 					{/*
 					<View style = {styles.inputRow}>
 						<View style = {styles.rowPlaceholder}/>
@@ -208,18 +262,20 @@ class ManualAddPage extends Component{
 					</View>
 					*/}
 	
-					<TouchableHighlight
+					{/*<TouchableHighlight
 		                style = {styles.addButton}
 		                underlayColor = '#4d0000'
 		                onPress = {this.onAddPressed.bind(this)}>
 		                <Text style = {styles.buttonText}>Add</Text>
-		            </TouchableHighlight>
+		            </TouchableHighlight>*/}
+		            {addButton}
 	            </KeyboardHandler>
             
 		);
 	}
 
 	onAddPressed(){
+		this.setState({isLoading: true});
 		var JSONproduct = {
 			"name": this.state.productName,
 			"productnum": this.state.productNum,
@@ -233,6 +289,7 @@ class ManualAddPage extends Component{
 		  .then(this.props.toBack)
 		  .catch(error => {
 		  	Alert.alert('Fetch failed', 'error');
+		  	this.setState({isLoading: false});
 		  });
 	}
 
