@@ -167,7 +167,7 @@ class ShoppingCart extends Component {
     goToCheckout() {
         if (this.state.isEmpty){
             Alert.alert("Your pattern list is empty.", null);
-            // return;
+            return;
         }   
         var patternListCopy = JSON.parse(JSON.stringify(this.state.patterns));
         this.props.toRoute({

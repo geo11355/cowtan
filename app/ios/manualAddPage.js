@@ -288,7 +288,7 @@ class ManualAddPage extends Component{
 		  .then(json => this.props.updatePatterns(json))
 		  .then(this.props.toBack)
 		  .catch(error => {
-		  	Alert.alert('Fetch failed', 'error');
+		  	Alert.alert('Error', 'Not a valid product number');
 		  	this.setState({isLoading: false});
 		  });
 	}
