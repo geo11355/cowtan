@@ -404,7 +404,6 @@ class CheckoutPage extends Component {
         }
         postReq('http://cowtandb.com/checkout.php', object)
             .then((result) => {
-                console.log('CHECKOUT: ' + result);
                 if (result == 'success') {
                     this.setState({ checkoutConfirmed: true });
                 }
