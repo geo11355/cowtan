@@ -69,7 +69,7 @@ class ConfirmPage extends Component{
 						</View>
 					</View>
 				</View>
-
+		
 				<View style = {styles.buttonsContainer}>
 					<TouchableHighlight
 						onPress = {this.onConfirmPressed.bind(this)}
@@ -84,6 +84,7 @@ class ConfirmPage extends Component{
 					</TouchableHighlight>*/}
 				</View>
 			</ScrollView>
+			
 		);
 	}
 
@@ -131,7 +132,7 @@ var styles = StyleSheet.create({
         //borderColor: '#b9b6b6'
 	},
 	lowerBox: {
-		flex: 1,
+		flex: 0.95,
 		flexDirection: 'column',
 		justifyContent: 'center',
 		//alignItems: 'center'
@@ -164,11 +165,11 @@ var styles = StyleSheet.create({
 		marginTop: 8
 	},
 	description: {
-		fontSize: 20,
+		fontSize: 16,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		marginBottom: 10,
-		marginTop: 10,
+		marginBottom: 5,
+		marginTop: 7,
 	},
 	categoryText: {
 		fontSize: 16,
@@ -228,6 +229,7 @@ var styles = StyleSheet.create({
 	},
 	topContainer: {
 	    //flexDirection: 'row',
+	    flex: 1,
 	    marginTop: 0,
 	    //marginBottom: 5,
 	    borderBottomWidth: 1,
@@ -245,9 +247,9 @@ var styles = StyleSheet.create({
 
 	},
 	circle: {
-		height: 150,
-		width: 150,
-		borderRadius: 75,
+		height: 130,
+		width: 130,
+		borderRadius: 65,
 		//borderWidth: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -271,13 +273,14 @@ var styles = StyleSheet.create({
 	image: {
 		alignSelf: 'center',
 		resizeMode: 'contain',
-		height: 60,
-		width: 60,
+		height: 50,
+		width: 50,
 		marginTop: 5
 	},
 	confirmText: {
 		alignSelf: 'center',
-		marginBottom: 10,
+		marginBottom: 7,
+		marginTop: 3,
 		fontSize: 18,
 		fontWeight: 'bold',
 		marginRight: 15,
