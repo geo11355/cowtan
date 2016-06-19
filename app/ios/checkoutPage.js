@@ -239,7 +239,7 @@ function postReq(url, obj) {
                 resolve(req.responseText)
             } 
             else {
-                Alert.alert('Error', 'Email failed with:' + req.responseText);
+                Alert.alert('Error', 'Email failed.');
                 reject(Error(req.responseText));
             }
         };
@@ -360,21 +360,25 @@ class CheckoutPage extends Component {
 
         // Set up pattern objects and then send all the pattern numbers
         var patternObject = {
-            address: 'ryan.f.dong',
+            address: 'ajzwu8',
             domain: 'gmail.com', 
             locationCode: this.props.location.code,
             locationCity: this.props.location.city
         };
         // Go through condensed patterns and append to objects with quantity comma separated
         for (var i=0; i<this.state.condensedPatterns.length; i++) {
-            patternObject[i+1] = this.state.condensedPatterns[i].productnum + ',' 
-                        + this.state.condensedPatterns[i].quantity;
+            patternObject[i+1] = this.state.condensedPatterns[i].name 
+            					+ ',' 
+            					+ this.state.condensedPatterns[i].productnum 
+            					+ ',' 
+                        		+ this.state.condensedPatterns[i].quantity;
         }
         postReq('http://cowtandb.com/generatepdf.php', patternObject)
             .then((result) => {
                 console.log('RESPONSE: ' + result);
                 if (result == 'success') {
-                    this.goToSuccessPage();
+                    //this.goToSuccessPage();
+                    //Don't need anything here
                 }
             });
     }
