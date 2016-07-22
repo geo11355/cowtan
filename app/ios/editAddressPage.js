@@ -10,7 +10,8 @@ var {
     View,
     TouchableHighlight,
     Component,
-    ScrollView
+    ScrollView,
+    Alert
 } = React;
 
 var styles = StyleSheet.create({
@@ -226,26 +227,34 @@ class EditAddressPage extends Component {
     }
 
     onUpdatePressed() {
+        if (this.state.addr1 == "" || this.state.addr2 == "" || this.state.city == "" || this.state.state == "" || this.state.zip == ""){
+            Alert.alert("Error", "Please fill out all fields.");
+            return;
+        }
+
         var newAddress = {
             addr1: this.state.addr1,
             addr2: this.state.addr2,
-            rest: this.state.city + ', ' + this.state.state + ' ' + this.state.zip
+            city: this.state.city,
+            state: this.state.state,
+            zip: this.state.zip
         }
+
         this.props.updateAddress(this.props.types, newAddress);
         this.props.toBack();
     }
 
-    _buildAddress(addr1, addr2, rest) {
+    _buildAddress(addr1, addr2, city, state, zip) {
         var completeAddr = addr1 + '\n';
         if (addr2 == '') {
-            return completeAddr + rest;
+            return completeAddr + city + ", " + state + " " + zip;
         }
-        return completeAddr + addr2 + '\n' + rest;
+        return completeAddr + addr2 + '\n' + city + ", " + state + " " + zip;
     }
 
     render() {
-        var billingAddr = this._buildAddress(this.props.billing.addr1, this.props.billing.addr2, this.props.billing.rest);
-        var shippingAddr = this._buildAddress(this.props.shipping.addr1, this.props.shipping.addr2, this.props.shipping.rest);
+        var billingAddr = this._buildAddress(this.props.billing.addr1, this.props.billing.addr2, this.props.billing.city, this.props.billing.state, this.props.billing.zip);
+        var shippingAddr = this._buildAddress(this.props.shipping.addr1, this.props.shipping.addr2, this.props.shipping.city, this.props.shipping.state, this.props.shipping.zip);
 
         var oldAddress = (this.props.types == 'billing') ? (<Text style = {styles.addressText}>{billingAddr} </Text>) :
             (<Text style = {styles.addressText}>{shippingAddr} </Text>);

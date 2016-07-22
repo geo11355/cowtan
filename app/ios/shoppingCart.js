@@ -176,6 +176,7 @@ class ShoppingCart extends Component {
             passProps: {
                 patterns: patternListCopy,
                 user: this.props.user,
+                acctNum: this.props.acctNum,
                 location: this.props.location,
                 clearShoppingCart: this.clearShoppingCart.bind(this)
             },

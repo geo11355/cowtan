@@ -213,6 +213,7 @@ class LoginPage extends Component {
 
     // Handle a response, reset state fields and then move to the next page
     _handleResponse(response) {
+        const accountNum = this.state.acctNum;
         if (response !== null) {
             this.setState({
                 acctNum: '',
@@ -225,7 +226,8 @@ class LoginPage extends Component {
                 component: ConfirmPage,
                 passProps: {
                     user: response,
-                    location: this.state.location
+                    location: this.state.location,
+                    acctNum: accountNum
                 }
             });
         }

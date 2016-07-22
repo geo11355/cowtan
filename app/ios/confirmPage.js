@@ -25,6 +25,7 @@ class ConfirmPage extends Component{
 	}
 
 	render(){
+		console.log("HELLO", this.props);
 		return(
 			<ScrollView contentContainerStyle = {styles.scroll}>
 				{/*<View style = {styles.showroomBanner}>
@@ -96,7 +97,8 @@ class ConfirmPage extends Component{
             leftCorner: LogoutButton,
             passProps: {
             	user: this.props.user,
-            	location: this.props.location
+            	location: this.props.location,
+            	acctNum: this.props.acctNum
             },
         });
 

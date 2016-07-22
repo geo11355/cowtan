@@ -307,12 +307,16 @@ class CheckoutPage extends Component {
             shippingAddress: {
                 addr1: this.props.user.addr1,
                 addr2: this.props.user.addr2,
-                rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
+                city: this.props.user.city,
+                state: this.props.user.state,
+                zip: this.props.user.zip
             },
             billingAddress: {
                 addr1: this.props.user.addr1,
                 addr2: this.props.user.addr2,
-                rest: combineAddress(this.props.user.city, this.props.user.state, this.props.user.zip)
+                city: this.props.user.city,
+                state: this.props.user.state,
+                zip: this.props.user.zip
             },
             dataSource: dataSource.cloneWithRows(finalPatternList),
             emailSent: false,
@@ -363,7 +367,10 @@ class CheckoutPage extends Component {
             address: 'ajzwu8',
             domain: 'gmail.com', 
             locationCode: this.props.location.code,
-            locationCity: this.props.location.city
+            locationCity: this.props.location.city,
+            shippingAddress: this.state.shippingAddress,
+            billingAddress: this.state.billingAddress,
+            accountNum: this.props.acctNum
         };
         // Go through condensed patterns and append to objects with quantity comma separated
         for (var i=0; i<this.state.condensedPatterns.length; i++) {
@@ -381,6 +388,7 @@ class CheckoutPage extends Component {
                     //Don't need anything here
                 }
             });
+        console.log(patternObject);
     }
 
     // Callback function for handling the Checkout button. Creates an json object
@@ -423,16 +431,17 @@ class CheckoutPage extends Component {
         else {
             this.setState({ shippingAddress: address });
         }
+        console.log(this.state);
     }
 
     // Helper function that builds a proper string with addr1, addr2 and rest. If addr2
     // is empty then ignores it properly
-    _buildAddress(addr1, addr2, rest) {
+    _buildAddress(addr1, addr2, city, state, zip) {
         var completeAddr = addr1 + '\n';
         if (addr2 == '') {
-            return completeAddr + rest;
+            return completeAddr + city + ", " + state + " " + zip;
         }
-        return completeAddr + addr2 + '\n' + rest;
+        return completeAddr + addr2 + '\n' + city + ", " + state + " " + zip;
     }
 
     renderRow(rowData, sectionID, rowID){
@@ -448,12 +457,17 @@ class CheckoutPage extends Component {
     }
 
     render() {
+        console.log("HEY!!" + this.props.acctNum);
         var billingAddr = this._buildAddress(this.state.billingAddress.addr1, 
                                             this.state.billingAddress.addr2,
-                                            this.state.billingAddress.rest);
+                                            this.state.billingAddress.city,
+                                            this.state.billingAddress.state,
+                                            this.state.billingAddress.zip);
         var shippingAddr = this._buildAddress(this.state.shippingAddress.addr1, 
                                               this.state.shippingAddress.addr2, 
-                                              this.state.shippingAddress.rest);
+                                              this.state.shippingAddress.city,
+                                              this.state.shippingAddress.state,
+                                              this.state.shippingAddress.zip);
 
         return (
             <KeyboardHandler ref = 'scrollContainer'>
