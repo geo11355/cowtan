@@ -103,6 +103,18 @@ var styles = StyleSheet.create({
         marginBottom: 3,
         fontSize: 16
     },
+    shippingNameContainer: {
+        flexDirection: 'row'
+    },
+    fullName: {
+        marginRight: 10,
+        borderColor: '#800000',
+        borderWidth: 1,
+        borderRadius: 4,
+        fontSize: 16,
+        height: 20,
+        flex: 1
+    },
     checkoutButton: {
         height: 36,
         //borderWidth: 1,
@@ -305,6 +317,7 @@ class CheckoutPage extends Component {
 
         this.state = {
             shippingAddress: {
+                name: this.props.custName,
                 addr1: this.props.user.addr1,
                 addr2: this.props.user.addr2,
                 city: this.props.user.city,
@@ -312,6 +325,7 @@ class CheckoutPage extends Component {
                 zip: this.props.user.zip
             },
             billingAddress: {
+                name: this.props.custName,
                 addr1: this.props.user.addr1,
                 addr2: this.props.user.addr2,
                 city: this.props.user.city,
@@ -431,13 +445,13 @@ class CheckoutPage extends Component {
         else {
             this.setState({ shippingAddress: address });
         }
-        console.log(this.state);
+        console.log("STATE", this.state);
     }
 
     // Helper function that builds a proper string with addr1, addr2 and rest. If addr2
     // is empty then ignores it properly
-    _buildAddress(addr1, addr2, city, state, zip) {
-        var completeAddr = addr1 + '\n';
+    _buildAddress(name, addr1, addr2, city, state, zip) {
+        var completeAddr = name + '\n' + addr1 + '\n';
         if (addr2 == '') {
             return completeAddr + city + ", " + state + " " + zip;
         }
@@ -457,17 +471,19 @@ class CheckoutPage extends Component {
     }
 
     render() {
-        console.log("HEY!!" + this.props.acctNum);
-        var billingAddr = this._buildAddress(this.state.billingAddress.addr1, 
+        console.log("HEY!!" + this.props.custName);
+        var billingAddr = this._buildAddress(this.state.billingAddress.name,
+                                            this.state.billingAddress.addr1, 
                                             this.state.billingAddress.addr2,
                                             this.state.billingAddress.city,
                                             this.state.billingAddress.state,
                                             this.state.billingAddress.zip);
-        var shippingAddr = this._buildAddress(this.state.shippingAddress.addr1, 
-                                              this.state.shippingAddress.addr2, 
-                                              this.state.shippingAddress.city,
-                                              this.state.shippingAddress.state,
-                                              this.state.shippingAddress.zip);
+        var shippingAddr = this._buildAddress(this.state.shippingAddress.name,
+                                            this.state.shippingAddress.addr1, 
+                                            this.state.shippingAddress.addr2, 
+                                            this.state.shippingAddress.city,
+                                            this.state.shippingAddress.state,
+                                            this.state.shippingAddress.zip);
 
         return (
             <KeyboardHandler ref = 'scrollContainer'>

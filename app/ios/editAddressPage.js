@@ -198,12 +198,17 @@ class EditAddressPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             addr1: '',
             addr2: '',
             city: '',
             state: '',
             zip: '',
         };
+    }
+
+    onNameChange(event) {
+        this.setState({ name: event.nativeEvent.text });
     }
 
     onAddr1Change(event) {
@@ -227,25 +232,26 @@ class EditAddressPage extends Component {
     }
 
     onUpdatePressed() {
-        if (this.state.addr1 == "" || this.state.addr2 == "" || this.state.city == "" || this.state.state == "" || this.state.zip == ""){
+        if (this.state.name == "" || this.state.addr1 == "" || this.state.addr2 == "" || this.state.city == "" || this.state.state == "" || this.state.zip == ""){
             Alert.alert("Error", "Please fill out all fields.");
             return;
         }
 
         var newAddress = {
+            name: this.state.name,
             addr1: this.state.addr1,
             addr2: this.state.addr2,
             city: this.state.city,
             state: this.state.state,
             zip: this.state.zip
-        }
+        };
 
         this.props.updateAddress(this.props.types, newAddress);
         this.props.toBack();
     }
 
-    _buildAddress(addr1, addr2, city, state, zip) {
-        var completeAddr = addr1 + '\n';
+    _buildAddress(name, addr1, addr2, city, state, zip) {
+        var completeAddr = name + '\n' + addr1 + '\n';
         if (addr2 == '') {
             return completeAddr + city + ", " + state + " " + zip;
         }
@@ -253,8 +259,8 @@ class EditAddressPage extends Component {
     }
 
     render() {
-        var billingAddr = this._buildAddress(this.props.billing.addr1, this.props.billing.addr2, this.props.billing.city, this.props.billing.state, this.props.billing.zip);
-        var shippingAddr = this._buildAddress(this.props.shipping.addr1, this.props.shipping.addr2, this.props.shipping.city, this.props.shipping.state, this.props.shipping.zip);
+        var billingAddr = this._buildAddress(this.props.billing.name, this.props.billing.addr1, this.props.billing.addr2, this.props.billing.city, this.props.billing.state, this.props.billing.zip);
+        var shippingAddr = this._buildAddress(this.props.shipping.name, this.props.shipping.addr1, this.props.shipping.addr2, this.props.shipping.city, this.props.shipping.state, this.props.shipping.zip);
 
         var oldAddress = (this.props.types == 'billing') ? (<Text style = {styles.addressText}>{billingAddr} </Text>) :
             (<Text style = {styles.addressText}>{shippingAddr} </Text>);
@@ -282,10 +288,29 @@ class EditAddressPage extends Component {
                     <View style = {styles.inputRow}>
                         <View style = {styles.rowPlaceholder}/>
                         <View style = {styles.rowStaticText}>
+                            <Text style = {styles.staticText}>Full Name: </Text>
+                        </View>
+                        <View style = {styles.rowInput}>        
+                            <TextInput
+                            style = {styles.textInput}
+                            placeholder = 'John Doe'
+                            placeholderTextColor = '#ffcccc'
+                            value = {this.state.name}
+                            returnKeyType = 'next'
+                            onSubmitEditing = {() => this.addr1.focus()}
+                            onChange = {this.onNameChange.bind(this)}
+                            onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'update')}/>
+                        </View>
+                    </View>
+
+                    <View style = {styles.inputRow}>
+                        <View style = {styles.rowPlaceholder}/>
+                        <View style = {styles.rowStaticText}>
                             <Text style = {styles.staticText}>Address 1: </Text>
                         </View>
                         <View style = {styles.rowInput}>        
                             <TextInput
+                            ref = {(ref) => this.addr1 = ref}
                             style = {styles.textInput}
                             placeholder = '979 Third Avenue'
                             placeholderTextColor = '#ffcccc'

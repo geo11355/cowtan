@@ -98,7 +98,8 @@ class ConfirmPage extends Component{
             passProps: {
             	user: this.props.user,
             	location: this.props.location,
-            	acctNum: this.props.acctNum
+            	acctNum: this.props.acctNum,
+            	custName: this.props.user.custname
             },
         });
 

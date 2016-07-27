@@ -178,6 +178,7 @@ class ShoppingCart extends Component {
                 user: this.props.user,
                 acctNum: this.props.acctNum,
                 location: this.props.location,
+                custName: this.props.custName,
                 clearShoppingCart: this.clearShoppingCart.bind(this)
             },
             leftComponent: CustomBackButton,
