@@ -25,6 +25,9 @@
 		945059B61C362CD300FD7648 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 945059AC1C362C6D00FD7648 /* libRCTCamera.a */; };
 		945059B81C3A011600FD7648 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 945059B71C3A011600FD7648 /* Images.xcassets */; };
 		EB5004DD1C3F359F0066570C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EB5004DC1C3F359F0066570C /* main.jsbundle */; };
+		EB8AB12E1D4EB3C8006761CE /* libAppHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB11E1D4EB2D9006761CE /* libAppHub.a */; };
+		EB8AB1301D4EB3D6006761CE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB12F1D4EB3D6006761CE /* SystemConfiguration.framework */; };
+		EB8AB1321D4EB3DD006761CE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8AB1311D4EB3DD006761CE /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +129,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNLocation;
 		};
+		EB8AB11D1D4EB2D9006761CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB8AB1161D4EB2D9006761CE /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3AF1B37AC8D0064F175;
+			remoteInfo = AppHub;
+		};
+		EB8AB11F1D4EB2D9006761CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB8AB1161D4EB2D9006761CE /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3BA1B37AC8D0064F175;
+			remoteInfo = AppHubTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -153,6 +170,9 @@
 		94EA67771C4816B800594714 /* RNLocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocation.xcodeproj; path = "../node_modules/react-native-location/RNLocation.xcodeproj"; sourceTree = "<group>"; };
 		CF201BDC592B4DBD8D1028CB /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		EB5004DC1C3F359F0066570C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../../main.jsbundle; sourceTree = "<group>"; };
+		EB8AB1161D4EB2D9006761CE /* AppHub.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppHub.xcodeproj; path = ../node_modules/apphub/AppHub/AppHub.xcodeproj; sourceTree = "<group>"; };
+		EB8AB12F1D4EB3D6006761CE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EB8AB1311D4EB3DD006761CE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		FF061F770C3048CFBA52A711 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +188,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB8AB1321D4EB3DD006761CE /* libz.tbd in Frameworks */,
+				EB8AB1301D4EB3D6006761CE /* SystemConfiguration.framework in Frameworks */,
+				EB8AB12E1D4EB3C8006761CE /* libAppHub.a in Frameworks */,
 				945059B61C362CD300FD7648 /* libRCTCamera.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -291,6 +314,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EB8AB1161D4EB2D9006761CE /* AppHub.xcodeproj */,
 				94EA67771C4816B800594714 /* RNLocation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -318,6 +342,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				EB8AB1311D4EB3DD006761CE /* libz.tbd */,
+				EB8AB12F1D4EB3D6006761CE /* SystemConfiguration.framework */,
 				EB5004DC1C3F359F0066570C /* main.jsbundle */,
 				945059A61C362C6C00FD7648 /* RCTCamera.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* cowtan */,
@@ -358,6 +384,15 @@
 			isa = PBXGroup;
 			children = (
 				94EA67871C4816B800594714 /* libRNLocation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EB8AB1171D4EB2D9006761CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EB8AB11E1D4EB2D9006761CE /* libAppHub.a */,
+				EB8AB1201D4EB2D9006761CE /* AppHub.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -431,6 +466,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = EB8AB1171D4EB2D9006761CE /* Products */;
+					ProjectRef = EB8AB1161D4EB2D9006761CE /* AppHub.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -584,6 +623,20 @@
 			remoteRef = 94EA67861C4816B800594714 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		EB8AB11E1D4EB2D9006761CE /* libAppHub.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppHub.a;
+			remoteRef = EB8AB11D1D4EB2D9006761CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EB8AB1201D4EB2D9006761CE /* AppHub.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppHub.xctest;
+			remoteRef = EB8AB11F1D4EB2D9006761CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -724,6 +777,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = cowtan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -747,6 +801,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = cowtan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

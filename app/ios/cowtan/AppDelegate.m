@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+#import "AppHub.h"
 
 #import "RCTRootView.h"
 
@@ -17,6 +18,7 @@
 {
   NSURL *jsCodeLocation;
 
+  [AppHub setApplicationID:@"1ejnKyCnMqltF6Oxr9bh"];
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -33,7 +35,19 @@
 
 
   jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-
+  
+  
+  /**
+   * OPTION 3 - AppHub
+   *
+   * Load cached code and images from AppHub.
+   *
+   */
+  
+  AHBuild *build = [[AppHub buildManager] currentBuild];
+  jsCodeLocation = [build.bundle URLForResource:@"main"
+                                  withExtension:@"jsbundle"];
+  
 
 
   /**
