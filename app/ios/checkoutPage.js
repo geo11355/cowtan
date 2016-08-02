@@ -405,6 +405,14 @@ class CheckoutPage extends Component {
         console.log(patternObject);
     }
 
+    parseEmail(email) {
+        var atIndex = email.indexOf('@');
+        this.setState({email: {
+            address: email.substring(0, atIndex),
+            domain: email.substring(atIndex+1),
+        }});
+    }
+
     // Callback function for handling the Checkout button. Creates an json object
     // to send to cowtandb
     handleCheckout() {
@@ -545,6 +553,9 @@ class CheckoutPage extends Component {
                         placeholder = 'Additional comments?'/>
                 </View>
 
+                <TextInput
+                    onChangeText={parseEmail}
+                </TextInput>
                 <TouchableHighlight
                     style = {styles.emailButton}
                     onPress = {this.handleEmail.bind(this)}>
