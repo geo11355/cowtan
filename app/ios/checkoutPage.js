@@ -210,6 +210,20 @@ var styles = StyleSheet.create({
         borderRadius: 6,
         color: 'black',
     },
+    emailInput: {
+        padding: 4,
+        height: 30,
+        marginRight: 10,
+        marginLeft: 10,
+        marginBottom: 10,
+        marginTop: 5,
+        //flex: 1,
+        fontSize: 16,
+        borderWidth: 1,
+        borderColor: '#800000',
+        borderRadius: 6,
+        color: 'black',
+    },
     addressInfoContainer: {
         marginLeft: 10
     },
@@ -252,6 +266,7 @@ function postReq(url, obj) {
             } 
             else {
                 Alert.alert('Error', 'Email failed.');
+                console.log(req.responseText);
                 reject(Error(req.responseText));
             }
         };
@@ -340,6 +355,8 @@ class CheckoutPage extends Component {
 
     // Callback function to move to the success page
     goToSuccessPage() {
+        this.parseEmail();
+        this.handleEmail();
         this.props.toRoute({
             name: 'Success',
             component: SuccessPage,
@@ -378,8 +395,8 @@ class CheckoutPage extends Component {
 
         // Set up pattern objects and then send all the pattern numbers
         var patternObject = {
-            address: 'ajzwu8',
-            domain: 'gmail.com', 
+            address: this.state.emailAddress.address,
+            domain: this.state.emailAddress.domain,
             locationCode: this.props.location.code,
             locationCity: this.props.location.city,
             shippingAddress: this.state.shippingAddress,
@@ -400,16 +417,20 @@ class CheckoutPage extends Component {
                 if (result == 'success') {
                     //this.goToSuccessPage();
                     //Don't need anything here
+                    console.log('HURRAH');
                 }
             });
         console.log(patternObject);
     }
 
-    parseEmail(email) {
-        var atIndex = email.indexOf('@');
-        this.setState({email: {
-            address: email.substring(0, atIndex),
-            domain: email.substring(atIndex+1),
+    parseEmail() {
+        var atIndex = this.state.email.indexOf('@');
+        if (atIndex === -1) {
+            return;
+        }
+        this.setState({emailAddress: {
+            address: this.state.email.substring(0, atIndex),
+            domain: this.state.email.substring(atIndex+1),
         }});
     }
 
@@ -427,6 +448,8 @@ class CheckoutPage extends Component {
             Aler.alert('Checked out already');
             return;
         }
+        parseEmail();
+        handleEmail();
         // Initialize the object with the territory code, then add in all fabrics
         var object = {
             TC: parseInt(this.props.location.code),
@@ -466,6 +489,10 @@ class CheckoutPage extends Component {
         return completeAddr + addr2 + '\n' + city + ", " + state + " " + zip;
     }
 
+    emailChanged(event) {
+        this.setState({ email: event.nativeEvent.text });
+    }
+
     renderRow(rowData, sectionID, rowID){
         return(
             <View style = {styles.patternRow}>
@@ -479,7 +506,6 @@ class CheckoutPage extends Component {
     }
 
     render() {
-        console.log("HEY!!" + this.props.custName);
         var billingAddr = this._buildAddress(this.state.billingAddress.name,
                                             this.state.billingAddress.addr1, 
                                             this.state.billingAddress.addr2,
@@ -551,16 +577,12 @@ class CheckoutPage extends Component {
                         style = {styles.sidemarkInput}
                         multiline = {true}
                         placeholder = 'Additional comments?'/>
+                    <TextInput
+                        style = {styles.emailInput}
+                        value={this.state.email}
+                        onChange={this.emailChanged.bind(this)}
+                        placeholder= 'Enter email address'/>
                 </View>
-
-                <TextInput
-                    onChangeText={parseEmail}
-                </TextInput>
-                <TouchableHighlight
-                    style = {styles.emailButton}
-                    onPress = {this.handleEmail.bind(this)}>
-                    <Text style = {styles.buttonText}>Email</Text>
-                </TouchableHighlight>
                 <TouchableHighlight
                     ref = 'checkout'
                     onPress = {this.goToSuccessPage.bind(this)}
