@@ -4,6 +4,7 @@ var React = require('react-native');
 var EditAddressPage = require('./editAddressPage');
 var KeyboardHandler = require('./keyboardHandler');
 var SuccessPage = require('./successPage');
+const emailRegex = new RegExp('[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+');
 
 var {
     StyleSheet,
@@ -261,7 +262,7 @@ function postReq(url, obj) {
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         req.onload = function () {
             if (req.status === 200) {
-                Alert.alert('Success', 'Email sent to: ' + obj.address + '@' + obj.domain);
+                //Alert.alert('Success', 'Email sent to: ' + obj.address + '@' + obj.domain);
                 resolve(req.responseText)
             } 
             else {
@@ -350,11 +351,22 @@ class CheckoutPage extends Component {
             dataSource: dataSource.cloneWithRows(finalPatternList),
             emailSent: false,
             condensedPatterns: finalPatternList,
+            email: ''
         };
     }
 
     // Callback function to move to the success page
     goToSuccessPage() {
+        if (this.state.email.length == 0){
+            Alert.alert('Error', 'Email field is required.');
+            return;
+        }
+
+        if (!emailRegex.test(this.state.email)){
+            Alert.alert('Error', 'Email is not in the correct format.');
+            return;
+        }
+
         this.parseEmail();
         this.handleEmail();
         this.props.toRoute({
@@ -445,7 +457,7 @@ class CheckoutPage extends Component {
 
         // Send an alert so we don't checkout more than once
         if (this.state.checkoutConfirmed) {
-            Aler.alert('Checked out already');
+            Alert.alert('Checked out already');
             return;
         }
         parseEmail();
@@ -574,14 +586,15 @@ class CheckoutPage extends Component {
                     </TouchableHighlight>
                     <TextInput
                         onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'checkout')}
-                        style = {styles.sidemarkInput}
-                        multiline = {true}
-                        placeholder = 'Additional comments?'/>
-                    <TextInput
                         style = {styles.emailInput}
                         value={this.state.email}
                         onChange={this.emailChanged.bind(this)}
                         placeholder= 'Enter email address'/>
+                    <TextInput
+                        onFocus = {() => this.refs.scrollContainer.inputFocused(this, 'checkout')}
+                        style = {styles.sidemarkInput}
+                        multiline = {true}
+                        placeholder = 'Additional comments?'/>
                 </View>
                 <TouchableHighlight
                     ref = 'checkout'
